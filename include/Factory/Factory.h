@@ -3,7 +3,13 @@
 #include <unordered_map>
 enum class ObjectType
 {
-    Player,
+    PLAYER,
+    Enemy1,
+    Enemy2,
+    Tile,
+    Explode,
+    Gift,
+
     TemplateEnemy,
     BaseEnemy,
     AttackingEntity,
