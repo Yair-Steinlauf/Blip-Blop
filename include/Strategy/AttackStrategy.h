@@ -1,10 +1,6 @@
 #pragma once
-#include <BaseEntity.h>
-
+#include "AttackingEntity.h"
 class AttackStrategy {
 public:
-	AttackStrategy();
-
-	virtual void attack(BaseEntity& entity) = 0;
-
+	virtual void attack(AttackingEntity& entity) {}//TODO: function
 };
