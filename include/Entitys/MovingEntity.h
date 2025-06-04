@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseEntity.h"
-using MovementPtr = std::unique_ptr<Movement>;
+#include "MoveStrategy.h"
+
+using MovementPtr = std::unique_ptr<MoveStrategy>;
 
 
 class MovingEntity : public BaseEntity

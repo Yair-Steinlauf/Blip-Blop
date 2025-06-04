@@ -1,6 +1,7 @@
 #pragma once
 #include "Strategy.h"
-#include "MovingEntity.h"
+//================Forward declaration=======================
+class MovingEntity;
 
 class MoveStrategy : public Strategy{
 public:

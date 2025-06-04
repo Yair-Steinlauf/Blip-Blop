@@ -1,6 +1,11 @@
 #pragma once
-#include "AttackingEntity.h"
-class AttackStrategy {
+#include "Strategy.h"
+
+//================Forward declaration=======================
+class AttackingEntity;
+
+
+class AttackStrategy :public Strategy{
 public:
-	virtual void attack(AttackingEntity& entity) {}//TODO: function
+	virtual void attack(AttackingEntity* entity) {}//TODO: function
 };
