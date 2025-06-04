@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <memory>
+
 
 class BaseEntity
 {
@@ -9,6 +11,6 @@ public:
 	virtual void update(float deltaTime) = 0;
 
 	virtual ~BaseEntity() = default;
-private:
+protected:
 	sf::Sprite m_sprite;
-}
+};
