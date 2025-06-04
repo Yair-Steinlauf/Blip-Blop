@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-static enum ObjectType
+enum class ObjectType
 {
     Player,
     TemplateEnemy,

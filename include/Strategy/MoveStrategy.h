@@ -1,9 +1,11 @@
 #pragma once
 #include "Strategy.h"
+//================Forward declaration=======================
+class MovingEntity;
 
 class MoveStrategy : public Strategy{
 public:
 	MoveStrategy() = default;
-	virtual void move(BaseEntity& entity) = 0;
+	virtual sf::Vector2f move(MovingEntity& entity, float deltaTime) = 0;
 
 };

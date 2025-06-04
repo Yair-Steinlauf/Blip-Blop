@@ -1,5 +1,6 @@
 #pragma once
 #include "MovingEntity.h"
+#include "Strategy/AttackStrategy.h"
 
 using AttackPtr = std::unique_ptr<AttackStrategy>;
 
@@ -10,7 +11,7 @@ public:
 	AttackingEntity() = default;
 	~AttackingEntity() override = default;
 
-	virtual void attack();
+	//virtual void attack();
 protected:
 	AttackPtr m_attackStrategy;
 };
