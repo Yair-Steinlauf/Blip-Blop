@@ -3,14 +3,17 @@
 #include <memory>
 #include "Factory.h"
 
+//==============Forward declarations============
+
+using sfPos = sf::Vector2f;
 
 class BaseEntity
 {
 public:
 	BaseEntity() = default;
-	virtual void draw() const = 0;
-	virtual void update(float deltaTime) = 0;
-
+	virtual void draw(sf::RenderWindow& window) const;
+	virtual void update(float deltaTime) {}//TODO: function update
+	sfPos getPosition() const;
 	virtual ~BaseEntity() = default;
 protected:
 	sf::Sprite m_sprite;

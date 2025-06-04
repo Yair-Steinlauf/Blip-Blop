@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
+#include <stdexcept>
 enum class ObjectType
 {
     PLAYER,
@@ -39,7 +40,8 @@ public:
     std::unique_ptr<T> create(ObjectType t, Args&&... args)const
     {
 		auto object = m_map.find(t);
-		if (object == m_map.end()) return nullptr;
+		if (object == m_map.end()) 
+            throw std::runtime_error("Cannot Find Current Object\n");
 		return object->second(std::forward<Args>(args)...);
     }
 
