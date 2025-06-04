@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Factory.h"
+#include "DataLoader.h"
 
 //==============Forward declarations============
 

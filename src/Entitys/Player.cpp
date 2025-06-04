@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "PlayerRegularMove.h"
 static auto registerIt = Factory<MovingEntity>::instance().registerType(
-	ObjectType::Player,
+	ObjectType::PLAYER,
 	[]() -> std::unique_ptr<MovingEntity>
 	{
 		return std::make_unique<Player>();
@@ -10,12 +10,8 @@ static auto registerIt = Factory<MovingEntity>::instance().registerType(
 
 Player::Player()
 {
+	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
 	m_movement = std::make_unique<PlayerRegularMove>(300.f);
-	sf::Image im;
-	im.create(15, 15, sf::Color::Green);
-	sf::Texture txtue;
-	txtue.loadFromImage(im);
-	m_sprite.setTexture(txtue);
 	m_sprite.setPosition({ 50,50 });
 }
 

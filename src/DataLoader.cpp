@@ -1,6 +1,6 @@
 #include "DataLoader.h"
 
-DataLoader &DataLoader::Init()
+DataLoader &DataLoader::getInstance()
 {
     static DataLoader instance;
     return instance;
@@ -8,7 +8,7 @@ DataLoader &DataLoader::Init()
 
 sf::Texture &DataLoader::getP2Texture(const enum ObjectType type)
 {
-    auto &instance = Init();
+    auto &instance = getInstance();
     auto it = instance.m_textures.find(type);
     if (it != instance.m_textures.end())
         return it->second;
@@ -17,7 +17,7 @@ sf::Texture &DataLoader::getP2Texture(const enum ObjectType type)
 
 sf::Texture& DataLoader::getP2Texture(int num)
 {
-    auto& instance = Init();
+    auto& instance = getInstance();
     if (num < instance.m_pictures.size()) {
         return instance.m_pictures[num];
     }    
@@ -26,7 +26,7 @@ sf::Texture& DataLoader::getP2Texture(int num)
 
 sf::Font &DataLoader::getP2Font()
 {
-    auto &instance = Init();
+    auto &instance = getInstance();
     return instance.m_font;
 }
 
@@ -34,6 +34,7 @@ DataLoader::DataLoader()
 {
 
     if (!m_font.loadFromFile("font.ttf"))
+        // TODO: THrow exception here?
     {
         std::cerr << "Failed to load font!" << std::endl;
     }
@@ -44,11 +45,11 @@ DataLoader::DataLoader()
 
     const std::map<ObjectType, std::string> objectNames = {
         {ObjectType::PLAYER, "PLAYER"},
-        {ObjectType::Enemy1, "Enemy1"},
-        {ObjectType::Enemy2, "Enemy2"},
-        {ObjectType::Tile, "Tile"},
-        {ObjectType::Explode, "Explode"},
-        {ObjectType::Gift, "Gift"},
+        //{ObjectType::Enemy1, "Enemy1"},
+        //{ObjectType::Enemy2, "Enemy2"},
+        //{ObjectType::Tile, "Tile"},
+        //{ObjectType::Explode, "Explode"},
+        //{ObjectType::Gift, "Gift"},
     };
 
     for (const auto &[type, name] : objectNames)
@@ -60,21 +61,24 @@ DataLoader::DataLoader()
         }
         else
         {
+            // TODO: THrow exception here?
             std::cerr << "Failed to load texture: " << name << ".png" << std::endl;
         }
     }
-    for (const auto& picName : pictureList)
-    {
-        sf::Texture texture;
-        if (texture.loadFromFile(picName + ".png"))
-        {
-            m_pictures.push_back(std::move(texture));
-        }
-        else
-        {
-            std::cerr << "Failed to load texture: " << picName << ".png" << std::endl;
-        }
-    }
+    //for (const auto& picName : pictureList)
+    //{
+    //    sf::Texture texture;
+    //    if (texture.loadFromFile(picName + ".png"))
+    //    {
+    //        m_pictures.push_back(std::move(texture));
+    //    }
+    //    else
+    //    {
+    // 
+	 // TODO: THrow exception here?
+    //        std::cerr << "Failed to load texture: " << picName << ".png" << std::endl;
+    //    }
+    //}
 
 
 }

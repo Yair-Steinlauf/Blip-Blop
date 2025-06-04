@@ -9,7 +9,7 @@
 class DataLoader
 {
 public:
-    static DataLoader& Init();
+    static DataLoader& getInstance();
     DataLoader(const DataLoader&) = delete;
     void operator=(const DataLoader&) = delete;
     static sf::Texture& getP2Texture(const enum ObjectType type);
