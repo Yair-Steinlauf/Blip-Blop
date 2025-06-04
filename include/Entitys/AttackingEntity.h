@@ -7,10 +7,10 @@ class AttackingEntity : public MovingEntity
 {
 public:
 	using MovingEntity::MovingEntity;
-	StaticEntity() = default;
-	~StaticEntity() override = default;
+	AttackingEntity() = default;
+	~AttackingEntity() override = default;
 
 	virtual void attack();
-private:
+protected:
 	AttackPtr m_attackStrategy;
-}
+};

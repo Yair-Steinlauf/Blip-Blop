@@ -7,4 +7,4 @@ public:
 	using AttackingEntity::AttackingEntity;
 	BaseEnemy() = default;
 	~BaseEnemy() override = default;
-}
+};

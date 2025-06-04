@@ -2,7 +2,7 @@
 #include "BaseEnemy.h"
 
 template <typename MovementStrategy, typename AttackStrategy>
-class TemplateEnemy: public BaseEnemy
+class TemplateEnemy : public BaseEnemy
 {
 public:
 	using BaseEnemy::BaseEnemy;
@@ -11,4 +11,4 @@ public:
 		m_attackStrategy = std::make_unique<AttackStrategy>();
 	}
 	~TemplateEnemy() override = default;
-}
+};

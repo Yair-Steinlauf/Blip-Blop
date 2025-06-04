@@ -9,7 +9,7 @@ public:
 	using BaseEntity::BaseEntity;
 	MovingEntity() = default;
 	virtual void move(float deltaTime) = 0; // Pure virtual function for movement behavior
-	~StaticEntity() override = default;
+	~MovingEntity() override = default;
 private:
 	MovementPtr m_movement;
-}
+};

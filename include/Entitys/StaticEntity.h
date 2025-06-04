@@ -7,4 +7,4 @@ public:
 	using BaseEntity::BaseEntity;
 	StaticEntity() = default;
 	~StaticEntity() override = default;
-}
+};
