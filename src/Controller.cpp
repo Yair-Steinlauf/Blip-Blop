@@ -1,11 +1,31 @@
 #include "Controller.h"
+#include "Screens/GamePlay.h"
+#include "Factory/Factory.h"
 
-Controller::Controller()
-	: m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Game Window"))
+Controller::Controller():
+	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Game Window"))
+	, m_screenStack()
 {
-	//m_screenStack.push(std::make_unique<GamePlay>());
+
+	m_screenStack.push(Factory<BaseScreen, sf::RenderWindow*>::instance().create(ObjectType::GamePlay, m_window.get()));
 }
 
 void Controller::run()
 {
+	sf::Clock clock;
+	while (m_window->isOpen())
+	{
+		sf::Event event;
+		float deltaTime = clock.restart().asSeconds();
+		while (m_window->pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				m_window->close();
+			m_screenStack.top()->handleInput(event);
+		}
+		m_screenStack.top()->update(deltaTime);
+		m_window->clear();
+		m_screenStack.top()->draw();
+		m_window->display();
+	}
 }

@@ -1,9 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "Screens/BaseScreen.h"
+#include "BaseScreen.h"
 #include <memory>
 #include <stack>
+
+
 using ScreenPtrStack = std::stack<std::unique_ptr<BaseScreen>>;
 
 class Controller {

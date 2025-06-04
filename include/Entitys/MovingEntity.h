@@ -10,7 +10,7 @@ class MovingEntity : public BaseEntity
 public:
 	using BaseEntity::BaseEntity;
 	MovingEntity() = default;
-	virtual void move(float deltaTime) = 0; // Pure virtual function for movement behavior
+	void move(float deltaTime) {}; //TODO set direction
 	~MovingEntity() override = default;
 private:
 	MovementPtr m_movement;

@@ -1,14 +1,17 @@
 #pragma once
 #include "BaseScreen.h"
+#include <memory>
+#include "Player.h"
 
 class GamePlay : public BaseScreen {
 public:
-	GamePlay();
+	using BaseScreen::BaseScreen;
+	GamePlay(sf::RenderWindow* window);//TODO: load things
 	~GamePlay() override = default;
-	void run() override;
+	void update(float deltaTime) override;
+	void draw() override;
+	void handleInput(const sf::Event& event) override;
 private:
-	void update(float deltaTime);
-	void draw();
-	void handleEvents();
-
+	sf::Sprite m_background;
+	std::unique_ptr<Player> m_player;
 };
