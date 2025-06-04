@@ -1,10 +1,9 @@
 #pragma once
-#include <BaseEntity.h>
+#include "Strategy.h"
 
-class MoveStrategy {
+class MoveStrategy : public Strategy{
 public:
-	MoveStrategy();
-
+	MoveStrategy() = default;
 	virtual void move(BaseEntity& entity) = 0;
 
 };
