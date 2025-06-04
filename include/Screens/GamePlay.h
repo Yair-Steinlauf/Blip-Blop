@@ -2,7 +2,7 @@
 #include "BaseScreen.h"
 #include <memory>
 #include "Player.h"
-
+#include "Level.h"
 class GamePlay : public BaseScreen {
 public:
 	using BaseScreen::BaseScreen;
@@ -10,7 +10,9 @@ public:
 	~GamePlay() override = default;
 	void update(float deltaTime) override;
 	void draw() override;
-	void handleInput(const sf::Event& event) override;
+	void handleInput(const sf::Event& event, float deltaTime) override;
 private:
 	std::unique_ptr<Player> m_player;
+	Level m_level;
+
 };

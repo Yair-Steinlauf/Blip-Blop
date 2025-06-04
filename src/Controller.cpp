@@ -21,8 +21,8 @@ void Controller::run()
 		{
 			if (event.type == sf::Event::Closed)
 				m_window->close();
-			m_screenStack.top()->handleInput(event);
 		}
+		m_screenStack.top()->handleInput(event, deltaTime);
 		m_screenStack.top()->update(deltaTime);
 		m_window->clear();
 		m_screenStack.top()->draw();

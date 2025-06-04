@@ -12,6 +12,9 @@ public:
 	MovingEntity() = default;
 	void move(float deltaTime) {}; //TODO set direction
 	~MovingEntity() override = default;
-private:
+	void update(float deltaTime) override;
+protected:
 	MovementPtr m_movement;
+	sfPos m_nextPosition;
+
 };
