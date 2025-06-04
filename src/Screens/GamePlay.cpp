@@ -11,7 +11,7 @@ static auto registerIt = Factory<BaseScreen, sf::RenderWindow*>::instance().regi
 );
 
 GamePlay::GamePlay(sf::RenderWindow* window):
-	BaseScreen(window)
+	BaseScreen(window), m_player(std::make_unique<Player>())
 {
 }
 
@@ -21,6 +21,8 @@ void GamePlay::update(float deltaTime)
 
 void GamePlay::draw()
 {
+	//BaseScreen::draw();
+	//m_player->draw(*m_window);
 }
 
 void GamePlay::handleInput(const sf::Event& event)

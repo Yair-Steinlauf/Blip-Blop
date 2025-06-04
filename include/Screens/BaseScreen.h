@@ -7,10 +7,13 @@ public:
 	BaseScreen(sf::RenderWindow* window);
 	virtual ~BaseScreen() = default;
 	virtual void update(float deltaTime) = 0;
-	virtual void draw() = 0;
+	virtual void draw();
 	virtual void handleInput(const sf::Event& event) = 0;
 
 protected:
 	sf::RenderWindow* m_window;
+	sf::Sprite m_background;
+
+
 
 };

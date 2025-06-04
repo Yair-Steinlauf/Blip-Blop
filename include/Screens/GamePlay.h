@@ -12,6 +12,5 @@ public:
 	void draw() override;
 	void handleInput(const sf::Event& event) override;
 private:
-	sf::Sprite m_background;
 	std::unique_ptr<Player> m_player;
 };
