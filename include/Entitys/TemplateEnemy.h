@@ -12,11 +12,11 @@ public:
 	}
 	~TemplateEnemy() override = default;
 };
-
-static auto registerIt = Factory<BaseEnemy>::instance().registerType(
-	ObjectType::Player,
-	[]() -> std::unique_ptr<BaseEnemy>
-	{
-		return std::make_unique<TemplateEnemy<MoveStrategy, AttackStrategy>>();
-	}
-);
+//TODO: register to factory
+//static auto registerIt = Factory<BaseEnemy>::instance().registerType(
+//	ObjectType::,
+//	[]() -> std::unique_ptr<BaseEnemy>
+//	{
+//		return std::make_unique<TemplateEnemy<MoveStrategy, AttackStrategy>>();
+//	}
+//);

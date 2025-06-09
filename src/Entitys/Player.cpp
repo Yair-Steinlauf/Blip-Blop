@@ -1,5 +1,7 @@
 #include "Player.h"
-#include "PlayerRegularMove.h"
+#include "Factory.h"
+#include "Movment/StandMovment.h"
+
 static auto registerIt = Factory<MovingEntity>::instance().registerType(
 	ObjectType::PLAYER,
 	[]() -> std::unique_ptr<MovingEntity>
@@ -11,11 +13,17 @@ static auto registerIt = Factory<MovingEntity>::instance().registerType(
 Player::Player()
 {
 	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
-	m_movement = std::make_unique<PlayerRegularMove>(300.f);
+
 	m_sprite.setPosition({ 50,50 });
+	m_movement = std::make_unique<StandMovement>();
 }
 
 void Player::handleInput(const sf::Event& event, float deltaTime)
 {
-	m_nextPosition = m_movement->move(*this, deltaTime);
 }
+
+
+
+
+
+

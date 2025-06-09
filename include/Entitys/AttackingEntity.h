@@ -1,8 +1,8 @@
 #pragma once
 #include "MovingEntity.h"
-#include "Strategy/AttackStrategy.h"
 
-using AttackPtr = std::unique_ptr<AttackStrategy>;
+
+//using AttackPtr = std::unique_ptr<AttackStrategy>;
 
 class AttackingEntity : public MovingEntity
 {
@@ -13,5 +13,5 @@ public:
 
 	//virtual void attack();
 protected:
-	AttackPtr m_attackStrategy;
+	//AttackPtr m_attackStrategy;
 };
