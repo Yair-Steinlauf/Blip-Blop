@@ -10,7 +10,7 @@ void MovingEntity::update(float deltaTime)
 	m_sprite.move(m_direction * deltaTime * m_speed);
 }
 
-void MovingEntity::movment(float deltaTime, const sf::Event& event)
+void MovingEntity::movment()
 {
 	if (m_movement)
 	{

@@ -29,5 +29,5 @@ void GamePlay::draw()
 
 void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 {
-	m_player->movment(deltaTime, event);
+	m_player->movment();
 }

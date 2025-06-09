@@ -12,7 +12,7 @@ public:
 	void setDirection(sfPos direction);
 	~MovingEntity() override = default;
 	void update(float deltaTime) override;
-	virtual void movment(float deltaTime, const sf::Event& event = sf::Event());
+	virtual void movment();
 protected:
 	sfPos m_direction;
 	std::unique_ptr<MovingState> m_movement;
