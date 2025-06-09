@@ -5,6 +5,9 @@
 enum class ObjectType
 {
     PLAYER,
+    Dinosaur,
+
+
     Enemy1,
     Enemy2,
     Tile,

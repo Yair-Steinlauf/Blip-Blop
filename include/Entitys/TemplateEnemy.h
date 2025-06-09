@@ -1,22 +1,23 @@
 #pragma once
 #include "BaseEnemy.h"
+#include "Factory.h"
 
-template <typename MovementStrategy, typename AttackStrategy>
+template <typename MovementStrategy>//, typename AttackStrategy>
 class TemplateEnemy : public BaseEnemy
 {
 public:
 	using BaseEnemy::BaseEnemy;
-	TemplateEnemy() {
+	TemplateEnemy(ObjectType type) {
+		//get type, load texture, set movement strategy, etc.
+		m_sprite.setTexture(DataLoader::getInstance().getP2Texture(type));
 		m_movement = std::make_unique<MovementStrategy>();
-		m_attackStrategy = std::make_unique<AttackStrategy>();
+		//m_attackStrategy = std::make_unique<AttackStrategy>();
+	}
+	void update(float dt) override {
+		MovingEntity::movment();
+		MovingEntity::update(dt);
 	}
 	~TemplateEnemy() override = default;
 };
-//TODO: register to factory
-//static auto registerIt = Factory<BaseEnemy>::instance().registerType(
-//	ObjectType::,
-//	[]() -> std::unique_ptr<BaseEnemy>
-//	{
-//		return std::make_unique<TemplateEnemy<MoveStrategy, AttackStrategy>>();
-//	}
-//);
+//register to factory in the cpp file!
+

@@ -18,9 +18,6 @@ Player::Player()
 	m_movement = std::make_unique<StandMovement>();
 }
 
-void Player::handleInput(const sf::Event& event, float deltaTime)
-{
-}
 
 
 

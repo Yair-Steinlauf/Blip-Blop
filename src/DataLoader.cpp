@@ -33,11 +33,11 @@ sf::Font &DataLoader::getP2Font()
 DataLoader::DataLoader()
 {
 
-    if (!m_font.loadFromFile("font.ttf"))
-        // TODO: THrow exception here?
-    {
-        std::cerr << "Failed to load font!" << std::endl;
-    }
+    //if (!m_font.loadFromFile("font.ttf"))
+    //    // TODO: THrow exception here?
+    //{
+    //    std::cerr << "Failed to load font!" << std::endl;
+    //}
 
     const std::vector<std::string> pictureList = {
         "pic1", "pic2"
@@ -45,7 +45,7 @@ DataLoader::DataLoader()
 
     const std::map<ObjectType, std::string> objectNames = {
         {ObjectType::PLAYER, "PLAYER"},
-        //{ObjectType::Enemy1, "Enemy1"},
+        {ObjectType::Dinosaur, "Dinosaur"},
         //{ObjectType::Enemy2, "Enemy2"},
         //{ObjectType::Tile, "Tile"},
         //{ObjectType::Explode, "Explode"},

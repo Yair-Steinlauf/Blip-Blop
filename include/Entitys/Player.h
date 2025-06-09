@@ -7,7 +7,7 @@ public:
 	using AttackingEntity::AttackingEntity;
 	Player();
 	~Player() override = default;
-	void handleInput(const sf::Event& event, float deltaTime);
+
 private:
 	
 };

@@ -1,5 +1,4 @@
 #pragma once
-#include "Factory.h"
 #include "Entitys/BaseEntity.h"
 #include "Player.h"
 class Level {
