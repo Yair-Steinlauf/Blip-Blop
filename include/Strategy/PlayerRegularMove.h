@@ -6,5 +6,5 @@ class PlayerRegularMove : public MoveStrategy
 public:
 	using MoveStrategy::MoveStrategy; 
 	
-	sf::Vector2f move(MovingEntity& entity, float deltaTime) override;
+	sf::Vector2f setDirection(MovingEntity& entity, float deltaTime) override;
 };

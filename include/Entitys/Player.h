@@ -9,4 +9,5 @@ public:
 	~Player() override = default;
 	void handleInput(const sf::Event& event, float deltaTime);
 private:
+	
 };

@@ -2,7 +2,7 @@
 #include "MovingEntity.h"
 #include <cmath>
 
-sf::Vector2f PlayerRegularMove::move(MovingEntity& entity, float deltaTime)
+sf::Vector2f PlayerRegularMove::setDirection(MovingEntity& entity, float deltaTime)
 {
     sf::Vector2f movement(0.f, 0.f);
 	//support WASD and Arrow keys, and diagnoal movement
