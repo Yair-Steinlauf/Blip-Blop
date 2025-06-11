@@ -1,8 +1,8 @@
 #include "GamePlay.h"
-
+#include "ScreensFactory.h"
 #include "Player.h"
 
-static auto registerIt = Factory<BaseScreen>::instance().registerType(
+static auto registerIt = ScreensFactory::instance().registerType(
 	ObjectType::GamePlay,
 	[](sf::RenderWindow* window) -> std::unique_ptr<BaseScreen>
 	{

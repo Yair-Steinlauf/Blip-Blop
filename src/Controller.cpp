@@ -1,13 +1,14 @@
 #include "Controller.h"
 #include "Screens/GamePlay.h"
 #include "Factory/Factory.h"
+#include "ScreensFactory.h"
 
 Controller::Controller():
 	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Game Window"))
 	, m_screenStack()
 {
 
-	m_screenStack.push(Factory<BaseScreen, sf::RenderWindow*>::instance().create(ObjectType::GamePlay, m_window.get()));
+	m_screenStack.push(ScreensFactory::instance().create(ObjectType::GamePlay, m_window.get()));
 }
 
 void Controller::run()

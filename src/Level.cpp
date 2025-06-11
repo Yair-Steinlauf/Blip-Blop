@@ -5,7 +5,7 @@
 Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
 {
-	m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
+	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
 	
 }
 
