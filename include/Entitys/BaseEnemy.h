@@ -1,12 +1,10 @@
 #pragma once
 #include "AttackingEntity.h"
-#include "MovingEntity.h"
-#include "BaseEntity.h"
 
-
-class BaseEnemy : public AttackingEntity, MovingEntity, BaseEntity
+class BaseEnemy : public AttackingEntity
 {
 public:
+	using AttackingEntity::AttackingEntity;
 	BaseEnemy() = default;
 	~BaseEnemy() override = default;
 };

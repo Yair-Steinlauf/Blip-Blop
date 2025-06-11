@@ -7,7 +7,7 @@
 
 //TODO: Register the Smurf enemy type in the factory
 static auto regSmurf = Factory<BaseEntity>::instance().registerType(
-	ObjectType::Dinosaur,
+	ObjectType::SMURF,
 	[]() -> std::unique_ptr<BaseEntity>
 	{
 		return std::make_unique<Smurf>();
@@ -18,7 +18,7 @@ static auto regSmurf = Factory<BaseEntity>::instance().registerType(
 Smurf::Smurf(sfPos pos)
 	:BaseEnemy()
 {
-	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::Dinosaur));
+	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::SMURF));
 	m_sprite.setPosition(pos);
 	m_movement = std::make_unique<EnemyMovementState>();
 }
