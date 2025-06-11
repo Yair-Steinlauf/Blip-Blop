@@ -16,11 +16,18 @@ using sfPos = sf::Vector2f;
 class BaseEntity
 {
 public:
-	BaseEntity() = default;
+	BaseEntity(sfPos pos = {0,0}, b2World* world = nullptr);
 	virtual void draw(sf::RenderWindow& window) const;
 	virtual void update(float deltaTime) {}//TODO: function update
 	sfPos getPosition() const;
-	virtual ~BaseEntity() = default;
+	virtual ~BaseEntity();
 protected:
 	sf::Sprite m_sprite;
+	b2Body* m_body = nullptr;
+	b2World* m_world = nullptr;
+	void initBox2d(sfPos pos, b2World* );
+	void initSprite(sf::Texture& tex);
+	void sync();
+
 };
+

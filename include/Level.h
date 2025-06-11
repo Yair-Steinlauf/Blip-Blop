@@ -10,4 +10,5 @@ public:
 private:
 	std::vector<std::unique_ptr<BaseEntity>> m_entities;
 	Player* m_player;
+	std::unique_ptr<b2World> m_world;
 };
