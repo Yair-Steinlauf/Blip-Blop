@@ -14,5 +14,6 @@ public:
 private:
 	std::unique_ptr<Player> m_player;
 	Level m_level;
+	std::unique_ptr<b2World> m_world;
 
 };

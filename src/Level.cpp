@@ -2,10 +2,10 @@
 #include "Factory.h"
 #include "BaseEnemy.h"
 
-Level::Level(Player* player)
-	:m_player(player), m_world(std::move(std::make_unique<b2World>(b2Vec2(0.f, 9.81f))))
+Level::Level(Player* player , b2World* world)
+	:m_player(player), m_world(world)
 {
-	m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF));
+	m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
 	
 }
 

@@ -2,7 +2,7 @@
 
 #include "Player.h"
 
-static auto registerIt = Factory<BaseScreen, sf::RenderWindow*>::instance().registerType(
+static auto registerIt = Factory<BaseScreen>::instance().registerType(
 	ObjectType::GamePlay,
 	[](sf::RenderWindow* window) -> std::unique_ptr<BaseScreen>
 	{
@@ -12,8 +12,10 @@ static auto registerIt = Factory<BaseScreen, sf::RenderWindow*>::instance().regi
 
 GamePlay::GamePlay(sf::RenderWindow* window):
 	BaseScreen(window), m_player(std::make_unique<Player>()),
-	m_level(m_player.get())
+	m_level(m_player.get()), 
+	m_world(std::move(std::make_unique<b2World>(b2Vec2(0.f, 9.81f))))
 {
+
 }
 
 void GamePlay::update(float deltaTime)

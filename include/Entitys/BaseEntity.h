@@ -24,8 +24,9 @@ public:
 protected:
 	sf::Sprite m_sprite;
 	b2Body* m_body = nullptr;
+	b2BodyDef m_bodyDef; 
 	b2World* m_world = nullptr;
-	void initBox2d(sfPos pos, b2World* );
+	void initBox2d(sfPos pos);
 	void initSprite(sf::Texture& tex);
 	void sync();
 

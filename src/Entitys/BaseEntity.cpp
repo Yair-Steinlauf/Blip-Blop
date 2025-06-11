@@ -24,19 +24,23 @@ BaseEntity::~BaseEntity()
 	m_body = nullptr;
 }
 
-void BaseEntity::initBox2d(sfPos pos, b2World* world)
+void BaseEntity::initBox2d(sfPos pos)
 {
-	if (!world)
+	if (!m_world)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
-	b2BodyDef bodyDef;
-	bodyDef.position.Set(pos.x / SCALE, pos.y / SCALE);
-	m_body = world->CreateBody(&bodyDef);
+	
+	m_bodyDef.position.Set(pos.x / SCALE, pos.y / SCALE);
+	m_body = m_world->CreateBody(&m_bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
 
 	//TODO: link body with entity
 	//m_body->SetUserData(this);
 	//TODO: init poligon
+	b2PolygonShape box;
+	box.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
+	sync();
+
 }
 
 void BaseEntity::initSprite(sf::Texture& tex)

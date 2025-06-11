@@ -2,6 +2,7 @@
 #include <memory>
 #include <unordered_map>
 #include <stdexcept>
+#include <functional>
 enum class ObjectType
 {
     PLAYER,
@@ -23,7 +24,7 @@ enum class ObjectType
     GamePlay
 };
 
-template <typename T, typename... Args>
+template <typename T>
 class Factory
 {
 public:
@@ -33,13 +34,29 @@ public:
         return instance;
     }
 
-    using FuncType = std::unique_ptr<T>(*)(Args...);
-    bool registerType(ObjectType t, FuncType f)
+    template <typename... Args>
+    using FuncType = std::function<std::unique_ptr<T>(Args...)>;
+
+    // Fixed: Added missing parameter name 'f'
+    template <typename... Args>
+        bool registerType(ObjectType t, FuncType<Args...> f)
     {
-        m_map.emplace(t, f);
+        // Convert to a generic callable that can be stored
+        m_map[t] = [f](auto&&... args) -> std::unique_ptr<T> {
+            return f(std::forward<decltype(args)>(args)...);
+            };
         return true;
     }
+	//template <typename... Args>
+ //   using FuncType = std::unique_ptr<T>(*)(Args...);
+ //   template <typename... Args>
+ //   bool registerType(ObjectType t, FuncType)
+ //   {
+ //       m_map.emplace(t, f);
+ //       return true;
+ //   }
 
+    template <typename... Args>
     std::unique_ptr<T> create(ObjectType t, Args&&... args)const
     {
 		auto object = m_map.find(t);

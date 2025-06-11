@@ -7,8 +7,7 @@ class MovingState;
 class MovingEntity : public BaseEntity
 {
 public:
-	using BaseEntity::BaseEntity;
-	MovingEntity() = default;
+	MovingEntity(sfPos pos = { 0,0 }, b2World* world = nullptr);
 	void setDirection(sfPos direction);
 	~MovingEntity() override = default;
 	void update(float deltaTime) override;
