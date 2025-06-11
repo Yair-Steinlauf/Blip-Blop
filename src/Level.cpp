@@ -6,7 +6,8 @@
 Level::Level(Player* player)
 	:m_player(player)
 {
-	m_entities.push_back(Factory<BaseEnemy>::instance().create(ObjectType::Dinosaur));
+
+	m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::Dinosaur));
 	
 }
 
