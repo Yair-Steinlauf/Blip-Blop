@@ -2,9 +2,9 @@
 #include "Factory.h"
 #include "Movment/StandMovment.h"
 
-static auto registerIt = Factory<MovingEntity>::instance().registerType(
+static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
-	[]() -> std::unique_ptr<MovingEntity>
+	[](sfPos, b2World*) -> std::unique_ptr<MovingEntity>
 	{
 		return std::make_unique<Player>();
 	}

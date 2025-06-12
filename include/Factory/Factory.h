@@ -3,8 +3,11 @@
 #include <unordered_map>
 #include <stdexcept>
 #include "Constance.h"
+//#include "BaseEntity.h"
 
-template <typename T, typename... Args>
+class BaseEntity; // Forward declaration
+
+
 class Factory
 {
 public:
@@ -13,20 +16,19 @@ public:
         static auto instance = Factory();
         return instance;
     }
+    using FuncType = std::unique_ptr<BaseEntity>(*)(sfPos, b2World*);
 
-    using FuncType = std::unique_ptr<T>(*)(Args...);
     bool registerType(ObjectType t, FuncType f)
     {
         m_map.emplace(t, f);
         return true;
     }
-  
-    std::unique_ptr<T> create(ObjectType t, Args&&... args)const
+    std::unique_ptr<BaseEntity> create(ObjectType t, sfPos pos, b2World* world)const
     {
 		auto object = m_map.find(t);
 		if (object == m_map.end()) 
             throw std::runtime_error("Cannot Find Current Object\n");
-		return object->second(std::forward<Args>(args)...);
+        return (object->second)(pos, world);
     }
 
 private:

@@ -2,9 +2,10 @@
 #include "Screens/GamePlay.h"
 #include "Factory/Factory.h"
 #include "ScreensFactory.h"
+#include "Constance.h"
 
 Controller::Controller():
-	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Game Window"))
+	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game Window"))
 	, m_screenStack()
 {
 

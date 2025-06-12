@@ -16,7 +16,6 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 	m_player(std::make_unique<Player>(sfPos{ 500, 50 }, m_world.get())),
 	m_level(m_player.get(), m_world.get())
 {
-
 }
 
 void GamePlay::update(float deltaTime)
