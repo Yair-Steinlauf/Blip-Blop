@@ -1,6 +1,7 @@
 #pragma once
 #include "Entitys/BaseEntity.h"
 #include "Player.h"
+#include "Floor.h"
 class Level {
 public:
 	Level(Player* player, b2World* world = nullptr);

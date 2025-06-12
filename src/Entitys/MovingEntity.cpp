@@ -15,7 +15,9 @@ void MovingEntity::setDirection(sfPos direction)
 
 void MovingEntity::update(float deltaTime)
 {
-	m_sprite.move(m_direction * deltaTime * m_speed);
+	//TODO: move
+	//b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
+	//m_body->ApplyForceToCenter(force, true);
 	sync(); 
 }
 

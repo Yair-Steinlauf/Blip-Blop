@@ -6,13 +6,13 @@
 #include "EnemyMovmentState.h"
 
 //TODO: Register the Smurf enemy type in the factory
-static auto regSmurf = Factory<BaseEntity>::instance().registerType(
-	ObjectType::SMURF,
-	[]() -> std::unique_ptr<BaseEntity>
-	{
-		return std::make_unique<Smurf>();
-	}
-);
+//static auto regSmurf = Factory<BaseEntity>::instance().registerType(
+//	ObjectType::SMURF,
+//	[]() -> std::unique_ptr<BaseEntity>
+//	{
+//		return std::make_unique<Smurf>();
+//	}
+//);
 
 
 Smurf::Smurf(sfPos pos)

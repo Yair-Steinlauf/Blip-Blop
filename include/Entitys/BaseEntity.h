@@ -8,10 +8,10 @@
 #include <memory>
 #include "Factory.h"
 #include "DataLoader.h"
+#include "Constance.h"
 
 //==============Forward declarations============
 
-using sfPos = sf::Vector2f;
 
 class BaseEntity
 {
@@ -27,6 +27,7 @@ protected:
 	b2BodyDef m_bodyDef; 
 	b2World* m_world = nullptr;
 	b2PolygonShape m_polygonShape;
+	b2Fixture* m_fixture = nullptr;
 	virtual void initBox2d(sfPos pos);
 	void initSprite(sf::Texture& tex);
 	void sync();

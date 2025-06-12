@@ -4,9 +4,9 @@
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
-	[](sfPos, b2World*) -> std::unique_ptr<MovingEntity>
+	[](sfPos pos, b2World* world) -> std::unique_ptr<BaseEntity>
 	{
-		return std::make_unique<Player>();
+		return std::make_unique<Player>(pos, world);
 	}
 );
 

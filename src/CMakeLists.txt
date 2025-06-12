@@ -2,4 +2,5 @@
 add_subdirectory (Entitys)
 add_subdirectory (Screens)
 add_subdirectory (Movment)
+add_subdirectory (Factory)
 target_sources (${CMAKE_PROJECT_NAME} PRIVATE ${MY_SOURCE_FILES})
