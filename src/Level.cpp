@@ -12,6 +12,7 @@ Level::Level(Player* player , b2World* world)
 void Level::update(float deltaTime)
 {
 	m_player->update(deltaTime);
+
 	for (auto& entity : m_entities)
 	{
 		entity->update(deltaTime);

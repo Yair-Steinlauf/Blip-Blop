@@ -8,7 +8,7 @@ Controller::Controller():
 	, m_screenStack()
 {
 
-	m_screenStack.push(ScreensFactory::instance().create(ObjectType::GamePlay, m_window.get()));
+	m_screenStack.push(ScreenFactory::instance().create(ObjectType::GamePlay, m_window.get()));
 }
 
 void Controller::run()

@@ -26,7 +26,8 @@ protected:
 	b2Body* m_body = nullptr;
 	b2BodyDef m_bodyDef; 
 	b2World* m_world = nullptr;
-	void initBox2d(sfPos pos);
+	b2PolygonShape m_polygonShape;
+	virtual void initBox2d(sfPos pos);
 	void initSprite(sf::Texture& tex);
 	void sync();
 

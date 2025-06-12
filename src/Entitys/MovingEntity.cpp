@@ -16,6 +16,7 @@ void MovingEntity::setDirection(sfPos direction)
 void MovingEntity::update(float deltaTime)
 {
 	m_sprite.move(m_direction * deltaTime * m_speed);
+	sync(); 
 }
 
 void MovingEntity::movment()
@@ -29,6 +30,19 @@ void MovingEntity::movment()
 			m_movement = std::move(newState);
 		}
 	}
+}
+
+void MovingEntity::initBox2d(sfPos pos)
+{
+	BaseEntity::initBox2d(pos);
+	b2FixtureDef fix;
+	fix.shape = &m_polygonShape;
+	fix.density = 1.0f;
+	fix.friction = 0.3f;
+	fix.restitution = 0.0f;
+	m_fixture = m_body->CreateFixture(&fix);
+
+	
 }
 
 

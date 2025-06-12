@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+merged_code.txt
 # User-specific files
 *.rsuser
 *.suo
@@ -35,6 +36,7 @@ bld/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
+.idea/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -97,6 +99,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.pyc
 
 # Chutzpah Test files
 _Chutzpah*

@@ -16,5 +16,6 @@ protected:
 	sfPos m_direction;
 	std::unique_ptr<MovingState> m_movement;
 	float m_speed = 100.f; // Default speed
-
+	void initBox2d(sfPos pos) override;
+	b2Fixture* m_fixture = nullptr;
 };
