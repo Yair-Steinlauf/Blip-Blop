@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-const float SCALE = 32.f; // Scale factor for Box2D to SFML conversion
+const float SCALE = 30.f; // Scale factor for Box2D to SFML conversion
 
 enum class ObjectType
 {

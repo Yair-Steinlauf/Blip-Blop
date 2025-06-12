@@ -1,6 +1,6 @@
 #include "BaseEntity.h"
 #include "Constance.h"
-
+#include "debugrender.h"
 BaseEntity::BaseEntity(sfPos pos, b2World* world)
 	:m_world(world)
 {
@@ -10,6 +10,8 @@ BaseEntity::BaseEntity(sfPos pos, b2World* world)
 void BaseEntity::draw(sf::RenderWindow& window) const
 {
 	window.draw(m_sprite);
+	
+	
 }
 
 sfPos BaseEntity::getPosition() const
@@ -23,6 +25,8 @@ BaseEntity::~BaseEntity()
 		m_world->DestroyBody(m_body);
 	m_body = nullptr;
 }
+
+
 
 void BaseEntity::initBox2d(sfPos pos)
 {

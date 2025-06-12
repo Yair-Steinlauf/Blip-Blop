@@ -15,6 +15,7 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 	m_world(std::make_unique<b2World>(b2Vec2(0.f, 9.81f))),
 	m_player(std::make_unique<Player>(sfPos{ 500, 50 }, m_world.get())),
 	m_level(m_player.get(), m_world.get())
+	
 {
 }
 
