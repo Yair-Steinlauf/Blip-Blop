@@ -3,7 +3,6 @@
 #include "Factory/Factory.h"
 #include "ScreensFactory.h"
 #include "Constance.h"
-#include "debugrender.h"
 
 Controller::Controller():
 	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game Window"))

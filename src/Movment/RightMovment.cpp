@@ -1,6 +1,6 @@
-#include "RightMovment.h"
-#include "LeftMovment.h"
-#include "Movment/StandMovment.h"
+#include "PlayerRightMovment.h"
+#include "PlayerLeftMovment.h"
+#include "Movment/PlayerStandMovment.h"
 
 
 void RightMovment::enter(MovingEntity& entity)

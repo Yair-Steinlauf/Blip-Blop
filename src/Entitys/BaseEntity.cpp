@@ -1,6 +1,5 @@
 #include "BaseEntity.h"
 #include "Constance.h"
-#include "debugrender.h"
 BaseEntity::BaseEntity(sfPos pos, b2World* world)
 	:m_world(world)
 {
@@ -41,7 +40,7 @@ void BaseEntity::initBox2d(sfPos pos)
 	//TODO: link body with entity
 	//m_body->SetUserData(this);
 	//TODO: init poligon
-	m_polygonShape.SetAsBox(m_sprite.getLocalBounds().width / 2.f / SCALE, m_sprite.getLocalBounds().height / 2.f / SCALE);
+	m_polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
 	//sync();
 
 }

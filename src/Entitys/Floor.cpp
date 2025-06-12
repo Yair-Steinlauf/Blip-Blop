@@ -14,13 +14,6 @@ static auto registesrIt = Factory::instance().registerType(
 Floor::Floor(sfPos pos, b2World* world)
 	:StaticEntity(pos, world)
 {
-	//auto invisibleTexture = createInvisibleTexture();
-	//initSprite(invisibleTexture);
-	//initSprite(DataLoader::getP2Texture(ObjectType::PLAYER));
-	//m_sprite.setTexture(DataLoader::getP2Texture(ObjectType::PLAYER));
-	//m_sprite.setPosition({50,50});
-
-
     createVisibleTexture();
 	initBox2d(pos);
 }

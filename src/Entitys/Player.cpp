@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Factory.h"
-#include "Movment/StandMovment.h"
+#include "Movment/PlayerStandMovment.h"
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,

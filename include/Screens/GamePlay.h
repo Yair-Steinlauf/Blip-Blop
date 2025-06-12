@@ -3,6 +3,9 @@
 #include <memory>
 #include "Player.h"
 #include "Level.h"
+#include "cube.h"
+#include <vector>
+
 class GamePlay : public BaseScreen {
 public:
 	using BaseScreen::BaseScreen;
@@ -15,6 +18,8 @@ private:
 	std::unique_ptr<b2World> m_world;
 	std::unique_ptr<Player> m_player;
 	Level m_level;
+	std::vector<Cube> m_cubes;
+	sf::RenderWindow* m_window = nullptr;
 
 
 };
