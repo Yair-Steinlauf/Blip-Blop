@@ -4,8 +4,7 @@
 class Player : public AttackingEntity
 {
 public:
-	using AttackingEntity::AttackingEntity;
-	Player();
+	Player(sfPos pos = { 0,0 }, b2World* world = nullptr);
 	~Player() override = default;
 
 private:

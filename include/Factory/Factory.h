@@ -2,51 +2,22 @@
 #include <memory>
 #include <unordered_map>
 #include <stdexcept>
-enum class ObjectType
-{
-    PLAYER,
-    Dinosaur,
+#include "Constance.h"
+//#include "BaseEntity.h"
 
+// Forward declaration
+class BaseEntity; 
+class b2World;
 
-    Enemy1,
-    Enemy2,
-    Tile,
-    Explode,
-    Gift,
-
-    TemplateEnemy,
-    BaseEnemy,
-    AttackingEntity,
-    MovingEntity,
-    StaticEntity,
-    BaseScreen,
-    GamePlay
-};
-
-template <typename T, typename... Args>
 class Factory
 {
 public:
-    static Factory& instance()
-    {
-        static auto instance = Factory();
-        return instance;
-    }
+    static Factory& instance(); 
+    using FuncType = std::unique_ptr<BaseEntity>(*)(sfPos, b2World*);
 
-    using FuncType = std::unique_ptr<T>(*)(Args...);
-    bool registerType(ObjectType t, FuncType f)
-    {
-        m_map.emplace(t, f);
-        return true;
-    }
+    bool registerType(ObjectType t, FuncType f);
 
-    std::unique_ptr<T> create(ObjectType t, Args&&... args)const
-    {
-		auto object = m_map.find(t);
-		if (object == m_map.end()) 
-            throw std::runtime_error("Cannot Find Current Object\n");
-		return object->second(std::forward<Args>(args)...);
-    }
+    std::unique_ptr<BaseEntity> create(ObjectType t, sfPos pos, b2World* world)const;
 
 private:
     Factory() = default;

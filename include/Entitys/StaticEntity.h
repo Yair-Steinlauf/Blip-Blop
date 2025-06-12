@@ -4,7 +4,7 @@
 class StaticEntity : public BaseEntity
 {
 public:
-	using BaseEntity::BaseEntity;
-	StaticEntity() = default;
+	
+	StaticEntity(sfPos pos = {50,50}, b2World* world = nullptr);
 	~StaticEntity() override = default;
 };

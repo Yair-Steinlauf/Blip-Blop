@@ -1,6 +1,6 @@
-#include "StandMovment.h"
-#include "RightMovment.h"
-#include "LeftMovment.h"
+#include "PlayerStandMovment.h"
+#include "PlayerRightMovment.h"
+#include "PlayerLeftMovment.h"
 
 
 
