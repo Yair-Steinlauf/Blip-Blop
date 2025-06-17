@@ -1,4 +1,4 @@
-#include "PlayerJumpMovment.h"
+﻿#include "PlayerJumpMovment.h"
 #include "PlayerLeftMovment.h"
 #include "PlayerRightMovment.h"
 #include "PlayerStandMovment.h"
@@ -21,15 +21,15 @@ std::unique_ptr<MovingState> PlayerJumpMovement::move()
 	//}
 	if (m_entity.checkIsGrounded())
 	{
+
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			return std::make_unique<PlayerLeftMovement>(m_entity);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			return std::make_unique<PlayerRightMovement>(m_entity);
 		}
-
-	return nullptr;
-
+		return std::make_unique<PlayerJumpMovement>(m_entity);
 	}
 	return std::make_unique<PlayerStandMovement>(m_entity);
 

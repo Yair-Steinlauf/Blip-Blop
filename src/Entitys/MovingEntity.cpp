@@ -1,6 +1,6 @@
 ﻿#include "MovingEntity.h"
 #include "Movment/MovingState.h"
-MovingEntity::MovingEntity(sfPos pos, b2World* world):
+MovingEntity::MovingEntity(sfPos pos, b2World* world) :
 	BaseEntity(pos, world),
 	m_direction(0.f, 0.f),
 	m_movement(nullptr),
@@ -22,20 +22,32 @@ MovingEntity& MovingEntity::setVelocity(float x, float y)
 void MovingEntity::update(float deltaTime)
 {
 	movment();
+	if (checkIsGrounded()) {
+		// על הקרקע - כוח מלא
+		b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
+		m_body->ApplyForceToCenter(force, true);
+	}
+	else {
+		// ✅ באוויר - כוח חלש מאוד!
+		b2Vec2 airForce(m_direction.x * m_speed * 2.0f, 0); // פי 5 פחות!
+		m_body->ApplyForceToCenter(airForce, true);
+	}
+
+	/*movment();
 	b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
 	m_body->ApplyForceToCenter(force, true);
-	sync(); 
+	*/sync();
 }
 
 void MovingEntity::movment()
 {
 	if (m_movement)
 	{
-		m_movement->enter();
 		auto newState = m_movement->move();
 		if (newState)
 		{
 			m_movement = std::move(newState);
+			m_movement->enter();
 		}
 	}
 }
@@ -51,7 +63,7 @@ MovingEntity& MovingEntity::applyJumpImpulse(float force)
 
 bool MovingEntity::checkIsGrounded() const
 {
-	return std::abs(m_body->GetLinearVelocity().y) == 0 ;
+	return std::abs(m_body->GetLinearVelocity().y) < 0.5f;
 }
 
 void MovingEntity::initBox2d(sfPos pos)
@@ -62,11 +74,11 @@ void MovingEntity::initBox2d(sfPos pos)
 	fix.density = 1.0f;
 	fix.friction = 0.8f;
 	fix.restitution = 0.0f;
-	
+
 	m_fixture = m_body->CreateFixture(&fix);
-	m_body->SetFixedRotation(true); 
+	m_body->SetFixedRotation(true);
 	m_body->SetLinearDamping(1);
-	
+
 }
 
 
