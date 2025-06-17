@@ -1,20 +1,20 @@
 #pragma once
 #include "BaseEntity.h"
-#include "MoveStrategy.h"
 
-using MovementPtr = std::unique_ptr<MoveStrategy>;
-
+// Forward declarations
+class MovingState;
 
 class MovingEntity : public BaseEntity
 {
 public:
-	using BaseEntity::BaseEntity;
-	MovingEntity() = default;
-	void move(float deltaTime) {}; //TODO set direction
+	MovingEntity(sfPos pos = { 0,0 }, b2World* world = nullptr);
+	void setDirection(sfPos direction);
 	~MovingEntity() override = default;
 	void update(float deltaTime) override;
+	virtual void movment();
 protected:
-	MovementPtr m_movement;
-	sfPos m_nextPosition;
-
+	sfPos m_direction;
+	std::unique_ptr<MovingState> m_movement;
+	float m_speed = 100.f; // Default speed
+	void initBox2d(sfPos pos) override;
 };

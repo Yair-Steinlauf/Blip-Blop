@@ -1,21 +1,21 @@
 #include "Player.h"
-#include "PlayerRegularMove.h"
-static auto registerIt = Factory<MovingEntity>::instance().registerType(
+#include "Factory.h"
+#include "Movment/PlayerStandMovment.h"
+
+static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
-	[]() -> std::unique_ptr<MovingEntity>
+	[](sfPos pos, b2World* world) -> std::unique_ptr<BaseEntity>
 	{
-		return std::make_unique<Player>();
+		return std::make_unique<Player>(pos, world);
 	}
 );
 
-Player::Player()
-{
-	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
-	m_movement = std::make_unique<PlayerRegularMove>(300.f);
-	m_sprite.setPosition({ 50,50 });
-}
 
-void Player::handleInput(const sf::Event& event, float deltaTime)
+Player::Player(sfPos pos, b2World* world)
+	:AttackingEntity(pos, world)
 {
-	m_nextPosition = m_movement->move(*this, deltaTime);
+	m_movement = std::make_unique<StandMovement>();
+	initSprite(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
+	initBox2d(pos);
+
 }
