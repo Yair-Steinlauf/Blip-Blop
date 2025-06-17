@@ -20,5 +20,7 @@ Smurf::Smurf(sfPos pos)
 {
 	m_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::SMURF));
 	m_sprite.setPosition(pos);
-	m_movement = std::make_unique<EnemyMovementState>();
+	m_movement = std::make_unique<EnemyMovementState>(*this);
 }
+
+
