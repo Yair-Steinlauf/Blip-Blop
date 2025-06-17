@@ -25,7 +25,6 @@ void Level::draw(sf::RenderWindow& window)
 {
 	for (auto& entity : m_entities)
 	{
-		//m_floor.draw(window);
 		entity->draw(window);
 	}
 	m_player->draw(window);

@@ -1,4 +1,4 @@
-#include "MovingEntity.h"
+﻿#include "MovingEntity.h"
 #include "Movment/MovingState.h"
 MovingEntity::MovingEntity(sfPos pos, b2World* world):
 	BaseEntity(pos, world),
@@ -13,9 +13,15 @@ void MovingEntity::setDirection(sfPos direction)
 	m_direction = direction;
 }
 
+MovingEntity& MovingEntity::setVelocity(float x, float y)
+{
+	m_body->SetLinearVelocity(b2Vec2(x, y));
+	return *this;
+}
+
 void MovingEntity::update(float deltaTime)
 {
-	//TODO: move
+	movment();
 	b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
 	m_body->ApplyForceToCenter(force, true);
 	sync(); 
@@ -25,7 +31,7 @@ void MovingEntity::movment()
 {
 	if (m_movement)
 	{
-		m_movement->enter(*this);
+		m_movement->enter();
 		auto newState = m_movement->move();
 		if (newState)
 		{
@@ -34,16 +40,32 @@ void MovingEntity::movment()
 	}
 }
 
+MovingEntity& MovingEntity::applyJumpImpulse(float force)
+{
+	if (checkIsGrounded()) {
+		b2Vec2 jumpImpulse(0, -force);
+		m_body->ApplyLinearImpulseToCenter(jumpImpulse, true);
+	}
+	return *this;
+}
+
+bool MovingEntity::checkIsGrounded() const
+{
+	return std::abs(m_body->GetLinearVelocity().y) == 0 ;
+}
+
 void MovingEntity::initBox2d(sfPos pos)
 {
 	BaseEntity::initBox2d(pos);
 	b2FixtureDef fix;
 	fix.shape = &m_polygonShape;
 	fix.density = 1.0f;
-	fix.friction = 0.3f;
+	fix.friction = 0.8f;
 	fix.restitution = 0.0f;
+	
 	m_fixture = m_body->CreateFixture(&fix);
-
+	m_body->SetFixedRotation(true); 
+	m_body->SetLinearDamping(1);
 	
 }
 
