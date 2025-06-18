@@ -21,8 +21,10 @@ std::unique_ptr<MovingState> PlayerStandMovement::move()
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		return std::make_unique<PlayerLeftMovement>(m_entity);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	else if (m_entity.checkIsGrounded() && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		return std::make_unique<PlayerJumpMovement>(m_entity);
 	}
 	return nullptr;
+	//return std::make_unique<PlayerStandMovement>(m_entity);
+
 }
