@@ -21,22 +21,12 @@ MovingEntity& MovingEntity::setVelocity(float x, float y)
 
 void MovingEntity::update(float deltaTime)
 {
-	movment();
-	if (checkIsGrounded()) {
-		// על הקרקע - כוח מלא
-		b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
-		m_body->ApplyForceToCenter(force, true);
-	}
-	else {
-		// ✅ באוויר - כוח חלש מאוד!
-		b2Vec2 airForce(m_direction.x * m_speed * 2.0f, 0); // פי 5 פחות!
-		m_body->ApplyForceToCenter(airForce, true);
-	}
 
-	/*movment();
+	//TODO: good movement
+	movment();
 	b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
 	m_body->ApplyForceToCenter(force, true);
-	*/sync();
+	sync();
 }
 
 void MovingEntity::movment()
@@ -63,7 +53,7 @@ MovingEntity& MovingEntity::applyJumpImpulse(float force)
 
 bool MovingEntity::checkIsGrounded() const
 {
-	return std::abs(m_body->GetLinearVelocity().y) < 0.5f;
+	return std::abs(m_body->GetLinearVelocity().y) == 0;
 }
 
 void MovingEntity::initBox2d(sfPos pos)
@@ -77,7 +67,7 @@ void MovingEntity::initBox2d(sfPos pos)
 
 	m_fixture = m_body->CreateFixture(&fix);
 	m_body->SetFixedRotation(true);
-	m_body->SetLinearDamping(1);
+	m_body->SetLinearDamping(2.5f);
 
 }
 
