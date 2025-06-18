@@ -21,7 +21,6 @@ MovingEntity& MovingEntity::setVelocity(float x, float y)
 
 void MovingEntity::update(float deltaTime)
 {
-
 	//TODO: good movement
 	movment();
 	b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
@@ -53,6 +52,8 @@ MovingEntity& MovingEntity::applyJumpImpulse(float force)
 
 bool MovingEntity::checkIsGrounded() const
 {
+
+	//TODO: maybe will work better with Box2d contact listener
 	return std::abs(m_body->GetLinearVelocity().y) == 0;
 }
 
