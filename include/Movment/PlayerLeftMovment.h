@@ -4,11 +4,12 @@
 
 
 
-class LeftMovment : public MovingState
+
+class PlayerLeftMovement : public MovingState
 {
 public:
-	LeftMovment() = default;
-	~LeftMovment() override = default;
-	void enter(MovingEntity& entity) override;
+	MovingState::MovingState;
+	~PlayerLeftMovement() override = default;
+	void enter() override;
 	std::unique_ptr<MovingState> move() override;
 };

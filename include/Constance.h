@@ -10,6 +10,7 @@ enum class ObjectType
     MAP,
 
 
+
     Enemy1,
     Enemy2,
     Tile,

@@ -2,7 +2,6 @@
 #include "Entitys/BaseEntity.h"
 #include "Player.h"
 #include "Platform.h"
-
 class Level {
 public:
 	Level(Player* player, b2World* world = nullptr);

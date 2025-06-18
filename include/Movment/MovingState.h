@@ -4,8 +4,12 @@
 class MovingState
 {
 public:
-	MovingState() = default;
+
+	MovingState(MovingEntity& entity);
 	virtual ~MovingState() = default;
-	virtual void enter(MovingEntity& entity) = 0;
+	virtual void enter() = 0;
 	virtual std::unique_ptr<MovingState> move() = 0;
+
+protected:
+	MovingEntity& m_entity;
 };

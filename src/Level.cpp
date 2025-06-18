@@ -12,6 +12,7 @@ Level::Level(Player* player , b2World* world)
 	//m_entities.push_back(Factory::instance().create(ObjectType::FLOOR, sfPos{500,550/*0,SCREEN_HEIGHT - 20 */}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
+
 }
 
 
@@ -62,7 +63,7 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 
 				auto platform = std::make_unique<Platform>(center, m_world, size);
 
-				//  десфъ ичсиешд мцйеш (жорйъ мцешк бгйчеъ)
+				//  пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
 				sf::Image debugImage;
 				debugImage.create(static_cast<unsigned int>(width), static_cast<unsigned int>(height), sf::Color::Red);
 
@@ -71,7 +72,7 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 
 				//platform->initSprite(debugTexture);
 
-				//  дгфсъ бгйчд
+				//  пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				std::cout << " Platform created at: (" << center.x << ", " << center.y
 					<< ") size: " << size.x << "x" << size.y << '\n';
 

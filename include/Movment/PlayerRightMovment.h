@@ -1,10 +1,11 @@
 #pragma once
 #include "MovingState.h"
-class RightMovment : public MovingState
+
+class PlayerRightMovement : public MovingState
 {
 public:
-	RightMovment() = default;
-	~RightMovment() override = default;
-	void enter(MovingEntity& entity) override;
+	MovingState::MovingState;
+	~PlayerRightMovement() override = default;
+	void enter() override;
 	std::unique_ptr<MovingState> move() override;
 };

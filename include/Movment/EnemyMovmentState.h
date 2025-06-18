@@ -7,9 +7,10 @@
 class EnemyMovementState : public MovingState
 {
 public:
-	EnemyMovementState() = default;
+
+	MovingState::MovingState;
 	~EnemyMovementState() override = default;
 
-	void enter(MovingEntity& entity) override;
+	void enter() override;
 	std::unique_ptr<MovingState> move() override;
 };
