@@ -18,7 +18,7 @@ std::unique_ptr<MovingState> PlayerRightMovement::move()
         return std::make_unique<PlayerJumpMovement>(m_entity);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        return nullptr; // äîùê éîéï
+        return nullptr; 
 
     return std::make_unique<PlayerStandMovement>(m_entity);
 }

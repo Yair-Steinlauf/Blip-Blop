@@ -1,4 +1,3 @@
-
 ﻿#include "MovingEntity.h"
 #include "Movment/MovingState.h"
 MovingEntity::MovingEntity(sfPos pos, b2World* world) :

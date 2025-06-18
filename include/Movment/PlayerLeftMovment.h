@@ -2,9 +2,6 @@
 #include "MovingState.h"
 
 
-
-
-
 class PlayerLeftMovement : public MovingState
 {
 public:
