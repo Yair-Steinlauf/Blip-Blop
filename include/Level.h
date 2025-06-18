@@ -1,7 +1,7 @@
 #pragma once
 #include "Entitys/BaseEntity.h"
 #include "Player.h"
-#include "Floor.h"
+#include "Platform.h"
 
 class Level {
 public:
@@ -14,5 +14,5 @@ private:
 	std::vector<std::unique_ptr<BaseEntity>> m_entities;
 	Player* m_player;
 	b2World* m_world;
-
+	sf::Sprite m_map_sprite;
 };

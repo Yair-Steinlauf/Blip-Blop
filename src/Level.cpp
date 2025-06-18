@@ -11,7 +11,7 @@ Level::Level(Player* player , b2World* world)
 	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
 	//m_entities.push_back(Factory::instance().create(ObjectType::FLOOR, sfPos{500,550/*0,SCREEN_HEIGHT - 20 */}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
-
+	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
 }
 
 
@@ -27,6 +27,7 @@ void Level::update(float deltaTime)
 
 void Level::draw(sf::RenderWindow& window)
 {
+	window.draw(m_map_sprite);
 	for (auto& entity : m_entities)
 	{
 		//m_floor.draw(window);
@@ -59,7 +60,7 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 				sfPos center{ x + width / 2.f, y + height / 2.f };
 				sf::Vector2f size{ width, height };
 
-				auto platform = std::make_unique<StaticEntity>(center, m_world, size);
+				auto platform = std::make_unique<Platform>(center, m_world, size);
 
 				//  הוספת טקסטורה לציור (זמנית לצורך בדיקות)
 				sf::Image debugImage;

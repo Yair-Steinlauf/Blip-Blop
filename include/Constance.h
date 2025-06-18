@@ -6,7 +6,8 @@ enum class ObjectType
 {
     PLAYER,
     SMURF,
-    FLOOR,
+    PLATFORM,
+    MAP,
 
 
     Enemy1,

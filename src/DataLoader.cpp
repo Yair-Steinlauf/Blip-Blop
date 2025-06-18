@@ -46,6 +46,7 @@ DataLoader::DataLoader()
     const std::map<ObjectType, std::string> objectNames = {
         {ObjectType::PLAYER, "PLAYER"},
         {ObjectType::SMURF, "SMURF"},
+        {ObjectType::MAP, "MAP"},
         //{ObjectType::Enemy2, "Enemy2"},
         //{ObjectType::Tile, "Tile"},
         //{ObjectType::Explode, "Explode"},
