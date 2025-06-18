@@ -30,19 +30,11 @@ void GamePlay::draw()
 {
 	BaseScreen::draw();
 	m_level.draw(*m_window);
-	for (const auto& c : m_cubes)//DEL: for cubes
-		m_window->draw(c.shape);
 }
 
 void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 {
 
-	//TODO: del cube on mouse click
-	   //         if (event.type == sf::Event::MouseButtonPressed) {
-    //            sf::Vector2i mousePos = sf::Mouse::getPosition(*m_window);
-				//
-				//m_cubes.push_back(Cube(*m_world.get(), mousePos.x, mousePos.y));
-    //        }
 	//TODO:: maybe not needed parameters (const sf::Event& event, float deltaTime)
 	//m_player->movment();
 }

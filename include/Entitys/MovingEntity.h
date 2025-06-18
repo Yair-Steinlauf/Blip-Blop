@@ -9,6 +9,7 @@ class MovingEntity : public BaseEntity
 public:
 	MovingEntity(sfPos pos = { 0,0 }, b2World* world = nullptr);
 	void setDirection(sfPos direction);
+
 	MovingEntity& setVelocity(float x, float y);//TODO: maybeDel
 	~MovingEntity() override = default;
 	void update(float deltaTime) override;

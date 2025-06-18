@@ -1,6 +1,7 @@
 #include "PlayerRightMovment.h"
 #include "PlayerLeftMovment.h"
 #include "Movment/PlayerStandMovment.h"
+
 #include "PlayerJumpMovment.h"
 
 void PlayerRightMovement::enter()
@@ -17,7 +18,7 @@ std::unique_ptr<MovingState> PlayerRightMovement::move()
         return std::make_unique<PlayerJumpMovement>(m_entity);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        return nullptr; // äîùê éîéï
+        return nullptr; // Ã¤Ã®Ã¹Ãª Ã©Ã®Ã©Ã¯
 
     return std::make_unique<PlayerStandMovement>(m_entity);
 }

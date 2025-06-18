@@ -1,3 +1,4 @@
+
 ﻿#include "MovingEntity.h"
 #include "Movment/MovingState.h"
 MovingEntity::MovingEntity(sfPos pos, b2World* world) :
@@ -36,6 +37,7 @@ void MovingEntity::movment()
 		if (newState)
 		{
 			m_movement = std::move(newState);
+
 			m_movement->enter();
 		}
 	}
@@ -71,5 +73,6 @@ void MovingEntity::initBox2d(sfPos pos)
 	m_body->SetLinearDamping(2.5f);
 
 }
+
 
 

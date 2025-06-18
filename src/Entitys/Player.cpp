@@ -14,6 +14,7 @@ static auto registerIt = Factory::instance().registerType(
 Player::Player(sfPos pos, b2World* world)
 	:AttackingEntity(pos, world)
 {
+
 	m_movement = std::make_unique<PlayerStandMovement>(*this);
 	initSprite(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
 	initBox2d(pos);

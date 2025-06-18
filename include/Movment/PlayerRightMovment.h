@@ -1,5 +1,6 @@
 #pragma once
 #include "MovingState.h"
+
 class PlayerRightMovement : public MovingState
 {
 public:

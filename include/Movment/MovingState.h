@@ -4,6 +4,7 @@
 class MovingState
 {
 public:
+
 	MovingState(MovingEntity& entity);
 	virtual ~MovingState() = default;
 	virtual void enter() = 0;

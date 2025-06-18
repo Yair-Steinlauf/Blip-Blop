@@ -1,5 +1,6 @@
 #include "EnemyMovmentState.h"
 
+
 void EnemyMovementState::enter()
 {
 	m_entity.setDirection({ 1.f, 0.f }); 

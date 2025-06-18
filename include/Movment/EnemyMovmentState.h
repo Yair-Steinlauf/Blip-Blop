@@ -7,6 +7,7 @@
 class EnemyMovementState : public MovingState
 {
 public:
+
 	MovingState::MovingState;
 	~EnemyMovementState() override = default;
 
