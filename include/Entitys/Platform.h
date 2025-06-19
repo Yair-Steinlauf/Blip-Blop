@@ -1,8 +1,7 @@
 #pragma once
 
-#include "StaticEntity.h"
-
-class Platform : public StaticEntity
+#include "BaseEntity.h"
+class Platform : public BaseEntity
 {
 public:
 	Platform(sfPos pos = { 50 , 50}, b2World* world = nullptr, sf::Vector2f size = { 64, 32 });

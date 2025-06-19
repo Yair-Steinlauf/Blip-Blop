@@ -1,24 +1,32 @@
 #include "BaseEntity.h"
 #include "Constance.h"
-BaseEntity::BaseEntity(sfPos pos, b2World* world)
+BaseEntity::BaseEntity(sf::Texture* tex, sfPos pos, b2World* world)
 	:m_world(world)
 {
-	m_sprite.setPosition(pos);
+	if (tex)
+	{
+		m_sprite.setTexture(*tex);
+		m_sprite.setPosition(pos);
+		auto size = tex->getSize();
+		m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
+	}
+
+	initBox2d(pos);
 }
 
 void BaseEntity::draw(sf::RenderWindow& window) const
 {
 	window.draw(m_sprite);
-	
-	
+
+
 }
 
 sfPos BaseEntity::getPosition() const
 {
-	 return m_sprite.getPosition();
+	return m_sprite.getPosition();
 }
 
-BaseEntity &BaseEntity::setSpritePosition(sfPos pos)
+BaseEntity& BaseEntity::setSpritePosition(sfPos pos)
 {
 	m_sprite.setPosition(pos);
 	return *this;
@@ -31,36 +39,37 @@ BaseEntity::~BaseEntity()
 	m_body = nullptr;
 }
 
+b2Body* BaseEntity::getBody() const
+{
+	return m_body;
+}
+
 
 
 void BaseEntity::initBox2d(sfPos pos)
 {
 	if (!m_world)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
-	
-	m_bodyDef.position.Set(pos.x / SCALE, pos.y / SCALE);
-	m_body = m_world->CreateBody(&m_bodyDef);
+	b2BodyDef bodyDef;
+	bodyDef.position.Set(SFMLToBox2d(pos.x), SFMLToBox2d(pos.y));
+	m_body = m_world->CreateBody(&bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
 
 	//TODO: link body with entity
 	//m_body->SetUserData(this);
 	//TODO: init poligon
-	m_polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
-	//sync();
+	b2PolygonShape polygonShape;
+	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
+	m_body->CreateFixture(&polygonShape, 1.0f);
 
 }
 
-void BaseEntity::initSprite(sf::Texture& tex)
-{
-	m_sprite.setTexture(tex);
-	auto size = tex.getSize();
-	m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
-}
+
 
 void BaseEntity::sync()
 {
-	if (!m_body) 
+	if (!m_body)
 		throw std::runtime_error("No Box2d Body!\n");
 	b2Vec2 pos = m_body->GetPosition();
 	float angle = m_body->GetAngle();
@@ -69,3 +78,6 @@ void BaseEntity::sync()
 	m_sprite.setRotation(angle * 180 / b2_pi);
 }
 
+void BaseEntity::update(float deltaTime) {
+	sync();
+}

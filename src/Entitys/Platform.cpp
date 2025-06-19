@@ -10,26 +10,21 @@ static auto registerIt = Factory::instance().registerType(
 );
 
 Platform::Platform(sfPos pos, b2World* world, sf::Vector2f size)
-	:StaticEntity(pos, world)
+	:BaseEntity(nullptr, pos, world)
 {
     initBox2d(pos, size);
 }
 
 void Platform::initBox2d(sfPos pos, sf::Vector2f size)
 {
-    std::cout << "b2Body created at: ("
-        << m_bodyDef.position.x * SCALE << ", "
-        << m_bodyDef.position.y * SCALE << ")\n";
-
-    m_bodyDef.position = { pos.x / SCALE, pos.y / SCALE };
-    m_body = m_world->CreateBody(&m_bodyDef);
-
-    m_polygonShape.SetAsBox(size.x / 2 / SCALE, size.y / 2 / SCALE);
+	BaseEntity::initBox2d(pos);
+	b2PolygonShape polygonShape;
+    polygonShape.SetAsBox(size.x / 2 / SCALE, size.y / 2 / SCALE);
 
     b2FixtureDef fix;
-    fix.shape = &m_polygonShape;
-    fix.friction = 0.8f;
+    fix.shape = &polygonShape;
+    fix.friction = 0.4f;
     fix.restitution = 0.1f;
     fix.density = 0.0f;
-    m_fixture = m_body->CreateFixture(&fix);
+    m_body->CreateFixture(&fix);
 }

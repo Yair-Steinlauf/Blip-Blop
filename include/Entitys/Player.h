@@ -11,5 +11,5 @@ public:
 	~Player() override = default;
 	void update(float deltaTime) override;
 private:
-	std::unique_ptr<MoveComponent> m_moveComponent;
+	MoveComponent m_moveComponent;
 };

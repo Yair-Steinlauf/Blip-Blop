@@ -11,14 +11,14 @@ static auto registerIt = Factory::instance().registerType(
 );
 
 Player::Player(sfPos pos, b2World* world)
-	: BaseEntity(pos, world) , m_moveComponent(std::make_unique<MoveComponent>(*this, world))
+	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::PLAYER),pos, world),
+	m_moveComponent(*this)
 {
-	initSprite(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
-	initBox2d(pos);
 }
 
 void Player::update(float deltaTime)
 {
-	if (m_moveComponent)
-		m_moveComponent->update(deltaTime);
+	BaseEntity::update(deltaTime);
+
+	m_moveComponent.update(deltaTime);
 }

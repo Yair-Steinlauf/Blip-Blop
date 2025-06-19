@@ -7,7 +7,7 @@
 class MovingState;
 class MoveComponent {
 public:
-    MoveComponent(BaseEntity& entity, b2World* world);
+    MoveComponent(BaseEntity& entity);
     void update(float deltaTime);
     void setDirection(sf::Vector2f direction);
     void setVelocity(float x, float y);
@@ -21,11 +21,8 @@ public:
 private:
     BaseEntity& m_entity;
     b2Body* m_body = nullptr;
-    b2World* m_world = nullptr;
-    b2PolygonShape m_polygonShape;
-    b2Fixture* m_fixture = nullptr;
     sf::Vector2f m_direction;
-    float m_speed = 100.f;
+    float m_speed = 10000000000.f;
     std::unique_ptr<MovingState> m_state;
     void initBox2d(sfPos pos);
 }; 
