@@ -22,7 +22,6 @@ private:
     BaseEntity& m_entity;
     b2Body* m_body = nullptr;
     sf::Vector2f m_direction;
-    float m_speed = 10000000000.f;
+    float m_speed = 1000.f;
     std::unique_ptr<MovingState> m_state;
-    void initBox2d(sfPos pos);
 }; 

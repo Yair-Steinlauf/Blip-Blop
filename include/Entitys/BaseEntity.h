@@ -19,7 +19,8 @@ class BaseEntity
 public:
 	BaseEntity(sf::Texture* tex = nullptr ,sfPos pos = {0,0}, b2World* world = nullptr);
 	virtual void draw(sf::RenderWindow& window) const;
-	virtual void update(float deltaTime);//TODO: function update
+	virtual void update(float deltaTime);
+	void setFixture(bool fixedRotation, b2BodyType staticOrDinamic, float linearDamping, float friction, float restitution, float density);
 	sfPos getPosition() const;
 	BaseEntity& setSpritePosition(sfPos pos);
 	virtual ~BaseEntity();
@@ -29,6 +30,8 @@ protected:
 	b2Body* m_body = nullptr;
 	b2World* m_world = nullptr;
 	virtual void initBox2d(sfPos pos);
+	void updatePolygon();
+	void initBody(sfPos& pos);
 	void sync();
 
 };

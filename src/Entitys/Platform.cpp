@@ -17,10 +17,10 @@ Platform::Platform(sfPos pos, b2World* world, sf::Vector2f size)
 
 void Platform::initBox2d(sfPos pos, sf::Vector2f size)
 {
-	BaseEntity::initBox2d(pos);
+    initBody(pos);
 	b2PolygonShape polygonShape;
     polygonShape.SetAsBox(size.x / 2 / SCALE, size.y / 2 / SCALE);
-
+	//m_body->DestroyFixture(m_body->GetFixtureList()); // Remove any existing fixtures
     b2FixtureDef fix;
     fix.shape = &polygonShape;
     fix.friction = 0.4f;

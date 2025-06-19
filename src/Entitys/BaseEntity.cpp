@@ -9,9 +9,9 @@ BaseEntity::BaseEntity(sf::Texture* tex, sfPos pos, b2World* world)
 		m_sprite.setPosition(pos);
 		auto size = tex->getSize();
 		m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
+		initBox2d(pos);
 	}
 
-	initBox2d(pos);
 }
 
 void BaseEntity::draw(sf::RenderWindow& window) const
@@ -48,6 +48,24 @@ b2Body* BaseEntity::getBody() const
 
 void BaseEntity::initBox2d(sfPos pos)
 {
+	initBody(pos);
+
+	//TODO: link body with entity
+	//m_body->SetUserData(this);
+	//TODO: init poligon
+	updatePolygon();
+
+}
+
+void BaseEntity::updatePolygon()
+{
+	b2PolygonShape polygonShape;
+	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
+	m_body->CreateFixture(&polygonShape, 1.0f);
+}
+
+void BaseEntity::initBody(sfPos& pos)
+{
 	if (!m_world)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
 	b2BodyDef bodyDef;
@@ -55,14 +73,6 @@ void BaseEntity::initBox2d(sfPos pos)
 	m_body = m_world->CreateBody(&bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
-
-	//TODO: link body with entity
-	//m_body->SetUserData(this);
-	//TODO: init poligon
-	b2PolygonShape polygonShape;
-	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
-	m_body->CreateFixture(&polygonShape, 1.0f);
-
 }
 
 
@@ -80,4 +90,17 @@ void BaseEntity::sync()
 
 void BaseEntity::update(float deltaTime) {
 	sync();
+}
+
+void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float linearDamping, float friction, float restitution, float density)
+{
+	m_body->SetType(staticOrDinamic);
+	m_body->SetFixedRotation(fixedRotation);
+	m_body->SetLinearDamping(linearDamping);
+	m_body->GetFixtureList()->SetFriction(friction);
+
+	m_body->GetFixtureList()->SetRestitution(restitution);
+
+	m_body->GetFixtureList()->SetDensity(density);
+	m_body->ResetMassData();
 }

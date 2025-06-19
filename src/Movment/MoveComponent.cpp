@@ -5,37 +5,14 @@
 #include "PlayerStandMovment.h"
 
 MoveComponent::MoveComponent(BaseEntity& entity)
-    : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f), m_speed(100.f)
+    : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f)
 {
     sfPos pos = entity.getPosition();
-    m_body->SetType(b2_dynamicBody);
-    m_body->SetFixedRotation(true);
-    m_body->SetLinearDamping(2.5f);
-    m_body->GetFixtureList()->SetFriction(0.0f);
-
-    m_body->GetFixtureList()->SetRestitution(0.0f);
-
-    m_body->GetFixtureList()->SetDensity(1.0f);
-	m_body->ResetMassData();
+	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
     m_state = std::make_unique<PlayerStandMovement>(*this);
 }
 
-void MoveComponent::initBox2d(sfPos pos)
-{
 
-    //b2BodyDef bodyDef;
-    //bodyDef.type = b2_dynamicBody;
-    //bodyDef.position.Set(pos.x / SCALE, pos.y / SCALE);
-    //m_body = m_world->CreateBody(&bodyDef);
-    //m_polygonShape.SetAsBox(25.f / SCALE, 25.f / SCALE); // דוגמה, אפשר לשפר לפי sprite
-    //b2FixtureDef fix;
-    //fix.shape = &m_polygonShape;
-    //fix.density = 1.0f;
-    //fix.friction = 0.8f;
-    //fix.restitution = 0.0f;
-    //m_fixture = m_body->CreateFixture(&fix);
-
-}
 
 void MoveComponent::update(float deltaTime) {
     if (m_state) {
@@ -45,20 +22,14 @@ void MoveComponent::update(float deltaTime) {
             m_state->enter();
         }
     }
-
-    float maxVelocity = 25.0f; // או מהירות שתראה טבעית
+    //speed limit
+    float maxVelocity = 2500.0f; 
     b2Vec2 currentVel = m_body->GetLinearVelocity();
 
-    //if (std::abs(currentVel.x) < maxVelocity) {
+    if (std::abs(currentVel.x) < maxVelocity) {
         b2Vec2 force(m_direction.x * m_speed, 0); 
         m_body->ApplyForceToCenter(force, true);
-    //}
-    //b2Vec2 force(m_direction.x * m_speed , 0);
-    //m_body->ApplyForceToCenter(force, true);
-    //// עדכון מיקום ה-entity לפי הפיזיקה
-    b2Vec2 pos = m_body->GetPosition();
-    m_entity.setSpritePosition({ pos.x * SCALE, pos.y * SCALE });
-    //TODO: call animation system here
+    }
     
 }
 
