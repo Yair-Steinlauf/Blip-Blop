@@ -26,6 +26,13 @@ enum class ObjectType
     GamePlay
 };
 
+enum class PlayerMovment {
+	STAND,
+	RIGHT,
+	LEFT,
+	JUMP
+};
+
 const int SCREEN_WIDTH = 800; // Window width
 const int SCREEN_HEIGHT = 600; // Window height
 

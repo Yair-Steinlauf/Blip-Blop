@@ -1,13 +1,13 @@
 #include "Platform.h"	
 #include "Factory/Factory.h"
 
-//static auto registerIt = Factory::instance().registerType(
-//    ObjectType::PLATFORM,
-//    [](sfPos pos, b2World* world, sf::Vector2f size) -> std::unique_ptr<BaseEntity>
-//    {
-//        return std::make_unique<PLATFORM>(pos, world);
-//    }
-//);
+static auto registerIt = Factory::instance().registerType(
+    ObjectType::PLATFORM,
+    [](sfPos pos, b2World* world) -> std::unique_ptr<BaseEntity>
+    {
+        return std::make_unique <Platform> (pos, world);
+    }
+);
 
 Platform::Platform(sfPos pos, b2World* world, sf::Vector2f size)
 	:StaticEntity(pos, world)

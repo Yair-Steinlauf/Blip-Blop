@@ -6,19 +6,21 @@
 
 void PlayerRightMovement::enter()
 {
-	m_entity.setDirection({ 1.f, 0.f }); // Move right
+    
+	m_moveComponent.setDirection({ 1.f, 0.f }); // Move right
 }
 
 std::unique_ptr<MovingState> PlayerRightMovement::move()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        return std::make_unique<PlayerLeftMovement>(m_entity);
+        return std::make_unique<PlayerLeftMovement>(m_moveComponent);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_entity.checkIsGrounded())
-        return std::make_unique<PlayerJumpMovement>(m_entity);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_moveComponent.checkIsGrounded())
+        return std::make_unique<PlayerJumpMovement>(m_moveComponent);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         return nullptr; 
 
-    return std::make_unique<PlayerStandMovement>(m_entity);
+    return std::make_unique<PlayerStandMovement>(m_moveComponent);
 }
+

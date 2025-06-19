@@ -3,7 +3,6 @@
 MovingEntity::MovingEntity(sfPos pos, b2World* world) :
 	BaseEntity(pos, world),
 	m_direction(0.f, 0.f),
-	m_movement(nullptr),
 	m_speed(100.f)
 {
 	m_bodyDef.type = b2_dynamicBody;
@@ -22,24 +21,9 @@ MovingEntity& MovingEntity::setVelocity(float x, float y)
 void MovingEntity::update(float deltaTime)
 {
 	//TODO: good movement
-	movment();
 	b2Vec2 force(m_direction.x * m_speed * 10.0f, 0);
 	m_body->ApplyForceToCenter(force, true);
 	sync();
-}
-
-void MovingEntity::movment()
-{
-	if (m_movement)
-	{
-		auto newState = m_movement->move();
-		if (newState)
-		{
-			m_movement = std::move(newState);
-
-			m_movement->enter();
-		}
-	}
 }
 
 MovingEntity& MovingEntity::applyJumpImpulse(float force)

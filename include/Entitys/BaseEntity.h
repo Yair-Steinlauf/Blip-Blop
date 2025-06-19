@@ -21,6 +21,7 @@ public:
 	virtual void draw(sf::RenderWindow& window) const;
 	virtual void update(float deltaTime) {}//TODO: function update
 	sfPos getPosition() const;
+	BaseEntity& setSpritePosition(sfPos pos);
 	virtual ~BaseEntity();
 protected:
 	sf::Sprite m_sprite;
