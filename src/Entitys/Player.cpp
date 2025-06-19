@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Factory.h"
-#include "Movment/PlayerStandMovment.h"
+#include "DataLoader.h"
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
@@ -10,13 +10,15 @@ static auto registerIt = Factory::instance().registerType(
 	}
 );
 
-
 Player::Player(sfPos pos, b2World* world)
-	:AttackingEntity(pos, world)
+	: BaseEntity(pos, world) , m_moveComponent(std::make_unique<MoveComponent>(*this, world))
 {
-
-	m_movement = std::make_unique<PlayerStandMovement>(*this);
 	initSprite(DataLoader::getInstance().getP2Texture(ObjectType::PLAYER));
 	initBox2d(pos);
+}
 
+void Player::update(float deltaTime)
+{
+	if (m_moveComponent)
+		m_moveComponent->update(deltaTime);
 }

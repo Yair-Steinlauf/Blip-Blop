@@ -6,9 +6,8 @@
 
 void PlayerJumpMovement::enter()
 {
-	if (m_entity.checkIsGrounded()) {
-		m_entity.applyJumpImpulse(600.f);
-
+	if (m_moveComponent.checkIsGrounded()) {
+		m_moveComponent.applyJumpImpulse(30.f);
 	}
 }
 
@@ -17,19 +16,17 @@ std::unique_ptr<MovingState> PlayerJumpMovement::move()
 {
 	//TODO: fast sinking
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-	//	return std::make_unique<PlayerStandMovement>();
+	//	return std::make_unique<PlayerStandMovement>(m_moveComponent);
 	//}
-	if (m_entity.checkIsGrounded())
+	if (m_moveComponent.checkIsGrounded())
 	{
-		return std::make_unique<PlayerStandMovement>(m_entity);
+		return std::make_unique<PlayerStandMovement>(m_moveComponent);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		return std::make_unique<PlayerLeftMovement>(m_entity);
+		return std::make_unique<PlayerLeftMovement>(m_moveComponent);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		return std::make_unique<PlayerRightMovement>(m_entity);
+		return std::make_unique<PlayerRightMovement>(m_moveComponent);
 	}
 	return nullptr;
-
-
 }

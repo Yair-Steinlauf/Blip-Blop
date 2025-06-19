@@ -1,11 +1,12 @@
 #pragma once
-#include "MovingState.h"
+#include <memory>
+#include "Movment/MovingState.h"
 
 
-class PlayerJumpMovement : public  MovingState {
+class PlayerJumpMovement : public MovingState {
 public:
-	MovingState::MovingState;
+	using MovingState::MovingState;
+	~PlayerJumpMovement() override = default;
 	void enter() override;
 	std::unique_ptr<MovingState> move() override;
-private:
 };

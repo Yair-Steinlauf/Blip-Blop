@@ -18,6 +18,12 @@ sfPos BaseEntity::getPosition() const
 	 return m_sprite.getPosition();
 }
 
+BaseEntity &BaseEntity::setSpritePosition(sfPos pos)
+{
+	m_sprite.setPosition(pos);
+	return *this;
+}
+
 BaseEntity::~BaseEntity()
 {
 	if (m_body && m_world)

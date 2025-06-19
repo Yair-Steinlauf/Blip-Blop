@@ -1,6 +1,6 @@
-#include "MovingState.h"
-
-MovingState::MovingState(MovingEntity& entity):
-	m_entity(entity)
+#include "Movment/MovingState.h"
+#include "Movment/MoveComponent.h"
+MovingState::MovingState(MoveComponent& moveComponent)
+	: m_moveComponent(moveComponent)
 {
 }
