@@ -45,3 +45,4 @@ static float Box2dToSFML(float x) {
 static float SFMLToBox2d(float x) {
 	return x / SCALE;
 }
+

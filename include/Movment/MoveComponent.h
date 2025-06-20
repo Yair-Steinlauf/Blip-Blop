@@ -11,6 +11,7 @@ public:
     MoveComponent(BaseEntity& entity);
     void update(float deltaTime);
     void setDirection(sf::Vector2f direction);
+    sf::Vector2f getDirection();
     void setVelocity(float x, float y);
     void applyJumpImpulse(float force);
     bool checkIsGrounded() const;
@@ -21,6 +22,7 @@ public:
     void setGunState(std::unique_ptr<GunState> state);
     GunState* getGunState() const;
     //TODO: add animation system interface here?
+
 private:
     BaseEntity& m_entity;
     b2Body* m_body = nullptr;

@@ -45,6 +45,10 @@ void MoveComponent::setDirection(sf::Vector2f direction) {
     m_direction = direction;
 }
 
+sf::Vector2f MoveComponent::getDirection() {
+    return m_direction;
+}
+
 void MoveComponent::setVelocity(float x, float y) {
     m_body->SetLinearVelocity(b2Vec2(x, y));
 }
