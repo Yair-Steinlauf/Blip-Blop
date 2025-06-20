@@ -5,6 +5,7 @@
 #include "Entitys/BaseEntity.h"
 
 class MovingState;
+class GunState;
 class MoveComponent {
 public:
     MoveComponent(BaseEntity& entity);
@@ -17,6 +18,8 @@ public:
     float getSpeed() const;
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
+    void setGunState(std::unique_ptr<GunState> state);
+    GunState* getGunState() const;
     //TODO: add animation system interface here?
 private:
     BaseEntity& m_entity;
@@ -24,4 +27,5 @@ private:
     sf::Vector2f m_direction;
     float m_speed = 1000.f;
     std::unique_ptr<MovingState> m_state;
+    std::unique_ptr<GunState> m_gunState;
 }; 

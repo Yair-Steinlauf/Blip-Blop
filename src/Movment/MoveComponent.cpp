@@ -1,5 +1,6 @@
 #include "Movment/MoveComponent.h"
 #include "Movment/MovingState.h"
+#include "Movment/GunState.h"
 #include "BaseEntity.h"
 #include "Constance.h"
 #include "PlayerStandMovment.h"
@@ -20,6 +21,13 @@ void MoveComponent::update(float deltaTime) {
         if (newState) {
             m_state = std::move(newState);
             m_state->enter();
+        }
+    }
+    if (m_gunState) {
+        auto newGunState = m_gunState->move();
+        if (newGunState) {
+            m_gunState = std::move(newGunState);
+            m_gunState->enter();
         }
     }
     //speed limit
@@ -68,3 +76,12 @@ void MoveComponent::setState(std::unique_ptr<MovingState> state) {
 MovingState* MoveComponent::getState() const {
     return m_state.get();
 } 
+
+void MoveComponent::setGunState(std::unique_ptr<GunState> state) {
+    m_gunState = std::move(state);
+    if (m_gunState) m_gunState->enter();
+}
+
+GunState* MoveComponent::getGunState() const {
+    return m_gunState.get();
+}
