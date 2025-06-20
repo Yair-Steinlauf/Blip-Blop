@@ -13,13 +13,13 @@ void PlayerStandMovement::enter()
 
 std::unique_ptr<MovingState> PlayerStandMovement::move()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		return std::make_unique<PlayerRightMovement>(m_moveComponent);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		return std::make_unique<PlayerLeftMovement>(m_moveComponent);
 	}
-	else if (m_moveComponent.checkIsGrounded() && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	else if (m_moveComponent.checkIsGrounded() && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		return std::make_unique<PlayerJumpMovement>(m_moveComponent);
 	}
 	return nullptr;
