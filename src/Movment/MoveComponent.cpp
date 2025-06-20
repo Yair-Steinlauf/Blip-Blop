@@ -1,6 +1,6 @@
 #include "Movment/MoveComponent.h"
 #include "Movment/MovingState.h"
-#include "Movment/GunState.h"
+#include "Movment/GunMovment/GunState.h"
 #include "BaseEntity.h"
 #include "Constance.h"
 #include "PlayerStandMovment.h"
