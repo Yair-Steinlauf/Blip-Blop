@@ -10,7 +10,6 @@ Controller::Controller():
 {
 
 	m_screenStack.push(ScreenFactory::instance().create(ObjectType::GamePlay, m_window.get()));
-
 }
 
 void Controller::run()

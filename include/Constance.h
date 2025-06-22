@@ -10,7 +10,7 @@ enum class ObjectType
     PLATFORM,
     MAP,
 
-
+    characterSprite,
 
     Enemy1,
     Enemy2,

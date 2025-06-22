@@ -9,6 +9,7 @@
 #include "Factory.h"
 #include "DataLoader.h"
 #include "Constance.h"
+#include "GameAnimations.h"
 
 
 //==============Forward declarations============

@@ -1,8 +1,11 @@
 #include <iostream>
 #include "Controller.h"
+#include <GameAnimations.h>
 int main()
 {
 	try {
+		GameAnimations::initializeFrames();
+
 		Controller controller;
 		controller.run();
 	}

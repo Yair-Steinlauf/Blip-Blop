@@ -12,6 +12,8 @@
 
 void PlayerRightGun::enter()
 {
+	std::cout << ">> PlayerRightGun::enter()\n";
+
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::Blip, Direction::Right, 0);
