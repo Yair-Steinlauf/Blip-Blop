@@ -8,7 +8,7 @@ Controller::Controller():
 	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game Window"))
 	, m_screenStack()
 {
-
+	GameAnimations::initializeFrames();
 	m_screenStack.push(ScreenFactory::instance().create(ObjectType::GamePlay, m_window.get()));
 }
 

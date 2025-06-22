@@ -12,9 +12,13 @@
 
 void PlayerLeftGun::enter()
 {
-	//if (m_moveComponent.checkIsGrounded()) {
-	//	m_moveComponent.applyJumpImpulse(300.f);
-	//}
+	std::cout << ">> PlayerRightGun::enter()\n";
+
+	const sf::IntRect& frame =
+		GameAnimations::getInstance()
+		.getFrame(AnimationSet::Blip, Direction::Left, 0);
+
+	m_moveComponent.getEntity().setTextureRect(frame);
 }
 
 

@@ -28,7 +28,8 @@ private:
     BaseEntity& m_entity;
     b2Body* m_body = nullptr;
     sf::Vector2f m_direction;
-    float m_speed = 1000.f;
+    sf::Vector2f m_lastDirection;
+    float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
     std::unique_ptr<GunState> m_gunState;
 }; 

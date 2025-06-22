@@ -16,7 +16,7 @@ Player::Player(sfPos pos, b2World* world)
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
-		.getFrame(AnimationSet::Blip, Direction::Left, 0);
+		.getFrame(AnimationSet::Blip, Direction::Right, 0);
 
 	setTextureRect(frame);
 }

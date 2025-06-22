@@ -63,20 +63,43 @@ void BaseEntity::initBox2d(sfPos pos)
 //	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
 //	m_body->CreateFixture(&polygonShape, 1.0f);
 //}
+//void BaseEntity::updatePolygon()
+//{
+//	if (!m_body) return;
+//
+//	/* 1. מוחקים את כל ה-fixtures הקיימים */
+//	while (b2Fixture* f = m_body->GetFixtureList())
+//		m_body->DestroyFixture(f);
+//
+//	/* 2. בונים אחד חדש על-פי הגבולות הנוכחיים של הספרייט */
+//	const auto bounds = m_sprite.getGlobalBounds();
+//
+//	b2PolygonShape shape;
+//	shape.SetAsBox(bounds.width / 2.f / SCALE,
+//		bounds.height / 2.f / SCALE);
+//
+//	b2FixtureDef fd;
+//	fd.shape = &shape;
+//	fd.density = 1.f;
+//	fd.friction = 0.3f;
+//	fd.restitution = 0.f;
+//
+//	m_body->CreateFixture(&fd);
+//}
 void BaseEntity::updatePolygon()
 {
 	if (!m_body) return;
 
-	/* 1. מוחקים את כל ה-fixtures הקיימים */
+	// 1. מוחקים את כל ה-fixtures הקיימים
 	while (b2Fixture* f = m_body->GetFixtureList())
 		m_body->DestroyFixture(f);
 
-	/* 2. בונים אחד חדש על-פי הגבולות הנוכחיים של הספרייט */
-	const auto bounds = m_sprite.getGlobalBounds();
+	const float FIXTURE_WIDTH = 40.f;
+	const float FIXTURE_HEIGHT = 28.f;
 
 	b2PolygonShape shape;
-	shape.SetAsBox(bounds.width / 2.f / SCALE,
-		bounds.height / 2.f / SCALE);
+	shape.SetAsBox(FIXTURE_WIDTH / 2.f / SCALE,
+		FIXTURE_HEIGHT / 2.f / SCALE);
 
 	b2FixtureDef fd;
 	fd.shape = &shape;
@@ -86,6 +109,7 @@ void BaseEntity::updatePolygon()
 
 	m_body->CreateFixture(&fd);
 }
+
 
 
 void BaseEntity::initBody(sfPos& pos)
