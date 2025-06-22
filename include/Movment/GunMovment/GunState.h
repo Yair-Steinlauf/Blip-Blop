@@ -2,6 +2,8 @@
 #include <memory>
 #include "Movment/MoveComponent.h"
 
+#include "GameAnimations.h"
+
 class GunState
 {
 public:

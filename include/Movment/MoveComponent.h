@@ -22,6 +22,7 @@ public:
     void setGunState(std::unique_ptr<GunState> state);
     GunState* getGunState() const;
     //TODO: add animation system interface here?
+    BaseEntity& getEntity();
 
 private:
     BaseEntity& m_entity;

@@ -89,3 +89,7 @@ void MoveComponent::setGunState(std::unique_ptr<GunState> state) {
 GunState* MoveComponent::getGunState() const {
     return m_gunState.get();
 }
+
+BaseEntity& MoveComponent::getEntity() {
+    return m_entity;
+}

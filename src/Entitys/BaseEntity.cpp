@@ -104,3 +104,7 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 	m_body->GetFixtureList()->SetDensity(density);
 	m_body->ResetMassData();
 }
+/////////////
+void BaseEntity::setTextureRect(const sf::IntRect& rect) {
+	m_sprite.setTextureRect(rect);
+}
