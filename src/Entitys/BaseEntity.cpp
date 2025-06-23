@@ -57,12 +57,12 @@ void BaseEntity::initBox2d(sfPos pos)
 
 }
 
-//void BaseEntity::updatePolygon()
-//{
-//	b2PolygonShape polygonShape;
-//	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
-//	m_body->CreateFixture(&polygonShape, 1.0f);
-//}
+void BaseEntity::updatePolygon()
+{
+	b2PolygonShape polygonShape;
+	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
+	m_body->CreateFixture(&polygonShape, 1.0f);
+}
 //void BaseEntity::updatePolygon()
 //{
 //	if (!m_body) return;
@@ -86,16 +86,13 @@ void BaseEntity::initBox2d(sfPos pos)
 //
 //	m_body->CreateFixture(&fd);
 //}
-void BaseEntity::updatePolygon()
+void BaseEntity::updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
 {
 	if (!m_body) return;
 
 	// 1. מוחקים את כל ה-fixtures הקיימים
 	while (b2Fixture* f = m_body->GetFixtureList())
 		m_body->DestroyFixture(f);
-
-	const float FIXTURE_WIDTH = 40.f;
-	const float FIXTURE_HEIGHT = 28.f;
 
 	b2PolygonShape shape;
 	shape.SetAsBox(FIXTURE_WIDTH / 2.f / SCALE,
@@ -185,7 +182,7 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 //	}
 //}
 
-void BaseEntity::setTextureRect(const sf::IntRect& rect)
+void BaseEntity::setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
 {
 	/* חיתוך הספרייט + Origin חדש */
 	m_sprite.setTextureRect(rect);
@@ -193,5 +190,5 @@ void BaseEntity::setTextureRect(const sf::IntRect& rect)
 		rect.height / 2.f);
 
 	/* התאמת ה-fixture – שימוש חוזר בפונקציה שלך */
-	updatePolygon();
+	updatePolygonWithSize(FIXTURE_WIDTH, FIXTURE_HEIGHT);
 }

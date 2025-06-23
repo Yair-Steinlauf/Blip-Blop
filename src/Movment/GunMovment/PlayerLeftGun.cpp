@@ -12,13 +12,11 @@
 
 void PlayerLeftGun::enter()
 {
-	std::cout << ">> PlayerRightGun::enter()\n";
-
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::Blip, Direction::Left, 0);
 
-	m_moveComponent.getEntity().setTextureRect(frame);
+	m_moveComponent.getEntity().setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
 }
 
 

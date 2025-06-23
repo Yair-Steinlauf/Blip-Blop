@@ -18,7 +18,7 @@ Player::Player(sfPos pos, b2World* world)
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::Blip, Direction::Right, 0);
 
-	setTextureRect(frame);
+	setTextureRect(frame,PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
 }
 
 void Player::update(float deltaTime)

@@ -12,13 +12,11 @@
 
 void PlayerRightGun::enter()
 {
-	std::cout << ">> PlayerRightGun::enter()\n";
-
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::Blip, Direction::Right, 0);
 
-	m_moveComponent.getEntity().setTextureRect(frame);
+	m_moveComponent.getEntity().setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
 }
 
 std::unique_ptr<GunState> PlayerRightGun::move(sf::Vector2f mousePos, sf::Vector2f entityPos)

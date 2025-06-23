@@ -18,8 +18,6 @@ MoveComponent::MoveComponent(BaseEntity& entity)
 
 
 void MoveComponent::update(float deltaTime) {
-    sf::Vector2f m = getDirection();
-    std::cout << "m = (" << m.x << ", " << m.y << ")\n";
 
     if (m_state) {
         auto newState = m_state->move();

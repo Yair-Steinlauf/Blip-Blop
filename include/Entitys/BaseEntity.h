@@ -27,7 +27,7 @@ public:
 	virtual ~BaseEntity();
 	b2Body* getBody() const;
 
-	void setTextureRect(const sf::IntRect& rect);
+	void setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT);
 protected:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
@@ -35,6 +35,7 @@ protected:
 	b2World* m_world = nullptr;
 	virtual void initBox2d(sfPos pos);
 	void updatePolygon();
+	void updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT);
 	void initBody(sfPos& pos);
 	void sync();
 
