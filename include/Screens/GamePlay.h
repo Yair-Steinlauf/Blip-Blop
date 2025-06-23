@@ -21,5 +21,5 @@ private:
 	std::vector<Cube> m_cubes;
 	sf::RenderWindow* m_window = nullptr;
 
-
+	sf::Vector2f getMouseWorldPosition(const sf::RenderWindow& window);
 };

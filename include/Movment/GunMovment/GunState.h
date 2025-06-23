@@ -11,8 +11,7 @@ public:
 	GunState(MoveComponent& moveComponent);
 	virtual ~GunState() = default;
 	virtual void enter() = 0;
-	virtual std::unique_ptr<GunState> move() = 0;
-
+	virtual std::unique_ptr<GunState> move(sf::Vector2f mousePos, sf::Vector2f entityPos) = 0;
 protected:
 	MoveComponent& m_moveComponent;
 };

@@ -23,13 +23,18 @@ public:
     GunState* getGunState() const;
     //TODO: add animation system interface here?
     BaseEntity& getEntity();
+    void setMouseWorldPosition(sf::Vector2f mousePos);
+    void setEntityPos(sf::Vector2f entityPos);
+    sf::Vector2f getEntityPos();
 
 private:
     BaseEntity& m_entity;
     b2Body* m_body = nullptr;
     sf::Vector2f m_direction;
     sf::Vector2f m_lastDirection;
+    sf::Vector2f m_entityPos;
     float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
     std::unique_ptr<GunState> m_gunState;
+    sf::Vector2f m_mousePos;
 }; 

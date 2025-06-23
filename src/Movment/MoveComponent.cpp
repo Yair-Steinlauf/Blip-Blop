@@ -29,7 +29,7 @@ void MoveComponent::update(float deltaTime) {
         }
     }
     if (m_gunState) {
-        auto newGunState = m_gunState->move();
+        auto newGunState = m_gunState->move(m_mousePos, m_entityPos);
         if (newGunState) {
             m_gunState = std::move(newGunState);
             m_gunState->enter();
@@ -100,4 +100,16 @@ GunState* MoveComponent::getGunState() const {
 
 BaseEntity& MoveComponent::getEntity() {
     return m_entity;
+}
+
+void MoveComponent::setMouseWorldPosition(sf::Vector2f mousePos) {
+    m_mousePos = mousePos;
+}
+
+void MoveComponent::setEntityPos(sf::Vector2f entityPos) {
+    m_entityPos = entityPos;
+}
+
+sf::Vector2f MoveComponent::getEntityPos() {
+    return m_entityPos;
 }

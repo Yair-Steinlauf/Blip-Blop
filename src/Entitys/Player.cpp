@@ -26,4 +26,9 @@ void Player::update(float deltaTime)
 	BaseEntity::update(deltaTime);
 
 	m_moveComponent.update(deltaTime);
+	m_moveComponent.setEntityPos(this->getPosition());
+}
+
+void Player::setMouseWorldPosition(sf::Vector2f mousePos) {
+	m_moveComponent.setMouseWorldPosition(mousePos);
 }

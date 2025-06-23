@@ -8,5 +8,5 @@ public:
 
 	~PlayerLeftGun() override = default;
 	void enter() override;
-	std::unique_ptr<GunState> move() override;
+	std::unique_ptr<GunState> move(sf::Vector2f mousePos, sf::Vector2f entityPos) override;
 };
