@@ -104,6 +104,10 @@ void MoveComponent::setMouseWorldPosition(sf::Vector2f mousePos) {
     m_mousePos = mousePos;
 }
 
+sf::Vector2f MoveComponent::getMouseWorldPosition() {
+    return m_mousePos;
+}
+
 void MoveComponent::setEntityPos(sf::Vector2f entityPos) {
     m_entityPos = entityPos;
 }

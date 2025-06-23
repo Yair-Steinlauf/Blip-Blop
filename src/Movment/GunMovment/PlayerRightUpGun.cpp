@@ -8,6 +8,7 @@
 #include "Movment/GunMovment/PlayerRightDownGun.h"
 #include "Movment/GunMovment/PlayerRightGun.h"
 #include "Movment/GunMovment/PlayerRightUpGun.h"
+#include <GunMovment/GunShoot.h>
 
 
 void PlayerRightUpGun::enter()
@@ -24,6 +25,10 @@ std::unique_ptr<GunState> PlayerRightUpGun::move(sf::Vector2f mousePos, sf::Vect
 {
 	sf::Vector2f delta = mousePos - entityPos;
 	const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		return std::make_unique<GunShoot>(m_moveComponent);
+	}
 
 	// ירי ימינה רגיל
 	if (angle > -22.5f && angle <= 22.5f)
@@ -64,7 +69,6 @@ std::unique_ptr<GunState> PlayerRightUpGun::move(sf::Vector2f mousePos, sf::Vect
 	// ירי שמאלה אלכסון למטה (כמעט מתחת)
 	if (angle > 67.5f && angle <= 112.5f)
 		return std::make_unique<PlayerLeftDiagonalDownGun>(m_moveComponent);
-
 
 	return nullptr;
 }

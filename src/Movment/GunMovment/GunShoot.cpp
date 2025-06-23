@@ -11,19 +11,26 @@
 #include <GunMovment/GunShoot.h>
 
 
-void PlayerRightGun::enter()
+void GunShoot::enter()
 {
-	const sf::IntRect& frame =
-		GameAnimations::getInstance()
-		.getFrame(AnimationSet::Blip, Direction::Right, 0);
+	sf::Vector2f pos = m_moveComponent.getEntity().getPosition();
+	sf::Vector2f direction = m_moveComponent.getMouseWorldPosition() - pos;
 
-	m_moveComponent.getEntity().setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (length != 0) {
+		sf::Vector2f dirNormalized = direction / length;
+		float gunLength = 36.f; // המרחק מהמרכז לפתח הרובה
+
+		std::cout << (pos + dirNormalized * gunLength).x;
+	}
+
+	std::cout << (pos ).x;
 }
 
-std::unique_ptr<GunState> PlayerRightGun::move(sf::Vector2f mousePos, sf::Vector2f entityPos)
+std::unique_ptr<GunState> GunShoot::move(sf::Vector2f mousePos, sf::Vector2f entityPos)
 {
-    sf::Vector2f delta = mousePos - entityPos;
-    const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
+	sf::Vector2f delta = mousePos - entityPos;
+	const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		return std::make_unique<GunShoot>(m_moveComponent);
@@ -69,5 +76,5 @@ std::unique_ptr<GunState> PlayerRightGun::move(sf::Vector2f mousePos, sf::Vector
 	if (angle > 67.5f && angle <= 112.5f)
 		return std::make_unique<PlayerLeftDiagonalDownGun>(m_moveComponent);
 
-    return nullptr;
+	return nullptr;
 }

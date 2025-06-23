@@ -24,6 +24,7 @@ public:
     //TODO: add animation system interface here?
     BaseEntity& getEntity();
     void setMouseWorldPosition(sf::Vector2f mousePos);
+    sf::Vector2f getMouseWorldPosition();
     void setEntityPos(sf::Vector2f entityPos);
     sf::Vector2f getEntityPos();
 
