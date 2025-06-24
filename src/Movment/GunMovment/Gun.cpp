@@ -1,7 +1,9 @@
 #include "Movment/GunMovment/Gun.h"
 #include "Movment/MoveComponent.h"
-Gun::Gun(MoveComponent& moveComponent)
-	: m_moveComponent(moveComponent)
+#include "Player.h"
+
+Gun::Gun(AnimationSet animationSet, Player* owner)
+	: m_weaponType(animationSet), m_owner(owner)
 {
 }
 
@@ -9,19 +11,14 @@ void Gun::enter(Direction direction)
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
-		.getFrame(AnimationSet::Blip, direction, 0);
+		.getFrame(m_weaponType, direction, 0);
 
-	m_moveComponent.getEntity().setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+	m_owner->setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);	
 }
 
 Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	sf::Vector2f delta = mousePos - entityPos;
 	const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		shoot(mousePos, entityPos);
-		return Direction::Nan;
-	}
 
 	// ירי ימינה רגיל
 	if (angle > -22.5f && angle <= 22.5f)
@@ -67,8 +64,8 @@ Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 }
 
 void Gun::shoot(sf::Vector2f mousePos, sf::Vector2f entityPos) {
-	sf::Vector2f pos = m_moveComponent.getEntity().getPosition();
-	sf::Vector2f direction = m_moveComponent.getMouseWorldPosition() - pos;
+	sf::Vector2f pos = entityPos;
+	sf::Vector2f direction = mousePos - pos;
 	
 	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 	if (length != 0) {

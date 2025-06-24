@@ -18,4 +18,5 @@ public:
 private:
 	MoveComponent m_moveComponent;
 	GamePlay* m_gamePlay = nullptr;
+	std::unique_ptr<Gun> m_gun;
 };
