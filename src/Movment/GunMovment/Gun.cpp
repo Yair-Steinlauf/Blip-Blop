@@ -18,9 +18,10 @@ Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	sf::Vector2f delta = mousePos - entityPos;
 	const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
 
-	//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-	//	Direction::Shoot
-	//}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		shoot(mousePos, entityPos);
+		return Direction::Nan;
+	}
 
 	// ירי ימינה רגיל
 	if (angle > -22.5f && angle <= 22.5f)
@@ -65,3 +66,15 @@ Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	return Direction::Nan;
 }
 
+void Gun::shoot(sf::Vector2f mousePos, sf::Vector2f entityPos) {
+	sf::Vector2f pos = m_moveComponent.getEntity().getPosition();
+	sf::Vector2f direction = m_moveComponent.getMouseWorldPosition() - pos;
+	
+	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (length != 0) {
+		sf::Vector2f dirNormalized = direction / length;
+		float gunLength = 36.f; // המרחק מהמרכז לפתח הרובה
+
+		std::cout << (pos + dirNormalized * gunLength).x;
+	}
+}
