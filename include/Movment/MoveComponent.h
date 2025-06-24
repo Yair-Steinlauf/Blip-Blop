@@ -5,7 +5,7 @@
 #include "Entitys/BaseEntity.h"
 
 class MovingState;
-class GunState;
+class Gun;
 class MoveComponent {
 public:
     MoveComponent(BaseEntity& entity);
@@ -19,8 +19,8 @@ public:
     float getSpeed() const;
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
-    void setGunState(std::unique_ptr<GunState> state);
-    GunState* getGunState() const;
+    //void setGunState(std::unique_ptr<Gun> state);
+    Gun* getGunState() const;
     //TODO: add animation system interface here?
     BaseEntity& getEntity();
     void setMouseWorldPosition(sf::Vector2f mousePos);
@@ -36,6 +36,6 @@ private:
     sf::Vector2f m_entityPos;
     float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
-    std::unique_ptr<GunState> m_gunState;
+    std::unique_ptr<Gun> m_gunState;
     sf::Vector2f m_mousePos;
 }; 

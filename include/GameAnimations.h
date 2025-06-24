@@ -17,7 +17,7 @@ enum class AnimationSet {
 };
 
 enum class Direction {
-    Right, Left,
+    Nan, Right, Left,
     UpRight, UpLeft,
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,

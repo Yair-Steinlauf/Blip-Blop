@@ -3,7 +3,7 @@
 #include "Movment/MoveComponent.h"
 #include "Subject.h"
 #include "Movment/MovingState.h"
-#include "Movment/GunMovment/GunState.h"
+#include "Movment/GunMovment/Gun.h"
 
 class Player : public BaseEntity, public Subject
 {

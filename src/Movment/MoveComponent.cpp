@@ -1,10 +1,9 @@
 #include "Movment/MoveComponent.h"
 #include "Movment/MovingState.h"
-#include "Movment/GunMovment/GunState.h"
+#include "Movment/GunMovment/Gun.h"
 #include "BaseEntity.h"
 #include "Constance.h"
 #include "PlayerStandMovment.h"
-#include <GunMovment/PlayerRightGun.h>
 
 MoveComponent::MoveComponent(BaseEntity& entity)
     : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f)
@@ -12,7 +11,7 @@ MoveComponent::MoveComponent(BaseEntity& entity)
     sfPos pos = entity.getPosition();
 	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
     m_state = std::make_unique<PlayerStandMovement>(*this);
-    m_gunState = std::make_unique<PlayerRightGun>(*this);
+    m_gunState = std::make_unique<Gun>(*this);
 }
 
 
@@ -27,11 +26,9 @@ void MoveComponent::update(float deltaTime) {
         }
     }
     if (m_gunState) {
-        auto newGunState = m_gunState->move(m_mousePos, m_entityPos);
-        if (newGunState) {
-            m_gunState = std::move(newGunState);
-            m_gunState->enter();
-        }
+        Direction direction = m_gunState->move(m_mousePos, m_entityPos);
+        if (static_cast<int>(direction) != 0)
+            m_gunState->enter(direction);
     }
     //speed limit
     float maxVelocity = 2500.0f; 
@@ -87,12 +84,12 @@ MovingState* MoveComponent::getState() const {
     return m_state.get();
 } 
 
-void MoveComponent::setGunState(std::unique_ptr<GunState> state) {
-    m_gunState = std::move(state);
-    if (m_gunState) m_gunState->enter();
-}
+//void MoveComponent::setGunState(std::unique_ptr<Gun> state) {
+//    m_gunState = std::move(state);
+//    if (m_gunState) m_gunState->enter();
+//}
 
-GunState* MoveComponent::getGunState() const {
+Gun* MoveComponent::getGunState() const {
     return m_gunState.get();
 }
 
