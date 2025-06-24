@@ -36,6 +36,6 @@ private:
     sf::Vector2f m_entityPos;
     float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
-    std::unique_ptr<Gun> m_gunState;
+    std::unique_ptr<Gun> m_gun;
     sf::Vector2f m_mousePos;
 }; 

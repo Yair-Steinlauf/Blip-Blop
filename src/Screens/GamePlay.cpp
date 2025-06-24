@@ -16,6 +16,7 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 	m_player(std::make_unique<Player>(sfPos{ 500, 50 }, m_world.get())),
 	m_level(m_player.get(), m_world.get())
 {
+	m_player->setGamePlay(this);
 }
 
 void GamePlay::update(float deltaTime)
@@ -24,7 +25,6 @@ void GamePlay::update(float deltaTime)
 	m_level.update(deltaTime);
 	for (auto& c : m_cubes)
 		c.update();
-	m_player->setMouseWorldPosition(getMouseWorldPosition(*m_window));
 }
 
 void GamePlay::draw()
@@ -40,9 +40,9 @@ void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 	//m_player->movment();
 }
 
-sf::Vector2f GamePlay::getMouseWorldPosition(const sf::RenderWindow& window)
+sf::Vector2f GamePlay::getMouseWorldPosition()
 {
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(window); // window = sf::RenderWindow שלך
-	sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(*m_window); // window = sf::RenderWindow שלך
+	sf::Vector2f worldPos = m_window->mapPixelToCoords(pixelPos);
 	return worldPos;
 }

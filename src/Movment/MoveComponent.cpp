@@ -11,7 +11,7 @@ MoveComponent::MoveComponent(BaseEntity& entity)
     sfPos pos = entity.getPosition();
 	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
     m_state = std::make_unique<PlayerStandMovement>(*this);
-    m_gunState = std::make_unique<Gun>(*this);
+    m_gun = std::make_unique<Gun>(*this);
 }
 
 
@@ -25,10 +25,10 @@ void MoveComponent::update(float deltaTime) {
             m_state->enter();
         }
     }
-    if (m_gunState) {
-        Direction direction = m_gunState->move(m_mousePos, m_entityPos);
+    if (m_gun) {
+        Direction direction = m_gun->move(m_mousePos, m_entityPos);
         if (static_cast<int>(direction) != 0)
-            m_gunState->enter(direction);
+            m_gun->enter(direction);
     }
     //speed limit
     float maxVelocity = 2500.0f; 
@@ -84,13 +84,8 @@ MovingState* MoveComponent::getState() const {
     return m_state.get();
 } 
 
-//void MoveComponent::setGunState(std::unique_ptr<Gun> state) {
-//    m_gunState = std::move(state);
-//    if (m_gunState) m_gunState->enter();
-//}
-
 Gun* MoveComponent::getGunState() const {
-    return m_gunState.get();
+    return m_gun.get();
 }
 
 BaseEntity& MoveComponent::getEntity() {

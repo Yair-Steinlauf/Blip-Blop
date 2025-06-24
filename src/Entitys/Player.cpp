@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Factory.h"
 #include "DataLoader.h"
+#include "GamePlay.h"
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
@@ -27,8 +28,9 @@ void Player::update(float deltaTime)
 
 	m_moveComponent.update(deltaTime);
 	m_moveComponent.setEntityPos(this->getPosition());
+	m_moveComponent.setMouseWorldPosition(m_gamePlay->getMouseWorldPosition());
 }
 
-void Player::setMouseWorldPosition(sf::Vector2f mousePos) {
-	m_moveComponent.setMouseWorldPosition(mousePos);
+void Player::setGamePlay(GamePlay* gamePlay) {
+	m_gamePlay = gamePlay;
 }
