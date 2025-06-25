@@ -23,6 +23,6 @@ private:
 	AnimationSet m_weaponType;
 	sf::Vector2f m_gunDirection;
 
-	float m_shootCooldown = 0.3f;      // מרווח בין יריות (שניות)
-	float m_timeSinceLastShot = 0.0f;  // כמה זמן עבר מאז הירייה האחרונה
+	float m_shootCooldown = 0.3f;
+	float m_timeSinceLastShot = 0.0f;
 };
