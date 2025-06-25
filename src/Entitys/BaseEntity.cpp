@@ -63,6 +63,51 @@ void BaseEntity::updatePolygon()
 	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
 	m_body->CreateFixture(&polygonShape, 1.0f);
 }
+//void BaseEntity::updatePolygon()
+//{
+//	if (!m_body) return;
+//
+//	/* 1. מוחקים את כל ה-fixtures הקיימים */
+//	while (b2Fixture* f = m_body->GetFixtureList())
+//		m_body->DestroyFixture(f);
+//
+//	/* 2. בונים אחד חדש על-פי הגבולות הנוכחיים של הספרייט */
+//	const auto bounds = m_sprite.getGlobalBounds();
+//
+//	b2PolygonShape shape;
+//	shape.SetAsBox(bounds.width / 2.f / SCALE,
+//		bounds.height / 2.f / SCALE);
+//
+//	b2FixtureDef fd;
+//	fd.shape = &shape;
+//	fd.density = 1.f;
+//	fd.friction = 0.3f;
+//	fd.restitution = 0.f;
+//
+//	m_body->CreateFixture(&fd);
+//}
+void BaseEntity::updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
+{
+	if (!m_body) return;
+
+	// 1. מוחקים את כל ה-fixtures הקיימים
+	while (b2Fixture* f = m_body->GetFixtureList())
+		m_body->DestroyFixture(f);
+
+	b2PolygonShape shape;
+	shape.SetAsBox(FIXTURE_WIDTH / 2.f / SCALE,
+		FIXTURE_HEIGHT / 2.f / SCALE);
+
+	b2FixtureDef fd;
+	fd.shape = &shape;
+	fd.density = 1.f;
+	fd.friction = 0.3f;
+	fd.restitution = 0.f;
+
+	m_body->CreateFixture(&fd);
+}
+
+
 
 void BaseEntity::initBody(sfPos& pos)
 {
@@ -103,4 +148,47 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 
 	m_body->GetFixtureList()->SetDensity(density);
 	m_body->ResetMassData();
+}
+/////////////
+//void BaseEntity::setTextureRect(const sf::IntRect& rect)
+//{
+//	/* 1. חותכים את הספרייט         */
+//	m_sprite.setTextureRect(rect);
+//
+//	/* 2. מיישרים שוב למרכז (חשוב!) */
+//	m_sprite.setOrigin(rect.width / 2.f,
+//		rect.height / 2.f);
+//
+//	/* 3. מעדכנים את גוף-הפיזיקה    */
+//	if (m_body)            // לוודא שהגוף כבר קיים
+//	{
+//		/* מוחקים את ה-fixture הישן (יכול להיות יותר מאחד) */
+//		while (b2Fixture* f = m_body->GetFixtureList())
+//			m_body->DestroyFixture(f);
+//
+//		/* בונים fixture חדש בגודל הפריים הנוכחי        */
+//		b2PolygonShape poly;
+//		const auto bounds = m_sprite.getGlobalBounds();
+//		poly.SetAsBox(bounds.width / 2.f / SCALE,
+//			bounds.height / 2.f / SCALE);
+//
+//		b2FixtureDef fd;
+//		fd.shape = &poly;
+//		fd.density = 1.f;
+//		fd.friction = 0.3f;
+//		fd.restitution = 0.f;
+//
+//		m_body->CreateFixture(&fd);
+//	}
+//}
+
+void BaseEntity::setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
+{
+	/* חיתוך הספרייט + Origin חדש */
+	m_sprite.setTextureRect(rect);
+	m_sprite.setOrigin(rect.width / 2.f,
+		rect.height / 2.f);
+
+	/* התאמת ה-fixture – שימוש חוזר בפונקציה שלך */
+	updatePolygonWithSize(FIXTURE_WIDTH, FIXTURE_HEIGHT);
 }

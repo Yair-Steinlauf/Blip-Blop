@@ -22,10 +22,10 @@ std::unique_ptr<MovingState> PlayerJumpMovement::move()
 	{
 		return std::make_unique<PlayerStandMovement>(m_moveComponent);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		return std::make_unique<PlayerLeftMovement>(m_moveComponent);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		return std::make_unique<PlayerRightMovement>(m_moveComponent);
 	}
 	return nullptr;

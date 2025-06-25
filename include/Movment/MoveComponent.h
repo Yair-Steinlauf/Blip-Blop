@@ -18,11 +18,10 @@ public:
     const BaseEntity& getEntity()const;
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
-    //TODO: add animation system interface here?
+
 private:
     BaseEntity& m_entity;
-    b2Body* m_body = nullptr;
     sf::Vector2f m_direction;
-    float m_speed = 1000.f;
+    float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
 }; 

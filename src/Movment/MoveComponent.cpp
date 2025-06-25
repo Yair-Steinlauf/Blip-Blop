@@ -1,5 +1,6 @@
 #include "Movment/MoveComponent.h"
 #include "Movment/MovingState.h"
+#include "Movment/GunMovment/Gun.h"
 #include "BaseEntity.h"
 #include "Constance.h"
 #include "PlayerStandMovment.h"
@@ -14,6 +15,7 @@ MoveComponent::MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> st
 
 
 void MoveComponent::update(float deltaTime) {
+
     if (m_state) {
         auto newState = m_state->move();
         if (newState) {
@@ -23,11 +25,11 @@ void MoveComponent::update(float deltaTime) {
     }
     //speed limit
     float maxVelocity = 2500.0f; 
-    b2Vec2 currentVel = m_body->GetLinearVelocity();
+    b2Vec2 currentVel = m_entity.getBody()->GetLinearVelocity();
 
     if (std::abs(currentVel.x) < maxVelocity) {
-        b2Vec2 force(m_direction.x * m_speed , 0); 
-        m_body->ApplyForceToCenter(force, true);
+        b2Vec2 force(m_direction.x * m_speed, 0); 
+        m_entity.getBody()->ApplyForceToCenter(force, true);
     }
     
 }
@@ -37,18 +39,18 @@ void MoveComponent::setDirection(sf::Vector2f direction) {
 }
 
 void MoveComponent::setVelocity(float x, float y) {
-    m_body->SetLinearVelocity(b2Vec2(x, y));
+    m_entity.getBody()->SetLinearVelocity(b2Vec2(x, y));
 }
 
 void MoveComponent::applyJumpImpulse(float force) {
     if (checkIsGrounded()) {
         b2Vec2 jumpImpulse(0, -force);
-        m_body->ApplyLinearImpulseToCenter(jumpImpulse, true);
+        m_entity.getBody()->ApplyLinearImpulseToCenter(jumpImpulse, true);
     }
 }
 
 bool MoveComponent::checkIsGrounded() const {
-    return std::abs(m_body->GetLinearVelocity().y) == 0;
+    return std::abs(m_entity.getBody()->GetLinearVelocity().y) == 0;
 }
 
 void MoveComponent::setSpeed(float speed) {

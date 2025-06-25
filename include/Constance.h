@@ -10,7 +10,7 @@ enum class ObjectType
     PLATFORM,
     MAP,
 
-
+    characterSprite,
 
     Enemy1,
     Enemy2,
@@ -37,6 +37,9 @@ enum class PlayerMovment {
 const int SCREEN_WIDTH = 800; // Window width
 const int SCREEN_HEIGHT = 600; // Window height
 
+const float PLAYER_FIXTURE_WIDTH = 40.f;
+const float PLAYER_FIXTURE_HEIGHT = 28.f;
+
 using sfPos = sf::Vector2f;
 
 static float Box2dToSFML(float x) {
@@ -45,3 +48,4 @@ static float Box2dToSFML(float x) {
 static float SFMLToBox2d(float x) {
 	return x / SCALE;
 }
+

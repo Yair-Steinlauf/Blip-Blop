@@ -47,6 +47,7 @@ DataLoader::DataLoader()
         {ObjectType::PLAYER, "PLAYER"},
         {ObjectType::SMURF, "SMURF"},
         {ObjectType::MAP, "MAP"},
+        {ObjectType::characterSprite, "characterSprite"},
         //{ObjectType::Enemy2, "Enemy2"},
         //{ObjectType::Tile, "Tile"},
         //{ObjectType::Explode, "Explode"},
