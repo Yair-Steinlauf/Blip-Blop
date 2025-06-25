@@ -5,7 +5,6 @@
 #include "Entitys/BaseEntity.h"
 
 class MovingState;
-class Gun;
 class MoveComponent {
 public:
     MoveComponent(BaseEntity& entity);
