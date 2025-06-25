@@ -34,6 +34,8 @@ public:
 	void setFixtureForBullet();
 	void rotateToDirection(const sf::Vector2f& direction);
 	void setTextureRect(const sf::IntRect& rect);
+	bool shouldBeRemoved() const;
+	void markForRemoval();
 
 protected:
 	sf::Sprite m_sprite;
@@ -41,6 +43,7 @@ protected:
 	sf::Vector2f m_direction;
 	b2Body* m_body = nullptr;
 	b2World* m_world = nullptr;
+	bool m_shouldBeDestroyed = false;
 	virtual void initBox2d(sfPos pos);
 	void updatePolygon();
 	void updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT);

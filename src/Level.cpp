@@ -18,6 +18,8 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {	
+	removeMarkedEntities();
+
 	m_player->update(deltaTime);
 
 	for (auto& entity : m_entities)
@@ -84,4 +86,13 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 	}
 }
 
-
+void Level::removeMarkedEntities() {
+	for (auto it = m_entities.begin(); it != m_entities.end(); ) {
+		if ((*it)->shouldBeRemoved()) {
+			it = m_entities.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+}

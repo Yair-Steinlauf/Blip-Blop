@@ -21,6 +21,11 @@ Bullet::Bullet(sfPos pos, b2World* world)
 }
 
 void Bullet::update(float deltaTime) {
+	m_lifetime += deltaTime;
+
+	if (m_lifetime >= BULLET_LIFETIME)
+		markForRemoval();
+
 	b2Vec2 newVel(m_direction.x * BULLET_SPEED, m_direction.y * BULLET_SPEED);
 	this->getBody()->SetLinearVelocity(newVel);
 	BaseEntity::update(deltaTime);

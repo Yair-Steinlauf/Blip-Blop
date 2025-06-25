@@ -186,3 +186,11 @@ void BaseEntity::setTextureRect(const sf::IntRect& rect)
 
 	updatePolygonWithSize(width, height);
 }
+
+bool BaseEntity::shouldBeRemoved() const {
+	return m_shouldBeDestroyed;
+}
+
+void BaseEntity::markForRemoval() {
+	m_shouldBeDestroyed = true;
+}
