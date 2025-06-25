@@ -15,7 +15,7 @@ Bullet::Bullet(sfPos pos, b2World* world)
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::RifleGunBull, Direction::Right, 0);
 
-	setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+	 setTextureRect(frame);
 
 	this->setFixtureForBullet();
 }
