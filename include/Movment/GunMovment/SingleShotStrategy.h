@@ -11,6 +11,7 @@ public:
 
         auto bullet = Factory::instance().create(ObjectType::BULLET, bulletPos, world);
         bullet->setDirection(dirNormalized);
+        bullet->rotateToDirection(dirNormalized);
 
         std::vector<std::unique_ptr<BaseEntity>> bullets;
         bullets.push_back(std::move(bullet));

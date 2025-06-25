@@ -1,4 +1,4 @@
-#include "BaseEntity.h"
+ï»¿#include "BaseEntity.h"
 #include "Constance.h"
 BaseEntity::BaseEntity(sf::Texture* tex, sfPos pos, b2World* world)
 	:m_world(world)
@@ -70,11 +70,11 @@ void BaseEntity::updatePolygon()
 //{
 //	if (!m_body) return;
 //
-//	/* 1. îåç÷éí àú ëì ä-fixtures ä÷ééîéí */
+//	/* 1. ×ž×•×—×§×™× ××ª ×›×œ ×”-fixtures ×”×§×™×™×ž×™× */
 //	while (b2Fixture* f = m_body->GetFixtureList())
 //		m_body->DestroyFixture(f);
 //
-//	/* 2. áåðéí àçã çãù òì-ôé äâáåìåú äðåëçééí ùì äñôøééè */
+//	/* 2. ×‘×•× ×™× ××—×“ ×—×“×© ×¢×œ-×¤×™ ×”×’×‘×•×œ×•×ª ×”× ×•×›×—×™×™× ×©×œ ×”×¡×¤×¨×™×™×˜ */
 //	const auto bounds = m_sprite.getGlobalBounds();
 //
 //	b2PolygonShape shape;
@@ -93,7 +93,7 @@ void BaseEntity::updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT
 {
 	if (!m_body) return;
 
-	// 1. îåç÷éí àú ëì ä-fixtures ä÷ééîéí
+	// 1. ×ž×•×—×§×™× ××ª ×›×œ ×”-fixtures ×”×§×™×™×ž×™×
 	while (b2Fixture* f = m_body->GetFixtureList())
 		m_body->DestroyFixture(f);
 
@@ -155,21 +155,21 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 /////////////
 //void BaseEntity::setTextureRect(const sf::IntRect& rect)
 //{
-//	/* 1. çåúëéí àú äñôøééè         */
+//	/* 1. ×—×•×ª×›×™× ××ª ×”×¡×¤×¨×™×™×˜         */
 //	m_sprite.setTextureRect(rect);
 //
-//	/* 2. îééùøéí ùåá ìîøëæ (çùåá!) */
+//	/* 2. ×ž×™×™×©×¨×™× ×©×•×‘ ×œ×ž×¨×›×– (×—×©×•×‘!) */
 //	m_sprite.setOrigin(rect.width / 2.f,
 //		rect.height / 2.f);
 //
-//	/* 3. îòãëðéí àú âåó-äôéæé÷ä    */
-//	if (m_body)            // ìååãà ùäâåó ëáø ÷ééí
+//	/* 3. ×ž×¢×“×›× ×™× ××ª ×’×•×£-×”×¤×™×–×™×§×”    */
+//	if (m_body)            // ×œ×•×•×“× ×©×”×’×•×£ ×›×‘×¨ ×§×™×™×
 //	{
-//		/* îåç÷éí àú ä-fixture äéùï (éëåì ìäéåú éåúø îàçã) */
+//		/* ×ž×•×—×§×™× ××ª ×”-fixture ×”×™×©×Ÿ (×™×›×•×œ ×œ×”×™×•×ª ×™×•×ª×¨ ×ž××—×“) */
 //		while (b2Fixture* f = m_body->GetFixtureList())
 //			m_body->DestroyFixture(f);
 //
-//		/* áåðéí fixture çãù áâåãì äôøééí äðåëçé        */
+//		/* ×‘×•× ×™× fixture ×—×“×© ×‘×’×•×“×œ ×”×¤×¨×™×™× ×”× ×•×›×—×™        */
 //		b2PolygonShape poly;
 //		const auto bounds = m_sprite.getGlobalBounds();
 //		poly.SetAsBox(bounds.width / 2.f / SCALE,
@@ -187,12 +187,12 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 
 void BaseEntity::setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
 {
-	/* çéúåê äñôøééè + Origin çãù */
+	/* ×—×™×ª×•×š ×”×¡×¤×¨×™×™×˜ + Origin ×—×“×© */
 	m_sprite.setTextureRect(rect);
 	m_sprite.setOrigin(rect.width / 2.f,
 		rect.height / 2.f);
 
-	/* äúàîú ä-fixture – ùéîåù çåæø áôåð÷öéä ùìê */
+	/* ×”×ª××ž×ª ×”-fixture â€“ ×©×™×ž×•×© ×—×•×–×¨ ×‘×¤×•× ×§×¦×™×” ×©×œ×š */
 	updatePolygonWithSize(FIXTURE_WIDTH, FIXTURE_HEIGHT);
 }
 
@@ -209,6 +209,21 @@ void BaseEntity::setFixtureForBullet()
 	if (!m_body)
 		return;
 
-	// äôéëú äâåó ìãéðîé — ëãé ùéúçéì ìæåæ
+	// ×”×¤×™×›×ª ×”×’×•×£ ×œ×“×™× ×ž×™ â€” ×›×“×™ ×©×™×ª×—×™×œ ×œ×–×•×–
 	m_body->SetType(b2_dynamicBody);
+}
+
+void BaseEntity::rotateToDirection(const sf::Vector2f& direction)
+{
+	if (!m_body)
+		return;
+
+	float angle = std::atan2(direction.y, direction.x);
+
+	b2Vec2 pos = m_body->GetPosition();
+	m_body->SetTransform(pos, angle);
+
+	m_direction = direction;
+
+	sync();
 }

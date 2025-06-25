@@ -15,7 +15,7 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<TripleShotStrategy>(), 0.5f))
+	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), 0.2f))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()

@@ -13,7 +13,7 @@ Bullet::Bullet(sfPos pos, b2World* world)
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
-		.getFrame(AnimationSet::Blip, Direction::Right, 0);
+		.getFrame(AnimationSet::RifleGunBull, Direction::Right, 0);
 
 	setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
 
@@ -21,8 +21,7 @@ Bullet::Bullet(sfPos pos, b2World* world)
 }
 
 void Bullet::update(float deltaTime) {
-	float desiredSpeed = 8.0f;
-	b2Vec2 newVel(m_direction.x * desiredSpeed, m_direction.y * desiredSpeed);
+	b2Vec2 newVel(m_direction.x * BULLET_SPEED, m_direction.y * BULLET_SPEED);
 	this->getBody()->SetLinearVelocity(newVel);
 	BaseEntity::update(deltaTime);
 }

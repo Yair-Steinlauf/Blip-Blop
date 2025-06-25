@@ -39,6 +39,7 @@ const int SCREEN_HEIGHT = 600; // Window height
 
 const float PLAYER_FIXTURE_WIDTH = 40.f;
 const float PLAYER_FIXTURE_HEIGHT = 28.f;
+const float BULLET_SPEED = 80.f;
 
 using sfPos = sf::Vector2f;
 

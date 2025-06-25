@@ -32,6 +32,7 @@ public:
 	void setDirection(sf::Vector2f direction);
 	sf::Vector2f getDirection();
 	void setFixtureForBullet();
+	void rotateToDirection(const sf::Vector2f& direction);
 protected:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
