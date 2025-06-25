@@ -2,18 +2,18 @@
 #include "Movment/MoveComponent.h"
 #include "Player.h"
 
-Gun::Gun(AnimationSet animationSet, Player* owner)
-	: m_weaponType(animationSet), m_owner(owner)
+Gun::Gun(AnimationSet animationSet)
+	: m_weaponType(animationSet)
 {
 }
 
-void Gun::enter(Direction direction)
+void Gun::enter(Direction direction, Player* owner)
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
 		.getFrame(m_weaponType, direction, 0);
 
-	m_owner->setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);	
+	owner->setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);	
 }
 
 Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {

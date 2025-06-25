@@ -13,7 +13,7 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, this))
+	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
@@ -30,7 +30,7 @@ void Player::update(float deltaTime)
 	if (m_gun) {
 		Direction direction = m_gun->move(m_gamePlay->getMouseWorldPosition(), this->getPosition());
 		if (static_cast<int>(direction) != 0)
-			m_gun->enter(direction);
+			m_gun->enter(direction, this);
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
