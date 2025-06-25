@@ -26,11 +26,16 @@ public:
 	BaseEntity& setSpritePosition(sfPos pos);
 	virtual ~BaseEntity();
 	b2Body* getBody() const;
+	b2World* getWorld() const;
 
 	void setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT);
+	void setDirection(sf::Vector2f direction);
+	sf::Vector2f getDirection();
+	void setFixtureForBullet();
 protected:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
+	sf::Vector2f m_direction;
 	b2Body* m_body = nullptr;
 	b2World* m_world = nullptr;
 	virtual void initBox2d(sfPos pos);

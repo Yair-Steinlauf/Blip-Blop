@@ -15,6 +15,7 @@ public:
 	void draw() override;
 	void handleInput(const sf::Event& event, float deltaTime) override;
 	sf::Vector2f getMouseWorldPosition();
+	void addEntity(std::unique_ptr<BaseEntity> entity);
 private:
 	std::unique_ptr<b2World> m_world;
 	std::unique_ptr<Player> m_player;

@@ -9,7 +9,7 @@ enum class ObjectType
     SMURF,
     PLATFORM,
     MAP,
-
+    BULLET,
     characterSprite,
 
     Enemy1,

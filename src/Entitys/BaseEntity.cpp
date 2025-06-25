@@ -44,7 +44,10 @@ b2Body* BaseEntity::getBody() const
 	return m_body;
 }
 
-
+b2World* BaseEntity::getWorld() const
+{
+	return m_world;
+}
 
 void BaseEntity::initBox2d(sfPos pos)
 {
@@ -191,4 +194,21 @@ void BaseEntity::setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, fl
 
 	/* התאמת ה-fixture – שימוש חוזר בפונקציה שלך */
 	updatePolygonWithSize(FIXTURE_WIDTH, FIXTURE_HEIGHT);
+}
+
+sf::Vector2f BaseEntity::getDirection(){
+	return m_direction;
+}
+
+void BaseEntity::setDirection(sf::Vector2f direction) {
+	m_direction = direction;
+}
+
+void BaseEntity::setFixtureForBullet()
+{
+	if (!m_body)
+		return;
+
+	// הפיכת הגוף לדינמי — כדי שיתחיל לזוז
+	m_body->SetType(b2_dynamicBody);
 }

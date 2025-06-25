@@ -8,6 +8,7 @@ public:
 	~Level() = default;
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+	void addEntity(std::unique_ptr<BaseEntity> entity);
 private:
 	void loadStaticPlatformsFromJson(const std::string& path);
 	std::vector<std::unique_ptr<BaseEntity>> m_entities;

@@ -37,7 +37,9 @@ void Level::draw(sf::RenderWindow& window)
 	m_player->draw(window);
 }
 
-
+void Level::addEntity(std::unique_ptr<BaseEntity> entity) {
+	m_entities.push_back(std::move(entity));
+}
 
 void Level::loadStaticPlatformsFromJson(const std::string& path)
 {

@@ -46,3 +46,7 @@ sf::Vector2f GamePlay::getMouseWorldPosition()
 	sf::Vector2f worldPos = m_window->mapPixelToCoords(pixelPos);
 	return worldPos;
 }
+
+void GamePlay::addEntity(std::unique_ptr<BaseEntity> entity) {
+	m_level.addEntity(std::move(entity));
+}
