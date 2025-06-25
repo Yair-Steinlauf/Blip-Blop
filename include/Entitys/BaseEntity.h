@@ -12,6 +12,7 @@
 
 
 //==============Forward declarations============
+class EntityVisitor; // Forward declaration
 
 
 class BaseEntity

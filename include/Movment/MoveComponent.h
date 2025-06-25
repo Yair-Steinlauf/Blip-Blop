@@ -7,7 +7,7 @@
 class MovingState;
 class MoveComponent {
 public:
-    MoveComponent(BaseEntity& entity);
+    MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> state);
     void update(float deltaTime);
     void setDirection(sf::Vector2f direction);
     void setVelocity(float x, float y);
@@ -15,6 +15,7 @@ public:
     bool checkIsGrounded() const;
     void setSpeed(float speed);
     float getSpeed() const;
+    const BaseEntity& getEntity()const;
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
     //TODO: add animation system interface here?

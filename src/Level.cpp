@@ -4,6 +4,7 @@
 #include "Constance.h"
 #include "../external/json.hpp"
 #include <fstream>
+#include"EnemyFactory.h"
 
 Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
@@ -12,6 +13,7 @@ Level::Level(Player* player , b2World* world)
 	//m_entities.push_back(Factory::instance().create(ObjectType::FLOOR, sfPos{500,550/*0,SCREEN_HEIGHT - 20 */}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
+	m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::SMURF, { 100,100 }, m_world, m_player));
 
 }
 

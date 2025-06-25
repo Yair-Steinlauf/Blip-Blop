@@ -4,12 +4,11 @@
 #include "Constance.h"
 #include "PlayerStandMovment.h"
 
-MoveComponent::MoveComponent(BaseEntity& entity)
-    : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f)
+MoveComponent::MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> state)
+    : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f), m_state(std::move(state))
 {
     sfPos pos = entity.getPosition();
 	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
-    m_state = std::make_unique<PlayerStandMovement>(*this);
 }
 
 
@@ -27,7 +26,7 @@ void MoveComponent::update(float deltaTime) {
     b2Vec2 currentVel = m_body->GetLinearVelocity();
 
     if (std::abs(currentVel.x) < maxVelocity) {
-        b2Vec2 force(m_direction.x * m_speed, 0); 
+        b2Vec2 force(m_direction.x * m_speed , 0); 
         m_body->ApplyForceToCenter(force, true);
     }
     
@@ -58,6 +57,11 @@ void MoveComponent::setSpeed(float speed) {
 
 float MoveComponent::getSpeed() const {
     return m_speed;
+}
+
+const BaseEntity& MoveComponent::getEntity() const
+{
+    return m_entity;
 }
 
 void MoveComponent::setState(std::unique_ptr<MovingState> state) {
