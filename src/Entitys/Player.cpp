@@ -2,6 +2,8 @@
 #include "Factory.h"
 #include "DataLoader.h"
 #include "GamePlay.h"
+#include <GunMovment/SingleShotStrategy.h>
+#include <GunMovment/TripleShotStrategy.h>
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
@@ -13,7 +15,7 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip))
+	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<TripleShotStrategy>(), 0.5f))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
@@ -34,8 +36,8 @@ void Player::update(float deltaTime)
 			m_gun->enter(direction, this);
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			auto bullet = m_gun->shoot(m_gamePlay->getMouseWorldPosition(), this->getPosition(), this->getWorld());
-			if (bullet)
+			auto bullets = m_gun->shoot(m_gamePlay->getMouseWorldPosition(), this->getPosition(), this->getWorld());
+			for (auto& bullet : bullets)
 				m_gamePlay->addEntity(std::move(bullet));
 		}
 	}

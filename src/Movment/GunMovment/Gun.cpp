@@ -1,11 +1,16 @@
 #include "Movment/GunMovment/Gun.h"
 #include "Movment/MoveComponent.h"
 #include "Player.h"
+#include "Movment/GunMovment/ShootingStrategy.h"
 
-Gun::Gun(AnimationSet animationSet)
-	: m_weaponType(animationSet)
+Gun::Gun(AnimationSet animationSet, std::unique_ptr<ShootingStrategy> strategy, float shootCooldown)
+	: m_weaponType(animationSet),
+	m_strategy(std::move(strategy)),
+	m_shootCooldown(shootCooldown),
+	m_timeSinceLastShot(0.f)
 {
 }
+
 
 void Gun::enter(Direction direction, Player* owner)
 {
@@ -83,25 +88,14 @@ Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	return Direction::Nan;
 }
 
-std::unique_ptr<BaseEntity> Gun::shoot(sf::Vector2f mousePos, sf::Vector2f entityPos, b2World* world) {
+std::vector<std::unique_ptr<BaseEntity>> Gun::shoot(sf::Vector2f mousePos, sf::Vector2f entityPos, b2World* world) {
 	if (m_timeSinceLastShot < m_shootCooldown)
-		return nullptr; // עדיין לא עבר מספיק זמן
+		return {};
+
 	m_timeSinceLastShot = 0.0f;
+	sf::Vector2f direction = mousePos - entityPos;
 
-	sf::Vector2f pos = entityPos;
-	sf::Vector2f direction = mousePos - pos;
-	
-	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-	if (length != 0) {
-		sf::Vector2f dirNormalized = direction / length;
-		float gunLength = 36.f; // המרחק מהמרכז לפתח הרובה
-
-		sf::Vector2f bulletPos = (pos + dirNormalized * gunLength);
-		auto bullet = Factory::instance().create(ObjectType::BULLET, sfPos{ bulletPos.x, bulletPos.y}, world);
-		bullet->setDirection(m_gunDirection);
-		return bullet;
-	}
-	return nullptr;
+	return m_strategy->shoot(entityPos, m_gunDirection, world);
 }
 
 void Gun::update(float deltaTime) {
