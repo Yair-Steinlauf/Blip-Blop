@@ -7,7 +7,7 @@
 void PlayerJumpMovement::enter()
 {
 	if (m_moveComponent.checkIsGrounded()) {
-		m_moveComponent.applyJumpImpulse(300.f);
+		m_moveComponent.applyJumpImpulse(10.f);
 	}
 }
 

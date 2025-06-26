@@ -13,7 +13,7 @@ static auto registerIt = Factory::instance().registerType(
 );
 
 Player::Player(sfPos pos, b2World* world)
-	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::PLAYER),pos, world),
+	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
 	m_moveComponent(*this, std::make_unique<PlayerStandMovement>(m_moveComponent)), 
 	m_gun(std::make_unique<Gun>(AnimationSet::Blip))
 {

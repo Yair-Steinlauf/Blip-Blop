@@ -10,6 +10,7 @@ public:
     MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> state);
     void update(float deltaTime);
     void setDirection(sf::Vector2f direction);
+    sfPos getDirection() const;
     void setVelocity(float x, float y);
     void applyJumpImpulse(float force);
     bool checkIsGrounded() const;

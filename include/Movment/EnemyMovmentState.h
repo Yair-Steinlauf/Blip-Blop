@@ -14,7 +14,6 @@ public:
 	std::unique_ptr<MovingState> move() override;
 private:
 	std::function<sfPos()> m_getPlayerLoc;
-	sf::Vector2f calculateDirectionToPlayer(const sfPos& enemyPos, const sfPos& playerPos) const;
 };
 
 //TODO:

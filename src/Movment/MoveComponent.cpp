@@ -3,10 +3,9 @@
 #include "Movment/GunMovment/Gun.h"
 #include "BaseEntity.h"
 #include "Constance.h"
-#include "PlayerStandMovment.h"
 
 MoveComponent::MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> state)
-    : m_entity(entity),m_body(entity.getBody()), m_direction(0.f, 0.f), m_state(std::move(state))
+    : m_entity(entity), m_direction(0.f, 0.f), m_state(std::move(state))
 {
     sfPos pos = entity.getPosition();
 	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
@@ -36,6 +35,11 @@ void MoveComponent::update(float deltaTime) {
 
 void MoveComponent::setDirection(sf::Vector2f direction) {
     m_direction = direction;
+}
+
+sfPos MoveComponent::getDirection() const
+{
+    return m_direction;
 }
 
 void MoveComponent::setVelocity(float x, float y) {
