@@ -77,3 +77,10 @@ void Player::addLife(int life) {
 		int neww = m_moveComponent.getHealth() + life;
 		m_moveComponent.setHealth(neww);
 }
+
+void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType) {
+	if (m_gun) {
+		m_gun->setStrategy(std::move(strategy));
+		m_gun->setAnimationSet(weaponType);
+	}
+}

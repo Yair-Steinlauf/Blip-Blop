@@ -17,6 +17,8 @@ enum class ObjectType
     Tile,
     Explode,
     LifeGift,
+    TripleGift,
+    SingleTripleGift,
     TemplateEnemy,
     BaseEnemy,
     AttackingEntity,

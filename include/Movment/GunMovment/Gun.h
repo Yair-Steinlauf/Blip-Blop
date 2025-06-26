@@ -16,6 +16,9 @@ public:
 	virtual Direction move(sf::Vector2f mousePos, sf::Vector2f entityPos);
 	std::vector<std::unique_ptr<BaseEntity>> shoot(sf::Vector2f mousePos, sf::Vector2f entityPos, b2World* world);
 	void update(float deltaTime);
+	void setStrategy(std::unique_ptr<ShootingStrategy> strategy);
+	void setAnimationSet(AnimationSet set);
+
 private:
 	std::unique_ptr<ShootingStrategy> m_strategy;
 

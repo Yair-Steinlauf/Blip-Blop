@@ -101,3 +101,11 @@ std::vector<std::unique_ptr<BaseEntity>> Gun::shoot(sf::Vector2f mousePos, sf::V
 void Gun::update(float deltaTime) {
 	m_timeSinceLastShot += deltaTime;
 }
+
+void Gun::setStrategy(std::unique_ptr<ShootingStrategy> strategy) {
+	m_strategy = std::move(strategy);
+}
+
+void Gun::setAnimationSet(AnimationSet set) {
+	m_weaponType = set;
+}
