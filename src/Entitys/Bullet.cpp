@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include <Player.h>
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::BULLET,
@@ -29,4 +30,10 @@ void Bullet::update(float deltaTime) {
 	b2Vec2 newVel(m_direction.x * BULLET_SPEED, m_direction.y * BULLET_SPEED);
 	this->getBody()->SetLinearVelocity(newVel);
 	BaseEntity::update(deltaTime);
+}
+
+void Bullet::onCollisionEnter(BaseEntity* other){
+	if (dynamic_cast<Player*>(other)) {
+		markForRemoval();
+	}
 }

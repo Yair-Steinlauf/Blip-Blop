@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "cube.h"
 #include <vector>
+#include <ContactListener.h>
 
 class GamePlay : public BaseScreen {
 public:
@@ -25,4 +26,5 @@ private:
 
 	void drawUI();
 	void centerCameraOnPlayer();
+	std::unique_ptr<ContactListener> m_contactListener;
 };

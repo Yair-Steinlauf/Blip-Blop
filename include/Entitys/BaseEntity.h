@@ -36,6 +36,8 @@ public:
 	void setTextureRect(const sf::IntRect& rect);
 	bool shouldBeRemoved() const;
 	void markForRemoval();
+	virtual void onCollisionEnter(BaseEntity* other) {}
+	virtual void onCollisionExit(BaseEntity* other) {}
 
 protected:
 	sf::Sprite m_sprite;

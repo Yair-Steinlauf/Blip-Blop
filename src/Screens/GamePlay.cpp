@@ -18,7 +18,9 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 {
 	m_player->setGamePlay(this);
 
-
+	// יצירת מאזין התנגשויות והגדרתו לעולם
+	m_contactListener = std::make_unique<ContactListener>();
+	m_world->SetContactListener(m_contactListener.get());
 }
 
 void GamePlay::update(float deltaTime)

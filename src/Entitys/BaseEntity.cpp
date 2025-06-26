@@ -96,6 +96,7 @@ void BaseEntity::initBody(sfPos& pos)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(SFMLToBox2d(pos.x), SFMLToBox2d(pos.y));
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this); // הצמדת this
 	m_body = m_world->CreateBody(&bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
