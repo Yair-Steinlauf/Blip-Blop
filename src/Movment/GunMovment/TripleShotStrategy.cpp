@@ -7,11 +7,10 @@ std::vector<std::unique_ptr<BaseEntity>> TripleShotStrategy::shoot(
 {
     std::vector<std::unique_ptr<BaseEntity>> bullets;
 
-    float gunLength = 36.f;
     float offsetAmount = 10.f;
 
     sf::Vector2f dirNormalized = direction / std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    sf::Vector2f bulletBasePos = entityPos + dirNormalized * gunLength;
+    sf::Vector2f bulletBasePos = entityPos + dirNormalized * GUNLENGTH;
 
     sf::Vector2f perpendicular = { -dirNormalized.y, dirNormalized.x };
 
