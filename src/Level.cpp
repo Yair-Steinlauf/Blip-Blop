@@ -37,6 +37,7 @@ void Level::draw(sf::RenderWindow& window)
 		entity->draw(window);
 	}
 	m_player->draw(window);
+	m_player->drawLifeBar(window);
 }
 
 void Level::addEntity(std::unique_ptr<BaseEntity> entity) {

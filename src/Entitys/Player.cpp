@@ -22,6 +22,7 @@ Player::Player(sfPos pos, b2World* world)
 		.getFrame(AnimationSet::Blip, Direction::Right, 0);
 
 	setTextureRect(frame,PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+	m_lifeBar.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::characterSprite));
 }
 
 void Player::update(float deltaTime)
@@ -45,4 +46,29 @@ void Player::update(float deltaTime)
 
 void Player::setGamePlay(GamePlay* gamePlay) {
 	m_gamePlay = gamePlay;
+}
+
+void Player::updateLifeBarSprite()
+{
+	int life = m_moveComponent.getHealth();
+
+	Direction healthDirection = static_cast<Direction>(static_cast<int>(Direction::Health0) + life);
+
+	const sf::IntRect& frame = GameAnimations::getInstance()
+		.getFrame(AnimationSet::playerHPFrames, Direction::Health5, 0);
+
+	m_lifeBar.setTextureRect(frame);
+}
+
+void Player::drawLifeBar(sf::RenderWindow& window)
+{
+	updateLifeBarSprite();
+	// 1. ממרכז את הספרייט לפי גודל התמונה
+	sf::FloatRect bounds = m_lifeBar.getLocalBounds();
+	m_lifeBar.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	// 2. ממקם אותו במרכז החלון
+	sf::Vector2u windowSize = window.getSize();
+	m_lifeBar.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
+	window.draw(m_lifeBar);
 }
