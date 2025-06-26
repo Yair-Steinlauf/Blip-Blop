@@ -75,7 +75,8 @@ void Player::drawLifeBar(sf::RenderWindow& window)
 
 void Player::addLife(int life) {
 		int neww = m_moveComponent.getHealth() + life;
-		m_moveComponent.setHealth(neww);
+		if (neww <= 5)
+			m_moveComponent.setHealth(neww);
 }
 
 void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType, float shootCooldown) {

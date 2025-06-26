@@ -3,16 +3,6 @@
 #include "Gift.h"
 #include "DataLoader.h"
 
-/*
- * GiftRegistrar
- * -------------
- * Obj        – ערך enum מסוג ObjectType (למשל ObjectType::SingleTripleGift)
- * StrategyT  – מחלקת-אסטרטגיה (למשל SingleShotGiftStrategy)
- * Dir        – ערך enum מסוג Direction (ברירת-מחדל Right)
- *
- * עצם סטטי אחד יירשם אוטומטית בזמן טעינת התכנית ויאפשר
- *  Factory::create(...) לייצר את ה-Gift בלי קוד ידני נוסף.
- */
 template<ObjectType Obj,
     typename   StrategyT,
     Direction  Dir = Direction::Right>
