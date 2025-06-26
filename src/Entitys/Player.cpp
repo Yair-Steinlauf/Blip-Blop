@@ -55,7 +55,7 @@ void Player::updateLifeBarSprite()
 	Direction healthDirection = static_cast<Direction>(static_cast<int>(Direction::Health0) + life);
 
 	const sf::IntRect& frame = GameAnimations::getInstance()
-		.getFrame(AnimationSet::playerHPFrames, Direction::Health5, 0);
+		.getFrame(AnimationSet::playerHPFrames, healthDirection, 0);
 
 	m_lifeBar.setTextureRect(frame);
 }
