@@ -15,7 +15,7 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), 0.2f))
+	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), SINGLE_SHOOT_TIME))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
@@ -78,9 +78,10 @@ void Player::addLife(int life) {
 		m_moveComponent.setHealth(neww);
 }
 
-void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType) {
+void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType, float shootCooldown) {
 	if (m_gun) {
 		m_gun->setStrategy(std::move(strategy));
 		m_gun->setAnimationSet(weaponType);
+		m_gun->setshootCooldown(shootCooldown);
 	}
 }

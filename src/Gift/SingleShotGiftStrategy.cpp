@@ -18,5 +18,5 @@ static auto registerTripleGift = Factory::instance().registerType(
     });
 
 void SingleShotGiftStrategy::applyEffect(Player& player) {
-    player.setGun(std::make_unique<SingleShotStrategy>(), AnimationSet::Blip);
+    player.setGun(std::make_unique<SingleShotStrategy>(), AnimationSet::Blip, SINGLE_SHOOT_TIME);
 }

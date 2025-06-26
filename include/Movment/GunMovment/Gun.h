@@ -18,6 +18,7 @@ public:
 	void update(float deltaTime);
 	void setStrategy(std::unique_ptr<ShootingStrategy> strategy);
 	void setAnimationSet(AnimationSet set);
+	void setshootCooldown(float shootCooldown);
 
 private:
 	std::unique_ptr<ShootingStrategy> m_strategy;

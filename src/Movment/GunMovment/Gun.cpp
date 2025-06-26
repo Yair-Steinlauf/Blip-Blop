@@ -109,3 +109,7 @@ void Gun::setStrategy(std::unique_ptr<ShootingStrategy> strategy) {
 void Gun::setAnimationSet(AnimationSet set) {
 	m_weaponType = set;
 }
+
+void Gun::setshootCooldown(float shootCooldown){
+	m_shootCooldown = shootCooldown;
+}

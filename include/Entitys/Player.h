@@ -15,7 +15,7 @@ public:
 	void setGamePlay(GamePlay* gamePlay);
 	void drawLifeBar(sf::RenderWindow& window);
 	void addLife(int life);
-	void setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType);
+	void setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType, float shootCooldown);
 private:
 	void updateLifeBarSprite();
 	MoveComponent m_moveComponent;

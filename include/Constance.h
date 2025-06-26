@@ -42,7 +42,9 @@ const float PLAYER_FIXTURE_WIDTH = 40.f;
 const float PLAYER_FIXTURE_HEIGHT = 28.f;
 const float GUNLENGTH = 39.f;
 const float BULLET_SPEED = 80.f;
-const float BULLET_LIFETIME = 8.f;  // זמן קבוע – לא חבר במחלקה
+const float BULLET_LIFETIME = 8.f;
+const float SINGLE_SHOOT_TIME = 0.3f;
+const float TRIPLE_SHOOT_TIME = 1.f;
 
 using sfPos = sf::Vector2f;
 
