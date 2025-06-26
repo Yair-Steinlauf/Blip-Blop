@@ -1,21 +1,13 @@
-#include "SingleShotGiftStrategy.h"  // <--- חובה!
-#include "Player.h"
+#include "SingleShotGiftStrategy.h"
+#include "GiftRegistrar.h"
 #include "Movment/GunMovment/SingleShotStrategy.h"
-#include "DataLoader.h"
-#include "Factory.h"
-#include "Gift.h"
+#include "Player.h"
 
-static auto registerTripleGift = Factory::instance().registerType(
-    ObjectType::SingleTripleGift,
-    [](sfPos pos, b2World* world) -> std::unique_ptr<BaseEntity> {
-        return std::make_unique<Gift>(
-            &DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),
-            pos,
-            world,
-            std::make_unique<SingleShotGiftStrategy>(),
-            Direction::Right
-        );
-    });
+static GiftRegistrar<
+    ObjectType::SingleGift,
+    SingleShotGiftStrategy,
+    Direction::Right
+> reg;
 
 void SingleShotGiftStrategy::applyEffect(Player& player) {
     player.setGun(std::make_unique<SingleShotStrategy>(), AnimationSet::Blip, SINGLE_SHOOT_TIME);
