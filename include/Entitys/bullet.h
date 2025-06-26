@@ -1,11 +1,12 @@
 #pragma once
 
 #include "BaseEntity.h"
-class bullet : public BaseEntity
+class Bullet : public BaseEntity
 {
 public:
-	bullet(sfPos pos = { 50 , 50 }, b2World* world = nullptr);
-	~bullet() override = default;
-protected:
-	void initBox2d(sfPos pos, sf::Vector2f size);
+	Bullet(sfPos pos = { 50 , 50 }, b2World* world = nullptr);
+	~Bullet() override = default;
+	void update(float deltaTime) override;
+private:
+	float m_lifetime = 0.f;
 };

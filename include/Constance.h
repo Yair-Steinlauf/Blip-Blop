@@ -9,7 +9,7 @@ enum class ObjectType
     SMURF,
     PLATFORM,
     MAP,
-
+    BULLET,
     characterSprite,
 
     Enemy1,
@@ -39,6 +39,8 @@ const int SCREEN_HEIGHT = 600; // Window height
 
 const float PLAYER_FIXTURE_WIDTH = 40.f;
 const float PLAYER_FIXTURE_HEIGHT = 28.f;
+const float BULLET_SPEED = 80.f;
+const float BULLET_LIFETIME = 0.2f;  // זמן קבוע – לא חבר במחלקה
 
 using sfPos = sf::Vector2f;
 

@@ -11,7 +11,6 @@ MoveComponent::MoveComponent(BaseEntity& entity)
     sfPos pos = entity.getPosition();
 	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
     m_state = std::make_unique<PlayerStandMovement>(*this);
-    //m_gun = std::make_unique<Gun>(*this);
 }
 
 
@@ -71,3 +70,15 @@ void MoveComponent::setState(std::unique_ptr<MovingState> state) {
 MovingState* MoveComponent::getState() const {
     return m_state.get();
 } 
+
+int MoveComponent::getHealth() const {
+    return m_health; 
+}
+
+void MoveComponent::takeDamage(int amount) {
+    m_health -= amount;
+    if (m_health < 0) {
+        m_health = 0;
+        m_entity.markForRemoval();
+    }
+}

@@ -2,6 +2,8 @@
 #include "Factory.h"
 #include "DataLoader.h"
 #include "GamePlay.h"
+#include <GunMovment/SingleShotStrategy.h>
+#include <GunMovment/TripleShotStrategy.h>
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
@@ -13,30 +15,60 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip))
+	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), 0.2f))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
 		.getFrame(AnimationSet::Blip, Direction::Right, 0);
 
 	setTextureRect(frame,PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+	m_lifeBar.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::characterSprite));
 }
 
 void Player::update(float deltaTime)
 {
 	BaseEntity::update(deltaTime);
 	m_moveComponent.update(deltaTime);
+	m_gun->update(deltaTime);
 
 	if (m_gun) {
 		Direction direction = m_gun->move(m_gamePlay->getMouseWorldPosition(), this->getPosition());
 		if (static_cast<int>(direction) != 0)
 			m_gun->enter(direction, this);
-	}
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		m_gun->shoot(m_gamePlay->getMouseWorldPosition(), this->getPosition());
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			auto bullets = m_gun->shoot(m_gamePlay->getMouseWorldPosition(), this->getPosition(), this->getWorld());
+			for (auto& bullet : bullets)
+				m_gamePlay->addEntity(std::move(bullet));
+		}
+	}
 }
 
 void Player::setGamePlay(GamePlay* gamePlay) {
 	m_gamePlay = gamePlay;
+}
+
+void Player::updateLifeBarSprite()
+{
+	int life = m_moveComponent.getHealth();
+
+	Direction healthDirection = static_cast<Direction>(static_cast<int>(Direction::Health0) + life);
+
+	const sf::IntRect& frame = GameAnimations::getInstance()
+		.getFrame(AnimationSet::playerHPFrames, Direction::Health5, 0);
+
+	m_lifeBar.setTextureRect(frame);
+}
+
+void Player::drawLifeBar(sf::RenderWindow& window)
+{
+	updateLifeBarSprite();
+	// 1. ממרכז את הספרייט לפי גודל התמונה
+	sf::FloatRect bounds = m_lifeBar.getLocalBounds();
+	m_lifeBar.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	// 2. ממקם אותו במרכז החלון
+	sf::Vector2u windowSize = window.getSize();
+	m_lifeBar.setPosition(50, 50);
+	window.draw(m_lifeBar);
 }
