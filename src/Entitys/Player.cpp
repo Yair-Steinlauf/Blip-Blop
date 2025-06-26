@@ -72,3 +72,8 @@ void Player::drawLifeBar(sf::RenderWindow& window)
 	m_lifeBar.setPosition(50, 50);
 	window.draw(m_lifeBar);
 }
+
+void Player::addLife(int life) {
+		int neww = m_moveComponent.getHealth() + life;
+		m_moveComponent.setHealth(neww);
+}

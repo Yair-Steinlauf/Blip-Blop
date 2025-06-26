@@ -18,7 +18,7 @@ Bullet::Bullet(sfPos pos, b2World* world)
 
 	 setTextureRect(frame);
 
-	this->setFixtureForBullet();
+	this->setFixtureForMov();
 }
 
 void Bullet::update(float deltaTime) {

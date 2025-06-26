@@ -14,6 +14,7 @@ public:
 	void update(float deltaTime) override;
 	void setGamePlay(GamePlay* gamePlay);
 	void drawLifeBar(sf::RenderWindow& window);
+	void addLife(int life);
 private:
 	void updateLifeBarSprite();
 	MoveComponent m_moveComponent;

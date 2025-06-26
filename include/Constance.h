@@ -16,8 +16,7 @@ enum class ObjectType
     Enemy2,
     Tile,
     Explode,
-    Gift,
-
+    LifeGift,
     TemplateEnemy,
     BaseEnemy,
     AttackingEntity,

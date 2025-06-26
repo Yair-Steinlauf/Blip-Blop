@@ -18,6 +18,7 @@ public:
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
     int getHealth() const;
+    void setHealth(int life);
     void takeDamage(int amount);
 
 private:

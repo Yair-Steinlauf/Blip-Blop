@@ -151,7 +151,7 @@ void BaseEntity::setDirection(sf::Vector2f direction) {
 	m_direction = direction;
 }
 
-void BaseEntity::setFixtureForBullet()
+void BaseEntity::setFixtureForMov()
 {
 	if (!m_body)
 		return;

@@ -31,7 +31,7 @@ public:
 	void setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT);
 	void setDirection(sf::Vector2f direction);
 	sf::Vector2f getDirection();
-	void setFixtureForBullet();
+	void setFixtureForMov();
 	void rotateToDirection(const sf::Vector2f& direction);
 	void setTextureRect(const sf::IntRect& rect);
 	bool shouldBeRemoved() const;

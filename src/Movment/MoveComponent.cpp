@@ -75,6 +75,10 @@ int MoveComponent::getHealth() const {
     return m_health; 
 }
 
+void MoveComponent::setHealth(int life){
+    m_health = life;
+}
+
 void MoveComponent::takeDamage(int amount) {
     m_health -= amount;
     if (m_health < 0) {
