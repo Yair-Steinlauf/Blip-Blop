@@ -69,6 +69,6 @@ void Player::drawLifeBar(sf::RenderWindow& window)
 
 	// 2. ממקם אותו במרכז החלון
 	sf::Vector2u windowSize = window.getSize();
-	m_lifeBar.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
+	m_lifeBar.setPosition(50, 50);
 	window.draw(m_lifeBar);
 }

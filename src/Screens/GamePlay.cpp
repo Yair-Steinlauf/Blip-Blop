@@ -17,12 +17,19 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 	m_level(m_player.get(), m_world.get())
 {
 	m_player->setGamePlay(this);
+
+
 }
 
 void GamePlay::update(float deltaTime)
 {
+	centerCameraOnPlayer();
+
 	m_world->Step(deltaTime, 8, 3); // 8 velocity iterations, 3 position iterations
 	m_level.update(deltaTime);
+
+	//לעקוב אחרי מיקום השחקן
+
 	for (auto& c : m_cubes)
 		c.update();
 }
@@ -30,7 +37,10 @@ void GamePlay::update(float deltaTime)
 void GamePlay::draw()
 {
 	BaseScreen::draw();
+	centerCameraOnPlayer();   // ממרכז את המצלמה
 	m_level.draw(*m_window);
+
+	drawUI();
 }
 
 void GamePlay::handleInput(const sf::Event& event, float deltaTime)
@@ -49,4 +59,28 @@ sf::Vector2f GamePlay::getMouseWorldPosition()
 
 void GamePlay::addEntity(std::unique_ptr<BaseEntity> entity) {
 	m_level.addEntity(std::move(entity));
+}
+
+void GamePlay::drawUI()
+{
+	m_window->setView(m_window->getDefaultView());
+
+	m_player->drawLifeBar(*m_window);
+}
+
+void GamePlay::centerCameraOnPlayer() {
+	sf::View view = m_window->getView();
+	sf::Vector2f playerPos = m_player->getPosition();
+	sf::Vector2f viewSize = view.getSize();
+	float halfViewWidth = viewSize.x / 2.f;
+
+	const sf::Sprite& background = m_level.getBackground();
+	float backgroundWidth = background.getGlobalBounds().width;
+
+	float minX = halfViewWidth;
+	float maxX = backgroundWidth - halfViewWidth;
+	float cameraX = std::clamp(playerPos.x, minX, maxX);
+
+	view.setCenter(cameraX, view.getCenter().y);
+	m_window->setView(view);
 }

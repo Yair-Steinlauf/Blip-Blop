@@ -22,4 +22,7 @@ private:
 	Level m_level;
 	std::vector<Cube> m_cubes;
 	sf::RenderWindow* m_window = nullptr;
+
+	void drawUI();
+	void centerCameraOnPlayer();
 };
