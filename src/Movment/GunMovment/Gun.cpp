@@ -27,7 +27,6 @@ Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	auto direction = posToDirection(delta);
 	m_gunDirection = directionToPos(direction);
 	return direction;
-
 }
 
 std::vector<std::unique_ptr<BaseEntity>> Gun::shoot(sf::Vector2f mousePos, sf::Vector2f entityPos, b2World* world) {

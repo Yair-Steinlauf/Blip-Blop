@@ -27,7 +27,8 @@ enum class ObjectType
     GamePlay,
 
     shotGunSound,
-    shotGunWord
+    shotGunWord,
+    machineGunWord
 };
 
 enum class PlayerMovment {

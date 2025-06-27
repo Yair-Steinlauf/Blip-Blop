@@ -7,4 +7,6 @@ configure_file ("Map.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("characterSprite.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("shotGunSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("machineGunWord.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shotGunWord.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("newww_map.tmj" ${CMAKE_BINARY_DIR} COPYONLY)

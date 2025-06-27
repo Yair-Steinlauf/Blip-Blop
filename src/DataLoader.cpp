@@ -68,9 +68,8 @@ DataLoader::DataLoader()
     //  חדש: טעינת צלילים לפי ObjectType
     const std::map<ObjectType, std::string> soundNames = {
         {ObjectType::shotGunSound, "shotGunSound"},
-        //{ObjectType::shotGunWord, "shotGunWord"},
-        //{ObjectType::TripleGift, "tripleGunSound"},
-        //{ObjectType::LifeGift, "lifeGainSound"}
+        {ObjectType::shotGunWord, "shotGunWord"},
+        {ObjectType::machineGunWord, "machineGunWord"},
     };
 
     for (const auto& [type, name] : soundNames) {

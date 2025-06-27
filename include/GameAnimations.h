@@ -81,28 +81,28 @@ static sfPos directionToPos(Direction dir) {
         return sfPos(-1.0f, 0.0f);
 
     case Direction::UpRight:
-        return sfPos(0.707f, -0.707f);  // 45° למעלה ימינה
+        return sfPos(1.f, -1.f);  // 45° למעלה ימינה
 
     case Direction::UpLeft:
-        return sfPos(-0.707f, -0.707f);  // 45° למעלה שמאלה
+        return sfPos(-1.f, -1.f);  // 45° למעלה שמאלה
 
     case Direction::DownRight:
-        return sfPos(0.707f, 0.707f);  // 45° למטה ימינה
+        return sfPos(1.f, 1.f);  // 45° למטה ימינה
 
     case Direction::DownLeft:
-        return sfPos(-0.707f, 0.707f);  // 45° למטה שמאלה
+        return sfPos(-1.f, 1.f);  // 45° למטה שמאלה
 
     case Direction::UpHeadRight:
-        return sfPos(0.383f, -0.924f);  // ~22.5° (כמעט למעלה, קצת ימינה)
+        return sfPos(0.f, -1.f);  // ~22.5° (כמעט למעלה, קצת ימינה)
 
     case Direction::UpHeadLeft:
-        return sfPos(-0.383f, -0.924f);  // ~22.5° (כמעט למעלה, קצת שמאלה)
+        return sfPos(-0.f, -1.f);  // ~22.5° (כמעט למעלה, קצת שמאלה)
 
     case Direction::DownHeadRight:
-        return sfPos(0.383f, 0.924f);  // ~22.5° (כמעט למטה, קצת ימינה)
+        return sfPos(0.f, 1.f);  // ~22.5° (כמעט למטה, קצת ימינה)
 
     case Direction::DownHeadLeft:
-        return sfPos(-0.383f, 0.924f);  // ~22.5° (כמעט למטה, קצת שמאלה)
+        return sfPos(-0.f, 1.f);  // ~22.5° (כמעט למטה, קצת שמאלה)
 
     case Direction::Nan:
     default:
