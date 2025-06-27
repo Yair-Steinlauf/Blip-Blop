@@ -30,15 +30,16 @@ sf::Font &DataLoader::getP2Font()
     return instance.m_font;
 }
 
+sf::Sound& DataLoader::getSound(ObjectType type) {
+    auto& instance = getInstance();
+    auto it = instance.m_sounds.find(type);
+    if (it != instance.m_sounds.end())
+        return it->second;
+    throw std::runtime_error("Sound not found for ObjectType: " + std::to_string(static_cast<int>(type)));
+}
+
 DataLoader::DataLoader()
 {
-
-    //if (!m_font.loadFromFile("font.ttf"))
-    //    // TODO: THrow exception here?
-    //{
-    //    std::cerr << "Failed to load font!" << std::endl;
-    //}
-
     const std::vector<std::string> pictureList = {
         "pic1", "pic2"
     };
@@ -48,10 +49,6 @@ DataLoader::DataLoader()
         {ObjectType::SMURF, "SMURF"},
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
-        //{ObjectType::Enemy2, "Enemy2"},
-        //{ObjectType::Tile, "Tile"},
-        //{ObjectType::Explode, "Explode"},
-        //{ObjectType::Gift, "Gift"},
     };
 
     for (const auto &[type, name] : objectNames)
@@ -67,20 +64,26 @@ DataLoader::DataLoader()
             std::cerr << "Failed to load texture: " << name << ".png" << std::endl;
         }
     }
-    //for (const auto& picName : pictureList)
-    //{
-    //    sf::Texture texture;
-    //    if (texture.loadFromFile(picName + ".png"))
-    //    {
-    //        m_pictures.push_back(std::move(texture));
-    //    }
-    //    else
-    //    {
-    // 
-	 // TODO: THrow exception here?
-    //        std::cerr << "Failed to load texture: " << picName << ".png" << std::endl;
-    //    }
-    //}
 
+    //  חדש: טעינת צלילים לפי ObjectType
+    const std::map<ObjectType, std::string> soundNames = {
+        {ObjectType::shotGunSound, "shotGunSound"},
+        //{ObjectType::shotGunWord, "shotGunWord"},
+        //{ObjectType::TripleGift, "tripleGunSound"},
+        //{ObjectType::LifeGift, "lifeGainSound"}
+    };
 
+    for (const auto& [type, name] : soundNames) {
+        sf::SoundBuffer buffer;
+        if (buffer.loadFromFile(name + ".ogg")) {
+            m_soundBuffers[type] = buffer;
+
+            sf::Sound sound;
+            sound.setBuffer(m_soundBuffers[type]);
+            m_sounds[type] = sound;
+        }
+        else {
+            std::cerr << "Failed to load sound: " << name << ".ogg\n";
+        }
+    }
 }

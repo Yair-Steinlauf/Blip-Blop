@@ -3,11 +3,12 @@
 #include "Player.h"
 #include "Movment/GunMovment/ShootingStrategy.h"
 
-Gun::Gun(AnimationSet animationSet, std::unique_ptr<ShootingStrategy> strategy, float shootCooldown)
+Gun::Gun(AnimationSet animationSet, std::unique_ptr<ShootingStrategy> strategy, float shootCooldown, const sf::Sound& shootSound)
 	: m_weaponType(animationSet),
 	m_strategy(std::move(strategy)),
 	m_shootCooldown(shootCooldown),
-	m_timeSinceLastShot(0.f)
+	m_timeSinceLastShot(0.f),
+	m_shootSound(shootSound)
 {
 }
 
@@ -94,7 +95,7 @@ std::vector<std::unique_ptr<BaseEntity>> Gun::shoot(sf::Vector2f mousePos, sf::V
 
 	m_timeSinceLastShot = 0.0f;
 	sf::Vector2f direction = mousePos - entityPos;
-
+	m_shootSound.play();
 	return m_strategy->shoot(entityPos, m_gunDirection, world);
 }
 
@@ -112,4 +113,8 @@ void Gun::setAnimationSet(AnimationSet set) {
 
 void Gun::setshootCooldown(float shootCooldown){
 	m_shootCooldown = shootCooldown;
+}
+
+void Gun::setShootSound(const sf::Sound& sound) {
+	m_shootSound = sound;
 }

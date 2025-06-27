@@ -10,5 +10,6 @@ static GiftRegistrar<
 > reg;
 
 void TripleShotGiftStrategy::applyEffect(Player& player) {
-    player.setGun(std::make_unique<TripleShotStrategy>(), AnimationSet::Blip, TRIPLE_SHOOT_TIME);
+    //DataLoader::getInstance().getSound(ObjectType::shotGunWord).play();
+    player.setGun(std::make_unique<TripleShotStrategy>(), AnimationSet::Blip, TRIPLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::shotGunSound));
 }

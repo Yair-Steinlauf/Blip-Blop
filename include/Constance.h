@@ -24,7 +24,10 @@ enum class ObjectType
     MovingEntity,
     StaticEntity,
     BaseScreen,
-    GamePlay
+    GamePlay,
+
+    shotGunSound,
+    shotGunWord
 };
 
 enum class PlayerMovment {

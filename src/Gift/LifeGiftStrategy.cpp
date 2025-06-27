@@ -11,5 +11,6 @@ static GiftRegistrar<
 
 
 void LifeGiftStrategy::applyEffect(Player& player) {
+    //DataLoader::getInstance().getSound(ObjectType::shotGunWord).play();
     player.addLife(1);
 }
