@@ -8,7 +8,8 @@ MoveComponent::MoveComponent(BaseEntity& entity, std::unique_ptr<MovingState> st
     : m_entity(entity), m_direction(0.f, 0.f), m_state(std::move(state))
 {
     sfPos pos = entity.getPosition();
-	m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
+  
+    m_entity.setFixture(true, b2_dynamicBody, 2.5, 0.4f, 0.0f, 1.0f);
 }
 
 

@@ -24,7 +24,9 @@ void Gun::enter(Direction direction, Player* owner)
 
 Direction Gun::move(sf::Vector2f mousePos, sf::Vector2f entityPos) {
 	sf::Vector2f delta = mousePos - entityPos;
-	return posToDirection(delta);
+	auto direction = posToDirection(delta);
+	m_gunDirection = directionToPos(direction);
+	return direction;
 
 }
 
