@@ -29,4 +29,5 @@ void BaseEnemy::update(float deltaTime)
 	BaseEntity::update(deltaTime);
 	m_moveComponent.update(deltaTime);
     m_animation.setDirection(posToDirection(m_moveComponent.getDirection()));
+    m_animation.update(deltaTime);
 }
