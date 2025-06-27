@@ -14,7 +14,7 @@ enum class AnimationSet {
     ForkEnemy, PresentEnemy,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,
-    StandardBullet, StandardEnemy
+    StandardBullet, StandardEnemy, playerHPFrames
 };
 
 enum class Direction {
@@ -22,7 +22,8 @@ enum class Direction {
     UpRight, UpLeft,
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,
-    DownHeadRight, DownHeadLeft
+    DownHeadRight, DownHeadLeft,
+    Health0, Health1, Health2, Health3, Health4, Health5
 };
 static Direction posToDirection(sfPos delta) {
     const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
@@ -89,10 +90,6 @@ public:
         Direction    dir,
         std::size_t  idx = 0) const;
 
-    const sf::IntRect& getFrame(AnimationSet      set,
-        const std::string& dirStr,
-        std::size_t        idx = 0) const;
-
 private:
     GameAnimations() = default;                   /* ctor פרטי */
 
@@ -113,7 +110,8 @@ private:
         shotguncharFrames,
         shotguncharblopFrames,
         standardbulletFrames,
-        standardenemydataFrames;
+        standardenemydataFrames,
+        playerHPdataFrames;
 };
 
 /*==================================================
@@ -132,6 +130,12 @@ inline const char* GameAnimations::dirToStr(Direction d)
     case Direction::UpHeadLeft:     return "UpHeadLeft";
     case Direction::DownHeadRight:  return "DownHeadRight";
     case Direction::DownHeadLeft:   return "DownHeadLeft";
+    case Direction::Health0:        return "Health0";
+    case Direction::Health1:        return "Health1";
+    case Direction::Health2:        return "Health2";
+    case Direction::Health3:        return "Health3";
+    case Direction::Health4:        return "Health4";
+    case Direction::Health5:        return "Health5";
     }
     return "";
 }
@@ -153,6 +157,7 @@ inline GameAnimations::FrameMap& GameAnimations::setMap(AnimationSet s)
     case AnimationSet::ShotgunCharBlop:  return shotguncharblopFrames;
     case AnimationSet::StandardBullet:   return standardbulletFrames;
     case AnimationSet::StandardEnemy:    return standardenemydataFrames;
+    case AnimationSet::playerHPFrames:   return playerHPdataFrames;
     }
     throw std::out_of_range("GameAnimations: unknown set");
 }
@@ -163,16 +168,6 @@ GameAnimations::getFrame(AnimationSet set, Direction dir, std::size_t idx) const
     const auto& m = setMap(set);
     const std::string key{ dirToStr(dir) };
     auto it = m.find(key);
-    if (it == m.end() || idx >= it->second.size())
-        throw std::out_of_range("GameAnimations: bad dir/index");
-    return it->second[idx];
-}
-
-inline const sf::IntRect&
-GameAnimations::getFrame(AnimationSet set, const std::string& dirStr, std::size_t idx) const
-{
-    const auto& m = setMap(set);
-    auto it = m.find(dirStr);
     if (it == m.end() || idx >= it->second.size())
         throw std::out_of_range("GameAnimations: bad dir/index");
     return it->second[idx];
@@ -434,4 +429,15 @@ inline void GameAnimations::initializeFrames()
     standardenemydataFrames["Stay"].push_back({ 539,663,90,79 });
     standardenemydataFrames["Stay"].push_back({ 527,745,123,79 });
     standardenemydataFrames["Stay"].push_back({ 514,828,142,79 });
+
+    /*--------------------------------------------------
+    playerHPFrames (5)
+    --------------------------------------------------*/
+    playerHPdataFrames["Health5"].push_back({ 2,   816, 64, 64 });
+    playerHPdataFrames["Health4"].push_back({ 67,  816, 64, 64 });
+    playerHPdataFrames["Health3"].push_back({ 129, 816, 64, 64 });
+    playerHPdataFrames["Health2"].push_back({ 192, 816, 64, 64 });
+    playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
+    playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
+
 }

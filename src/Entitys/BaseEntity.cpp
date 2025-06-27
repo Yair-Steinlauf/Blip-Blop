@@ -1,4 +1,4 @@
-#include "BaseEntity.h"
+ï»¿#include "BaseEntity.h"
 #include "Constance.h"
 BaseEntity::BaseEntity(sf::Texture* tex, sfPos pos, b2World* world)
 	:m_world(world)
@@ -44,7 +44,10 @@ b2Body* BaseEntity::getBody() const
 	return m_body;
 }
 
-
+b2World* BaseEntity::getWorld() const
+{
+	return m_world;
+}
 
 void BaseEntity::initBox2d(sfPos pos)
 {
@@ -63,34 +66,12 @@ void BaseEntity::updatePolygon()
 	polygonShape.SetAsBox(m_sprite.getGlobalBounds().width / 2.f / SCALE, m_sprite.getGlobalBounds().height / 2.f / SCALE);
 	m_body->CreateFixture(&polygonShape, 1.0f);
 }
-//void BaseEntity::updatePolygon()
-//{
-//	if (!m_body) return;
-//
-//	/* 1. îåç÷éí àú ëì ä-fixtures ä÷ééîéí */
-//	while (b2Fixture* f = m_body->GetFixtureList())
-//		m_body->DestroyFixture(f);
-//
-//	/* 2. áåðéí àçã çãù òì-ôé äâáåìåú äðåëçééí ùì äñôøééè */
-//	const auto bounds = m_sprite.getGlobalBounds();
-//
-//	b2PolygonShape shape;
-//	shape.SetAsBox(bounds.width / 2.f / SCALE,
-//		bounds.height / 2.f / SCALE);
-//
-//	b2FixtureDef fd;
-//	fd.shape = &shape;
-//	fd.density = 1.f;
-//	fd.friction = 0.3f;
-//	fd.restitution = 0.f;
-//
-//	m_body->CreateFixture(&fd);
-//}
+
 void BaseEntity::updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
 {
 	if (!m_body) return;
 
-	// 1. îåç÷éí àú ëì ä-fixtures ä÷ééîéí
+	// 1. ×ž×•×—×§×™× ××ª ×›×œ ×”-fixtures ×”×§×™×™×ž×™×
 	while (b2Fixture* f = m_body->GetFixtureList())
 		m_body->DestroyFixture(f);
 
@@ -115,6 +96,7 @@ void BaseEntity::initBody(sfPos& pos)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(SFMLToBox2d(pos.x), SFMLToBox2d(pos.y));
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this); // ×”×¦×ž×“×ª this
 	m_body = m_world->CreateBody(&bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
@@ -149,46 +131,67 @@ void BaseEntity::setFixture(bool fixedRotation, b2BodyType staticOrDinamic,float
 	m_body->GetFixtureList()->SetDensity(density);
 	m_body->ResetMassData();
 }
-/////////////
-//void BaseEntity::setTextureRect(const sf::IntRect& rect)
-//{
-//	/* 1. çåúëéí àú äñôøééè         */
-//	m_sprite.setTextureRect(rect);
-//
-//	/* 2. îééùøéí ùåá ìîøëæ (çùåá!) */
-//	m_sprite.setOrigin(rect.width / 2.f,
-//		rect.height / 2.f);
-//
-//	/* 3. îòãëðéí àú âåó-äôéæé÷ä    */
-//	if (m_body)            // ìååãà ùäâåó ëáø ÷ééí
-//	{
-//		/* îåç÷éí àú ä-fixture äéùï (éëåì ìäéåú éåúø îàçã) */
-//		while (b2Fixture* f = m_body->GetFixtureList())
-//			m_body->DestroyFixture(f);
-//
-//		/* áåðéí fixture çãù áâåãì äôøééí äðåëçé        */
-//		b2PolygonShape poly;
-//		const auto bounds = m_sprite.getGlobalBounds();
-//		poly.SetAsBox(bounds.width / 2.f / SCALE,
-//			bounds.height / 2.f / SCALE);
-//
-//		b2FixtureDef fd;
-//		fd.shape = &poly;
-//		fd.density = 1.f;
-//		fd.friction = 0.3f;
-//		fd.restitution = 0.f;
-//
-//		m_body->CreateFixture(&fd);
-//	}
-//}
 
 void BaseEntity::setTextureRect(const sf::IntRect& rect, float FIXTURE_WIDTH, float FIXTURE_HEIGHT)
 {
-	/* çéúåê äñôøééè + Origin çãù */
+	/* ×—×™×ª×•×š ×”×¡×¤×¨×™×™×˜ + Origin ×—×“×© */
 	m_sprite.setTextureRect(rect);
 	m_sprite.setOrigin(rect.width / 2.f,
 		rect.height / 2.f);
 
-	/* äúàîú ä-fixture – ùéîåù çåæø áôåð÷öéä ùìê */
+	/* ×”×ª××ž×ª ×”-fixture â€“ ×©×™×ž×•×© ×—×•×–×¨ ×‘×¤×•× ×§×¦×™×” ×©×œ×š */
 	updatePolygonWithSize(FIXTURE_WIDTH, FIXTURE_HEIGHT);
+}
+
+sf::Vector2f BaseEntity::getDirection(){
+	return m_direction;
+}
+
+void BaseEntity::setDirection(sf::Vector2f direction) {
+	m_direction = direction;
+}
+
+void BaseEntity::setFixtureForMov()
+{
+	if (!m_body)
+		return;
+
+	// ×”×¤×™×›×ª ×”×’×•×£ ×œ×“×™× ×ž×™ â€” ×›×“×™ ×©×™×ª×—×™×œ ×œ×–×•×–
+	m_body->SetType(b2_dynamicBody);
+}
+
+void BaseEntity::rotateToDirection(const sf::Vector2f& direction)
+{
+	if (!m_body)
+		return;
+
+	float angle = std::atan2(direction.y, direction.x);
+
+	b2Vec2 pos = m_body->GetPosition();
+	m_body->SetTransform(pos, angle);
+
+	m_direction = direction;
+
+	sync();
+}
+
+void BaseEntity::setTextureRect(const sf::IntRect& rect)
+{
+	// ×—×™×ª×•×š ×”×¡×¤×¨×™×™×˜
+	m_sprite.setTextureRect(rect);
+	m_sprite.setOrigin(rect.width / 2.f, rect.height / 2.f);
+
+	// ×¢×“×›×•×Ÿ ×”×¤×™×–×™×§×” ×œ×¤×™ ×’×•×“×œ ×”×ª×ž×•× ×” ×‘×¤×•×¢×œ
+	float width = static_cast<float>(rect.width);
+	float height = static_cast<float>(rect.height);
+
+	updatePolygonWithSize(width, height);
+}
+
+bool BaseEntity::shouldBeRemoved() const {
+	return m_shouldBeDestroyed;
+}
+
+void BaseEntity::markForRemoval() {
+	m_shouldBeDestroyed = true;
 }

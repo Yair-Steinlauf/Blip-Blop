@@ -5,4 +5,6 @@ configure_file ("Player.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Tile.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Map.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("characterSprite.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("shotGunSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("newww_map.tmj" ${CMAKE_BINARY_DIR} COPYONLY)

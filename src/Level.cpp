@@ -10,7 +10,7 @@ Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
 {
 	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
-	//m_entities.push_back(Factory::instance().create(ObjectType::FLOOR, sfPos{500,550/*0,SCREEN_HEIGHT - 20 */}, m_world));
+	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{500,200}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
 	m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::SMURF, { 0,0 }, m_world, m_player));
@@ -20,6 +20,8 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {	
+	removeMarkedEntities();
+
 	m_player->update(deltaTime);
 
 	for (auto& entity : m_entities)
@@ -39,7 +41,9 @@ void Level::draw(sf::RenderWindow& window)
 	m_player->draw(window);
 }
 
-
+void Level::addEntity(std::unique_ptr<BaseEntity> entity) {
+	m_entities.push_back(std::move(entity));
+}
 
 void Level::loadStaticPlatformsFromJson(const std::string& path)
 {
@@ -84,4 +88,17 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 	}
 }
 
+void Level::removeMarkedEntities() {
+	for (auto it = m_entities.begin(); it != m_entities.end(); ) {
+		if ((*it)->shouldBeRemoved()) {
+			it = m_entities.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+}
 
+const sf::Sprite& Level::getBackground() const {
+	return m_map_sprite;
+}

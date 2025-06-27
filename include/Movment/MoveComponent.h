@@ -19,10 +19,14 @@ public:
     const BaseEntity& getEntity()const;
     void setState(std::unique_ptr<MovingState> state);
     MovingState* getState() const;
+    int getHealth() const;
+    void setHealth(int life);
+    void takeDamage(int amount);
 
 private:
     BaseEntity& m_entity;
     sf::Vector2f m_direction;
     float m_speed = 10.f;
     std::unique_ptr<MovingState> m_state;
+    int m_health = 5;
 }; 

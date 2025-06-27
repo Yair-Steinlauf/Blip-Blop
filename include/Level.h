@@ -8,8 +8,11 @@ public:
 	~Level() = default;
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+	void addEntity(std::unique_ptr<BaseEntity> entity);
+	const sf::Sprite& getBackground() const;
 private:
 	void loadStaticPlatformsFromJson(const std::string& path);
+	void removeMarkedEntities();
 	std::vector<std::unique_ptr<BaseEntity>> m_entities;
 	Player* m_player;
 	b2World* m_world;

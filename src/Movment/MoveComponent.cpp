@@ -78,3 +78,19 @@ void MoveComponent::setState(std::unique_ptr<MovingState> state) {
 MovingState* MoveComponent::getState() const {
     return m_state.get();
 } 
+
+int MoveComponent::getHealth() const {
+    return m_health; 
+}
+
+void MoveComponent::setHealth(int life){
+    m_health = life;
+}
+
+void MoveComponent::takeDamage(int amount) {
+    m_health -= amount;
+    if (m_health < 0) {
+        m_health = 0;
+        m_entity.markForRemoval();
+    }
+}
