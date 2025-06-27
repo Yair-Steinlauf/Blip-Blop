@@ -6,7 +6,8 @@
 
 void PlayerRightMovement::enter()
 {
-    
+    //TODO: mybe velocity?
+
 	m_moveComponent.setDirection({ 1.f, 0.f }); // Move right
 }
 

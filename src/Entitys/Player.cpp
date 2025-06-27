@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Factory.h"
 #include "DataLoader.h"
+#include "PlayerStandMovment.h"
 #include "GamePlay.h"
 #include <GunMovment/SingleShotStrategy.h>
 #include <GunMovment/TripleShotStrategy.h>
@@ -15,7 +16,8 @@ static auto registerIt = Factory::instance().registerType(
 
 Player::Player(sfPos pos, b2World* world)
 	: BaseEntity(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite),pos, world),
-	m_moveComponent(*this), m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), SINGLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::shotGunSound)))
+	m_moveComponent(*this, std::make_unique<PlayerStandMovement>(m_moveComponent)), 
+	m_gun(std::make_unique<Gun>(AnimationSet::Blip, std::make_unique<SingleShotStrategy>(), SINGLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::shotGunSound)))
 {
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
@@ -63,11 +65,11 @@ void Player::updateLifeBarSprite()
 void Player::drawLifeBar(sf::RenderWindow& window)
 {
 	updateLifeBarSprite();
-	// 1. îîøëæ àú äñôøééè ìôé âåãì äúîåğä
+	// 1. Ã®Ã®Ã¸Ã«Ã¦ Ã Ãº Ã¤Ã±Ã´Ã¸Ã©Ã©Ã¨ Ã¬Ã´Ã© Ã¢Ã¥Ã£Ã¬ Ã¤ÃºÃ®Ã¥Ã°Ã¤
 	sf::FloatRect bounds = m_lifeBar.getLocalBounds();
 	m_lifeBar.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
-	// 2. îî÷í àåúå áîøëæ äçìåï
+	// 2. Ã®Ã®Ã·Ã­ Ã Ã¥ÃºÃ¥ Ã¡Ã®Ã¸Ã«Ã¦ Ã¤Ã§Ã¬Ã¥Ã¯
 	sf::Vector2u windowSize = window.getSize();
 	m_lifeBar.setPosition(50, 50);
 	window.draw(m_lifeBar);
