@@ -70,6 +70,7 @@ DataLoader::DataLoader()
         {ObjectType::shotGunSound, "shotGunSound"},
         {ObjectType::shotGunWord, "shotGunWord"},
         {ObjectType::machineGunWord, "machineGunWord"},
+        {ObjectType::DeafultWeaponSound, "DeafultWeaponSound"}
     };
 
     for (const auto& [type, name] : soundNames) {
