@@ -6,7 +6,7 @@
 static GiftRegistrar<
     ObjectType::SingleGift,
     SingleShotGiftStrategy,
-    Direction::Right
+    Direction::machineGunWord
 > reg;
 
 void SingleShotGiftStrategy::applyEffect(Player& player) {

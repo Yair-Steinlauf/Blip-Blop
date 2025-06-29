@@ -46,6 +46,7 @@ const float PLAYER_FIXTURE_HEIGHT = 28.f;
 const float GUNLENGTH = 39.f;
 const float BULLET_SPEED = 80.f;
 const float BULLET_LIFETIME = 8.f;
+const float SIMPLE_SHOOT_TIME = 0.5f;
 const float SINGLE_SHOOT_TIME = 0.3f;
 const float TRIPLE_SHOOT_TIME = 1.f;
 

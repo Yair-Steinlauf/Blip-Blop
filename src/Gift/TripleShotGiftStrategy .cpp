@@ -6,7 +6,7 @@
 static GiftRegistrar<
     ObjectType::TripleGift,
     TripleShotGiftStrategy,
-    Direction::Left
+    Direction::shotGunWord
 > reg;
 
 void TripleShotGiftStrategy::applyEffect(Player& player) {

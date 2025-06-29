@@ -14,7 +14,8 @@ enum class AnimationSet {
     ForkEnemy, PresentEnemy,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,
-    StandardBullet, StandardEnemy, playerHPFrames
+    StandardBullet, StandardEnemy, playerHPFrames,
+    giftFrames
 };
 
 enum class Direction {
@@ -23,7 +24,8 @@ enum class Direction {
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,
     DownHeadRight, DownHeadLeft,
-    Health0, Health1, Health2, Health3, Health4, Health5
+    Health0, Health1, Health2, Health3, Health4, Health5,
+    shotGunWord, machineGunWord, lifeWord
 };
 static Direction posToDirection(sfPos delta) {
     const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
@@ -149,7 +151,8 @@ private:
         shotguncharblopFrames,
         standardbulletFrames,
         standardenemydataFrames,
-        playerHPdataFrames;
+        playerHPdataFrames,
+        giftHPdataFrames;
 };
 
 /*==================================================
@@ -174,6 +177,9 @@ inline const char* GameAnimations::dirToStr(Direction d)
     case Direction::Health3:        return "Health3";
     case Direction::Health4:        return "Health4";
     case Direction::Health5:        return "Health5";
+    case Direction::shotGunWord:        return "shotGunWord";
+    case Direction::machineGunWord:        return "machineGunWord";
+    case Direction::lifeWord:        return "lifeWord";
     }
     return "";
 }
@@ -196,6 +202,7 @@ inline GameAnimations::FrameMap& GameAnimations::setMap(AnimationSet s)
     case AnimationSet::StandardBullet:   return standardbulletFrames;
     case AnimationSet::StandardEnemy:    return standardenemydataFrames;
     case AnimationSet::playerHPFrames:   return playerHPdataFrames;
+    case AnimationSet::giftFrames:       return giftHPdataFrames;
     }
     throw std::out_of_range("GameAnimations: unknown set");
 }
@@ -478,4 +485,10 @@ inline void GameAnimations::initializeFrames()
     playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
     playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
 
+    /*--------------------------------------------------
+    Gift (5)
+    --------------------------------------------------*/
+    giftHPdataFrames["shotGunWord"].push_back({ 98,   605, 70, 17 });
+    giftHPdataFrames["machineGunWord"].push_back({ 184,   605, 60, 18 });
+    giftHPdataFrames["lifeWord"].push_back({ 261,   592, 43, 26 });
 }

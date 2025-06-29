@@ -6,7 +6,7 @@
 static GiftRegistrar<
     ObjectType::LifeGift,
     LifeGiftStrategy,
-    Direction::Right
+    Direction::lifeWord
 > reg;
 
 
