@@ -11,5 +11,5 @@ static GiftRegistrar<
 
 void SingleShotGiftStrategy::applyEffect(Player& player) {
     DataLoader::getInstance().getSound(ObjectType::machineGunWord).play();
-    player.setGun(std::make_unique<SingleShotStrategy>(), AnimationSet::Blip, SINGLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::DeafultWeaponSound));
+    player.setGun(std::make_unique<SingleShotStrategy>(), AnimationSet::RifleGunChar, SINGLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::DeafultWeaponSound));
 }

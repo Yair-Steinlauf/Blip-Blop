@@ -238,6 +238,21 @@ inline void GameAnimations::initializeFrames()
     blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
     blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
 
+    ///*--------------------------------------------------
+    //  Blip shot gun (10)
+    //--------------------------------------------------*/
+    //blipFrames.clear();
+    //blipFrames["Right"].push_back({ 100,  6, 65, 28 });
+    //blipFrames["Left"].push_back({ 86, 37, 65, 28 });
+    //blipFrames["UpRight"].push_back({ 20, 76, 55, 55 });
+    //blipFrames["UpLeft"].push_back({ 20,133, 55, 55 });
+    //blipFrames["DownRight"].push_back({ 21,194, 54, 46 });
+    //blipFrames["DownLeft"].push_back({ 18,247, 55, 46 });
+    //blipFrames["DownHeadLeft"].push_back({ 25,368, 47, 66 });
+    //blipFrames["DownHeadRight"].push_back({ 23,299, 48, 65 });
+    //blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
+    //blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
+
     /*--------------------------------------------------
       Blop (10)
     --------------------------------------------------*/

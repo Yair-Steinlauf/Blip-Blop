@@ -86,3 +86,9 @@ void GamePlay::centerCameraOnPlayer() {
 	view.setCenter(cameraX, view.getCenter().y);
 	m_window->setView(view);
 }
+
+GamePlay::~GamePlay()
+{
+	if (m_world)
+		m_world->SetContactListener(nullptr);
+}
