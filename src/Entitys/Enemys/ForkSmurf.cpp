@@ -1,16 +1,16 @@
-#include "Enemys/Smurf.h"
+#include "Enemys/ForkSmurf.h"
 #include "EnemyFactory.h"
 #include "Player.h"
 #include "DataLoader.h"
 
 static bool regSmurf = EnemyFactory::instance().registerType(
-	ObjectType::SMURF,
+	ObjectType::ForkSMURF,
 	[](sfPos pos, b2World* world, Player* player) -> std::unique_ptr<BaseEntity> {
-		return std::make_unique<Smurf>(pos, world, player);
+		return std::make_unique<ForkSmurf>(pos, world, player);
 	}
 );
 
-Smurf::Smurf(sfPos pos, b2World* world, Player* player)
+ForkSmurf::ForkSmurf(sfPos pos, b2World* world, Player* player)
 	: BaseEnemy(&DataLoader::getInstance().getP2Texture(ObjectType::characterSprite), pos, world, player, AnimationSet::ForkEnemy)
 
 {

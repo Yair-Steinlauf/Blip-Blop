@@ -11,7 +11,7 @@
 ==================================================*/
 enum class AnimationSet {
     Blip, Blop, Boss, BossBull,
-    ForkEnemy, PresentEnemy,
+    ForkEnemy, PresentEnemy, RegularSmurf,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,
     StandardBullet, StandardEnemy, playerHPFrames
@@ -150,6 +150,7 @@ private:
         standardbulletFrames,
         standardenemydataFrames,
         playerHPdataFrames;
+        
 };
 
 /*==================================================
@@ -197,6 +198,7 @@ inline GameAnimations::FrameMap& GameAnimations::setMap(AnimationSet s)
     case AnimationSet::StandardEnemy:    return standardenemydataFrames;
     case AnimationSet::playerHPFrames:   return playerHPdataFrames;
     }
+
     throw std::out_of_range("GameAnimations: unknown set");
 }
 
@@ -477,5 +479,4 @@ inline void GameAnimations::initializeFrames()
     playerHPdataFrames["Health2"].push_back({ 192, 816, 64, 64 });
     playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
     playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
-
 }
