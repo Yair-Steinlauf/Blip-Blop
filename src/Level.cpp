@@ -9,6 +9,13 @@
 Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
 {
+	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::ForkSMURF, {5,5}, m_world));
+	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{500,200}, m_world));
+	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::ForkSMURF, { 500,300 }, m_world, m_player));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::BossSmurf, { 500,300 }, m_world, m_player));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::PresentSmurf, { 500,400 }, m_world, m_player));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::RegularSmurf, { 500,400 }, m_world, m_player));
 	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::SingleGift, sfPos{300,200}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{400,200}, m_world));
@@ -21,6 +28,21 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {	
+	m_enemySpawnTimer += deltaTime;
+
+	// שלב 1 – ספאון אויבים כל 3 שניות
+	if (m_enemySpawnTimer >= m_enemySpawnInterval)
+	{
+		m_enemySpawnTimer = 0.f;
+
+		// מספר רנדומלי של אויבים בין 3 ל־10
+		int count = 3 + (std::rand() % 8); // 3..10
+
+		auto enemies = EnemyFactory::instance().createWave(count, m_world, m_player);
+
+		for (auto& enemy : enemies)
+			addEntity(std::move(enemy));
+	}
 	removeMarkedEntities();
 
 	m_player->update(deltaTime);

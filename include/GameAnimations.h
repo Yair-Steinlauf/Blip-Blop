@@ -11,7 +11,7 @@
 ==================================================*/
 enum class AnimationSet {
     Blip, Blop, Boss, BossBull,
-    ForkEnemy, PresentEnemy,
+    ForkEnemy, PresentEnemy, RegularSmurf,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,
     StandardBullet, StandardEnemy, playerHPFrames,
@@ -19,7 +19,7 @@ enum class AnimationSet {
 };
 
 enum class Direction {
-    Nan, Right, Left,
+    Nan, Stay, Right, Left,
     UpRight, UpLeft,
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,
@@ -125,6 +125,8 @@ public:
     /*----- טעינה – לקרוא פעם אחת בהתחלה -----*/
     static void initializeFrames();               /* מוגדר בהמשך */
 
+    std::size_t getFrameCount(AnimationSet set, Direction dir) const;
+
     /*----- Getters -----*/
     const sf::IntRect& getFrame(AnimationSet set,
         Direction    dir,
@@ -153,6 +155,7 @@ private:
         standardenemydataFrames,
         playerHPdataFrames,
         giftHPdataFrames;
+
 };
 
 /*==================================================
@@ -177,9 +180,11 @@ inline const char* GameAnimations::dirToStr(Direction d)
     case Direction::Health3:        return "Health3";
     case Direction::Health4:        return "Health4";
     case Direction::Health5:        return "Health5";
+    case Direction::Stay:            return "Stay";
     case Direction::shotGunWord:        return "shotGunWord";
     case Direction::machineGunWord:        return "machineGunWord";
     case Direction::lifeWord:        return "lifeWord";
+
     }
     return "";
 }
@@ -204,6 +209,7 @@ inline GameAnimations::FrameMap& GameAnimations::setMap(AnimationSet s)
     case AnimationSet::playerHPFrames:   return playerHPdataFrames;
     case AnimationSet::giftFrames:       return giftHPdataFrames;
     }
+
     throw std::out_of_range("GameAnimations: unknown set");
 }
 
@@ -324,10 +330,10 @@ inline void GameAnimations::initializeFrames()
     forkenemydataFrames["Left"].push_back({ 724,234, 51,45 });
     forkenemydataFrames["Left"].push_back({ 725,281, 52,42 });
     forkenemydataFrames["Left"].push_back({ 723,324, 52,44 });
-    forkenemydataFrames["DownLeft"].push_back({ 719,376, 83,35 });
-    forkenemydataFrames["DownLeft"].push_back({ 720,413, 53,32 });
-    forkenemydataFrames["DownLeft"].push_back({ 721,448, 53,32 });
-    forkenemydataFrames["DownLeft"].push_back({ 719,481, 54,32 });
+    forkenemydataFrames["Stay"].push_back({ 719,376, 83,35 });
+    forkenemydataFrames["Stay"].push_back({ 720,413, 53,32 });
+    forkenemydataFrames["Stay"].push_back({ 721,448, 53,32 });
+    forkenemydataFrames["Stay"].push_back({ 719,481, 54,32 });
     forkenemydataFrames["DownRight"].push_back({ 717,516, 83,35 });
     forkenemydataFrames["DownRight"].push_back({ 746,553, 53,32 });
     forkenemydataFrames["DownRight"].push_back({ 745,588, 53,32 });
@@ -500,10 +506,23 @@ inline void GameAnimations::initializeFrames()
     playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
     playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
 
+
     /*--------------------------------------------------
     Gift (5)
     --------------------------------------------------*/
     giftHPdataFrames["shotGunWord"].push_back({ 98,   605, 70, 17 });
     giftHPdataFrames["machineGunWord"].push_back({ 184,   605, 60, 18 });
     giftHPdataFrames["lifeWord"].push_back({ 261,   592, 43, 26 });
+}
+inline std::size_t
+GameAnimations::getFrameCount(AnimationSet set, Direction dir) const
+{
+    const auto& m = setMap(set);
+    const std::string key{ dirToStr(dir) };
+    auto it = m.find(key);
+
+    if (it == m.end())
+        throw std::out_of_range("GameAnimations: bad dir");
+
+    return it->second.size();
 }

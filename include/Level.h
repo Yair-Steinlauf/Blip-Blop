@@ -17,4 +17,7 @@ private:
 	Player* m_player;
 	b2World* m_world;
 	sf::Sprite m_map_sprite;
+	float m_enemySpawnTimer = 0.f;
+	const float m_enemySpawnInterval = 3.f;
+
 };

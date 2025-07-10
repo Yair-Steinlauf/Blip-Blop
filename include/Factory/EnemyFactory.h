@@ -20,6 +20,10 @@ public:
     bool registerType(ObjectType t, FuncType f);
 
     std::unique_ptr<BaseEntity> create(ObjectType t, sfPos pos, b2World* world, Player* player)const;
+    std::unique_ptr<BaseEntity> createRandom(b2World* world, Player* player)const;
+
+    std::vector<std::unique_ptr<BaseEntity>> createWave(int count, b2World* world, Player* player) const;
+    
 
 private:
     EnemyFactory() = default;
