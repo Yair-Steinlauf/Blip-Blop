@@ -68,6 +68,7 @@ void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 }
 
 
+
 sf::Vector2f GamePlay::getMouseWorldPosition()
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(*m_window); // window = sf::RenderWindow שלך
@@ -77,6 +78,15 @@ sf::Vector2f GamePlay::getMouseWorldPosition()
 
 void GamePlay::addEntity(std::unique_ptr<BaseEntity> entity) {
 	m_level.addEntity(std::move(entity));
+}
+
+void GamePlay::gameOver(int score, GameOverScreen::GameResult result)
+{
+	if (m_controller) {
+		m_controller->switchToGameOver(result, 1500);
+		return;
+	}
+	
 }
 
 void GamePlay::drawUI()

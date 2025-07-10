@@ -19,6 +19,7 @@ public:
 	sf::Vector2f getMouseWorldPosition();
 	void addEntity(std::unique_ptr<BaseEntity> entity);
 	void setController(Controller* controller) { m_controller = controller; }
+	void gameOver(int score, GameOverScreen::GameResult result);
 private:
 	std::unique_ptr<b2World> m_world;
 	std::unique_ptr<Player> m_player;
