@@ -11,10 +11,21 @@ public:
 	BaseEnemy(sf::Texture* tex = nullptr, sfPos pos = { 0,0 }, b2World* world = nullptr, Player* player = nullptr, AnimationSet animationSet = AnimationSet());
 	virtual ~BaseEnemy() override = default;
 	virtual void update(float deltaTime);
+	void addLife(int life);
+	void onCollisionEnter(BaseEntity* other) override;
+	//void onCollisionExit(BaseEntity* other);
 protected:
 	Player* m_player = nullptr;
 	MoveComponent m_moveComponent;
 	AnimationSet m_animationSet;
 	Animator m_animation;
+	bool m_isExploding = false;
+	float m_explosionTime = 0.0f;
+	float m_frameTime = 0.1f;
+	std::size_t m_currentExplosionFrame = 0;
+	const std::size_t TOTAL_EXPLOSION_FRAMES = 7;
+
+	void updateExplosionAnimation(float deltaTime);
+	void startExplosion();
 
 };

@@ -13,8 +13,8 @@ Level::Level(Player* player , b2World* world)
 	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{500,200}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
-	m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::ForkSMURF, { 500,300 }, m_world, m_player));
-	m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::PresentSmurf, { 500,400 }, m_world, m_player));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::ForkSMURF, { 500,300 }, m_world, m_player));
+	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::PresentSmurf, { 500,400 }, m_world, m_player));
 	m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::RegularSmurf, { 500,400 }, m_world, m_player));
 
 }

@@ -18,7 +18,7 @@ enum class AnimationSet {
 };
 
 enum class Direction {
-    Nan, Right, Left,
+    Nan, Stay, Right, Left,
     UpRight, UpLeft,
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,
@@ -123,6 +123,8 @@ public:
     /*----- טעינה – לקרוא פעם אחת בהתחלה -----*/
     static void initializeFrames();               /* מוגדר בהמשך */
 
+    std::size_t getFrameCount(AnimationSet set, Direction dir) const;
+
     /*----- Getters -----*/
     const sf::IntRect& getFrame(AnimationSet set,
         Direction    dir,
@@ -175,6 +177,7 @@ inline const char* GameAnimations::dirToStr(Direction d)
     case Direction::Health3:        return "Health3";
     case Direction::Health4:        return "Health4";
     case Direction::Health5:        return "Health5";
+    case Direction::Stay:            return "Stay";
     }
     return "";
 }
@@ -479,4 +482,16 @@ inline void GameAnimations::initializeFrames()
     playerHPdataFrames["Health2"].push_back({ 192, 816, 64, 64 });
     playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
     playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
+}
+inline std::size_t
+GameAnimations::getFrameCount(AnimationSet set, Direction dir) const
+{
+    const auto& m = setMap(set);
+    const std::string key{ dirToStr(dir) };
+    auto it = m.find(key);
+
+    if (it == m.end())
+        throw std::out_of_range("GameAnimations: bad dir");
+
+    return it->second.size();
 }
