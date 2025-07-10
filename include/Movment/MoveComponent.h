@@ -26,7 +26,7 @@ public:
 private:
     BaseEntity& m_entity;
     sf::Vector2f m_direction;
-    float m_speed = 10.f;
+    float m_speed = 100.f;
     std::unique_ptr<MovingState> m_state;
     int m_health = 5;
 }; 
