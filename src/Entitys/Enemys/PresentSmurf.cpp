@@ -19,14 +19,14 @@ PresentSmurf::PresentSmurf(sfPos pos, b2World* world, Player* player)
 	m_moveComponent.setHealth(1);
 }
 
-//void PresentSmurf::onCollisionEnter(BaseEntity* other)
-//{
-//	if (auto* bullet = dynamic_cast<Bullet*>(other)) {
-//		// נזק לאויב
-//		m_moveComponent.takeDamage(1);
-//	}
-//	if (auto* player = dynamic_cast<Player*>(other)) {
-//		player->addLife(-2);
-//		//m_moveComponent.setHealth(0);
-//	}
-//}
+void PresentSmurf::onCollisionEnter(BaseEntity* other)
+{
+	if (auto* bullet = dynamic_cast<Bullet*>(other)) {
+		// נזק לאויב
+		m_moveComponent.takeDamage(1);
+	}
+	if (auto* player = dynamic_cast<Player*>(other)) {
+		player->addLife(-2);
+		m_moveComponent.setHealth(0);
+	}
+}

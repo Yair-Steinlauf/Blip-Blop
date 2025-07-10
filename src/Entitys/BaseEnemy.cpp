@@ -41,6 +41,7 @@ void BaseEnemy::onCollisionEnter(BaseEntity* other)
 	}
     if (auto* player = dynamic_cast<Player*>(other)) {
 		player->addLife(-1);
+        markForRemoval();
     }
 }
 
