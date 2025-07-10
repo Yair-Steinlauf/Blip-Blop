@@ -11,7 +11,7 @@ Gift::Gift(sf::Texture* tex,
     m_strategy(std::move(strategy))
 {
     const sf::IntRect& frame =
-        GameAnimations::getInstance().getFrame(AnimationSet::Blip, direction, 0);
+        GameAnimations::getInstance().getFrame(AnimationSet::giftFrames, direction, 0);
 
     setTextureRect(frame);
     this->setFixtureForMov();

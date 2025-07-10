@@ -6,10 +6,10 @@
 static GiftRegistrar<
     ObjectType::TripleGift,
     TripleShotGiftStrategy,
-    Direction::Left
+    Direction::shotGunWord
 > reg;
 
 void TripleShotGiftStrategy::applyEffect(Player& player) {
     DataLoader::getInstance().getSound(ObjectType::shotGunWord).play();
-    player.setGun(std::make_unique<TripleShotStrategy>(), AnimationSet::Blip, TRIPLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::shotGunSound));
+    player.setGun(std::make_unique<TripleShotStrategy>(), AnimationSet::ShotgunChar, TRIPLE_SHOOT_TIME, DataLoader::getInstance().getSound(ObjectType::shotGunSound));
 }

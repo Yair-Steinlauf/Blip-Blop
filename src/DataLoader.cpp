@@ -70,12 +70,13 @@ DataLoader::DataLoader()
         }
     }
 
-    //  çãù: èòéðú öìéìéí ìôé ObjectType
+    //  Ã§Ã£Ã¹: Ã¨Ã²Ã©Ã°Ãº Ã¶Ã¬Ã©Ã¬Ã©Ã­ Ã¬Ã´Ã© ObjectType
     const std::map<ObjectType, std::string> soundNames = {
         {ObjectType::shotGunSound, "shotGunSound"},
         {ObjectType::shotGunWord, "shotGunWord"},
         {ObjectType::machineGunWord, "machineGunWord"},
-        
+        {ObjectType::DeafultWeaponSound, "DeafultWeaponSound"}
+
     };
 
     for (const auto& [type, name] : soundNames) {
@@ -95,9 +96,9 @@ DataLoader::DataLoader()
         std::cerr << "Failed to load background-music.ogg" << std::endl;
     }
     else {
-        // äâãøåú îåæé÷ä
-        m_music[ObjectType::BackgroundMusic].setLoop(true);  // çæøä àéðñåôéú
-        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // òåöîú ÷åì 50%
+        // Ã¤Ã¢Ã£Ã¸Ã¥Ãº Ã®Ã¥Ã¦Ã©Ã·Ã¤
+        m_music[ObjectType::BackgroundMusic].setLoop(true);  // Ã§Ã¦Ã¸Ã¤ Ã Ã©Ã°Ã±Ã¥Ã´Ã©Ãº
+        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // Ã²Ã¥Ã¶Ã®Ãº Ã·Ã¥Ã¬ 50%
         std::cout << "Background music loaded successfully!" << std::endl;
     }
 }

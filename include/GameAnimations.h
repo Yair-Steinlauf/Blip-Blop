@@ -14,7 +14,8 @@ enum class AnimationSet {
     ForkEnemy, PresentEnemy,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,
-    StandardBullet, StandardEnemy, playerHPFrames
+    StandardBullet, StandardEnemy, playerHPFrames,
+    giftFrames
 };
 
 enum class Direction {
@@ -23,7 +24,8 @@ enum class Direction {
     DownRight, DownLeft,
     UpHeadRight, UpHeadLeft,
     DownHeadRight, DownHeadLeft,
-    Health0, Health1, Health2, Health3, Health4, Health5
+    Health0, Health1, Health2, Health3, Health4, Health5,
+    shotGunWord, machineGunWord, lifeWord
 };
 static Direction posToDirection(sfPos delta) {
     const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
@@ -149,7 +151,8 @@ private:
         shotguncharblopFrames,
         standardbulletFrames,
         standardenemydataFrames,
-        playerHPdataFrames;
+        playerHPdataFrames,
+        giftHPdataFrames;
 };
 
 /*==================================================
@@ -174,6 +177,9 @@ inline const char* GameAnimations::dirToStr(Direction d)
     case Direction::Health3:        return "Health3";
     case Direction::Health4:        return "Health4";
     case Direction::Health5:        return "Health5";
+    case Direction::shotGunWord:        return "shotGunWord";
+    case Direction::machineGunWord:        return "machineGunWord";
+    case Direction::lifeWord:        return "lifeWord";
     }
     return "";
 }
@@ -196,6 +202,7 @@ inline GameAnimations::FrameMap& GameAnimations::setMap(AnimationSet s)
     case AnimationSet::StandardBullet:   return standardbulletFrames;
     case AnimationSet::StandardEnemy:    return standardenemydataFrames;
     case AnimationSet::playerHPFrames:   return playerHPdataFrames;
+    case AnimationSet::giftFrames:       return giftHPdataFrames;
     }
     throw std::out_of_range("GameAnimations: unknown set");
 }
@@ -230,6 +237,21 @@ inline void GameAnimations::initializeFrames()
     blipFrames["DownHeadRight"].push_back({ 23,299, 48, 65 });
     blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
     blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
+
+    ///*--------------------------------------------------
+    //  Blip shot gun (10)
+    //--------------------------------------------------*/
+    //blipFrames.clear();
+    //blipFrames["Right"].push_back({ 100,  6, 65, 28 });
+    //blipFrames["Left"].push_back({ 86, 37, 65, 28 });
+    //blipFrames["UpRight"].push_back({ 20, 76, 55, 55 });
+    //blipFrames["UpLeft"].push_back({ 20,133, 55, 55 });
+    //blipFrames["DownRight"].push_back({ 21,194, 54, 46 });
+    //blipFrames["DownLeft"].push_back({ 18,247, 55, 46 });
+    //blipFrames["DownHeadLeft"].push_back({ 25,368, 47, 66 });
+    //blipFrames["DownHeadRight"].push_back({ 23,299, 48, 65 });
+    //blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
+    //blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
 
     /*--------------------------------------------------
       Blop (10)
@@ -478,4 +500,10 @@ inline void GameAnimations::initializeFrames()
     playerHPdataFrames["Health1"].push_back({ 255, 816, 62, 64 });
     playerHPdataFrames["Health0"].push_back({ 316, 816, 64, 64 });
 
+    /*--------------------------------------------------
+    Gift (5)
+    --------------------------------------------------*/
+    giftHPdataFrames["shotGunWord"].push_back({ 98,   605, 70, 17 });
+    giftHPdataFrames["machineGunWord"].push_back({ 184,   605, 60, 18 });
+    giftHPdataFrames["lifeWord"].push_back({ 261,   592, 43, 26 });
 }

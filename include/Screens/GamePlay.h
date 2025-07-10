@@ -11,7 +11,7 @@ class GamePlay : public BaseScreen {
 public:
 	using BaseScreen::BaseScreen;
 	GamePlay(sf::RenderWindow* window);//TODO: load things
-	~GamePlay() override = default;
+	~GamePlay() ;
 	void update(float deltaTime) override;
 	void draw() override;
 	void handleInput(const sf::Event& event, float deltaTime) override;
