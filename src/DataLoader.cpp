@@ -40,6 +40,9 @@ sf::Sound& DataLoader::getSound(ObjectType type) {
 
 DataLoader::DataLoader()
 {
+    
+
+    m_font.loadFromFile("arial.ttf");
     const std::vector<std::string> pictureList = {
         "pic1", "pic2"
     };
@@ -50,6 +53,7 @@ DataLoader::DataLoader()
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
         {ObjectType::spriteSheetSpecial, "spriteSheetSpecial"}
+        {ObjectType::MenuBackground, "menuBackground"},
     };
 
     for (const auto &[type, name] : objectNames)
@@ -66,12 +70,13 @@ DataLoader::DataLoader()
         }
     }
 
-    //  ���: ����� ������ ��� ObjectType
+    //  çãù: èòéðú öìéìéí ìôé ObjectType
     const std::map<ObjectType, std::string> soundNames = {
         {ObjectType::shotGunSound, "shotGunSound"},
-        //{ObjectType::shotGunWord, "shotGunWord"},
-        //{ObjectType::TripleGift, "tripleGunSound"},
-        //{ObjectType::LifeGift, "lifeGainSound"}
+        {ObjectType::shotGunWord, "shotGunWord"},
+        {ObjectType::machineGunWord, "machineGunWord"},
+        {ObjectType::DeafultWeaponSound, "DeafultWeaponSound"}
+
     };
 
     for (const auto& [type, name] : soundNames) {
@@ -87,4 +92,21 @@ DataLoader::DataLoader()
             std::cerr << "Failed to load sound: " << name << ".ogg\n";
         }
     }
+    if (!m_music[ObjectType::BackgroundMusic].openFromFile("background-music.ogg")) {
+        std::cerr << "Failed to load background-music.ogg" << std::endl;
+    }
+    else {
+        // äâãøåú îåæé÷ä
+        m_music[ObjectType::BackgroundMusic].setLoop(true);  // çæøä àéðñåôéú
+        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // òåöîú ÷åì 50%
+        std::cout << "Background music loaded successfully!" << std::endl;
+    }
+}
+
+sf::Music& DataLoader::getMusic(ObjectType type) {
+    auto it = m_music.find(type);
+    if (it != m_music.end()) {
+        return it->second;
+    }
+    throw std::runtime_error("Music not found for the given ObjectType");
 }

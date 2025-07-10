@@ -1,123 +1,176 @@
-#include "Button.h"
+﻿#include "Button.h"
 #include <stdexcept>
+#include <iostream>
 
-// Constructor
-Button::Button(float x, float y, float width, float height,
-    const sf::Texture* texture,
-    float borderThickness,
-    std::unique_ptr<Command> cmd)
-    : m_x(x), m_y(y), m_width(width), m_height(height),
-    m_texture(texture), m_borderThickness(borderThickness),
-    m_command(std::move(cmd)) {
+// Constructor with texture
+Button::Button(const sf::Vector2f& position, const sf::Texture& texture, float width, float height, float borderThickness, std::unique_ptr<Command> cmd)
+    : m_loc(position), m_borderThickness(borderThickness), m_visible(true), m_useTexture(true), m_command(std::move(cmd)) {
+
+    // Store a copy of the texture inside the class
+    m_background.setSize(sf::Vector2f(width, height));
+    m_background.setPosition(position);
+    m_texture = texture;
+    m_sprite.setTexture(m_texture);
+    m_sprite.setPosition(m_loc);
+    m_sprite.setScale(
+        width / m_texture.getSize().x,
+        height / m_texture.getSize().y
+    );
 }
 
+// Constructor with background color
+Button::Button(const sf::Vector2f& position, float width, float height, sf::Color backgroundColor, float borderThickness, std::unique_ptr<Command> cmd)
+    : m_loc(position), m_borderThickness(borderThickness), m_visible(true), m_useTexture(false), m_command(std::move(cmd)) {
 
-// Check if the button is clicked
+    m_background.setSize(sf::Vector2f(width, height));
+    m_background.setPosition(position);
+    m_background.setFillColor(backgroundColor);
+    m_background.setOutlineThickness(borderThickness);
+    m_background.setOutlineColor(sf::Color::Black); // Default border color: black
+}
+
+// Check if the button was clicked
 bool Button::isClicked(float mouseX, float mouseY) const {
-    float innerLeft = m_x + m_borderThickness;
-    float innerTop = m_y + m_borderThickness;
-    float innerRight = innerLeft + m_width - 2 * m_borderThickness;
-    float innerBottom = innerTop + m_height - 2 * m_borderThickness;
 
-    return mouseX >= innerLeft && mouseX <= innerRight &&
-        mouseY >= innerTop && mouseY <= innerBottom;
+    if (!m_visible) return false;
+    return (m_background.getGlobalBounds().contains(mouseX, mouseY));
 }
 
-// Set highlight state
+// Change highlight state
 void Button::setHighlight(bool highlight) {
     m_isHighlighted = highlight;
 }
 
 // Draw the button
 void Button::draw(sf::RenderWindow& window) const {
-    if (!m_texture) {
-        throw std::runtime_error("Button texture is null!");
+    if (!m_visible) return;
+
+    if (m_useTexture) {
+        window.draw(m_sprite);
+    }
+    else {
+        window.draw(m_background);
     }
 
-    // Draw the border
-    sf::RectangleShape borderShape(sf::Vector2f(m_width, m_height));
-    borderShape.setPosition(m_x, m_y);
-    borderShape.setFillColor(sf::Color::Transparent); // Transparent background
-    borderShape.setOutlineThickness(m_borderThickness);
-
-    // Calculate the inner bounds of the texture
-    float innerWidth = m_width - 2 * m_borderThickness;
-    float innerHeight = m_height - 2 * m_borderThickness;
-    float innerX = m_x + m_borderThickness;
-    float innerY = m_y + m_borderThickness;
-
-    // Draw the texture inside the button
-    sf::Sprite sprite(*m_texture);
-    sprite.setScale(
-        innerWidth / m_texture->getSize().x,  // Scale width
-        innerHeight / m_texture->getSize().y // Scale height
-    );
-    sprite.setPosition(innerX, innerY);
-
-    // Render the border and the texture
-    window.draw(borderShape);
-    window.draw(sprite);
-
-    // If the button is highlighted, draw a semi-transparent red overlay
+    // Add highlight overlay
     if (m_isHighlighted) {
-        sf::RectangleShape overlay(sf::Vector2f(innerWidth, innerHeight));
-        overlay.setPosition(innerX, innerY);
-        overlay.setFillColor(sf::Color(255, 0, 0, 128)); // Semi-transparent red
+        sf::RectangleShape overlay(m_background.getSize());
+        overlay.setPosition(m_loc);
+        overlay.setFillColor(sf::Color(0, 0, 0, 80));
+        //overlay.setFillColor(sf::Color(255, 0, 0, 128)); // Semi-transparent red highlight
         window.draw(overlay);
     }
+
+    // Draw text on button
+    window.draw(m_text);
 }
 
 // Set button position
-void Button::setPosition(float x, float y) {
-    m_x = x;
-    m_y = y;
+void Button::setPosition(const sf::Vector2f& position) {
+    m_loc = position;
+    if (m_useTexture) {
+        m_sprite.setPosition(position);
+    }
+    else {
+        m_background.setPosition(position);
+    }
+    m_text.setPosition(position.x + m_background.getSize().x / 4, position.y + m_background.getSize().y / 4);
 }
 
 // Get button position
-void Button::getPosition(float& x, float& y) const {
-    x = m_x;
-    y = m_y;
+sf::Vector2f Button::getPosition() const {
+    return m_loc;
 }
 
 // Set button size
 void Button::setSize(float width, float height) {
-    m_width = width;
-    m_height = height;
+    if (m_useTexture) {
+        m_sprite.setScale(
+            width / m_sprite.getTexture()->getSize().x,
+            height / m_sprite.getTexture()->getSize().y
+        );
+    }
+    else {
+        m_background.setSize(sf::Vector2f(width, height));
+    }
 }
 
 // Get button size
-void Button::getSize(float& width, float& height) const {
-    width = m_width;
-    height = m_height;
+sf::Vector2f Button::getSize() const {
+    return m_useTexture ? sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height) : m_background.getSize();
 }
 
-// Set border thickness
-void Button::setBorderThickness(float thickness) {
-    m_borderThickness = thickness;
+// Set background color (if no texture is used)
+void Button::setBackgroundColor(sf::Color color) {
+    if (!m_useTexture) {
+        m_background.setFillColor(color);
+    }
+}
+
+// Set border color
+void Button::setOutlineColor(sf::Color color) {
+    if (!m_useTexture) {
+        m_background.setOutlineColor(color);
+    }
 }
 
 // Set button texture
-void Button::setTexture(const sf::Texture* texture) {
-    if (!texture) {
-        throw std::runtime_error("Texture pointer is null!");
-    }
+void Button::setTexture(const sf::Texture& texture) {
     m_texture = texture;
+    m_sprite.setTexture(m_texture);
+
+    // Recalculate the scale based on the new texture size
+    m_sprite.setScale(
+        m_background.getSize().x / m_texture.getSize().x,
+        m_background.getSize().y / m_texture.getSize().y
+    );
 }
 
-// Get the pointer to the button texture
-const sf::Texture* Button::getTexture() const {
-    return m_texture;
+// Get sprite
+sf::Sprite& Button::getSprite() {
+    return m_sprite;
 }
 
-
-// Set the icon character
-void Button::setIcon(char icon) {
+// Set icon value
+void Button::setIcon(int icon) {
     m_icon = icon;
 }
 
-// Get the icon character
-char Button::getIcon() const {
+// Get icon value
+int Button::getIcon() const {
     return m_icon;
+}
+
+// Set button visibility
+void Button::setVisible(bool visible) {
+    m_visible = visible;
+}
+
+// Check if button is visible
+bool Button::isVisible() const {
+    return m_visible;
+}
+
+// Set text on button
+void Button::setText(const std::string& text, const sf::Font& font, unsigned int size, sf::Color color) {
+    m_text.setFont(font);
+    m_text.setString(text);
+    m_text.setCharacterSize(size);
+    m_text.setFillColor(color);
+
+    sf::FloatRect textBounds = m_text.getLocalBounds();
+    m_text.setOrigin(textBounds.width / 2, textBounds.height / 2);
+    m_text.setPosition(m_loc.x + m_background.getSize().x / 2, m_loc.y + m_background.getSize().y / 2 - textBounds.height / 4);
+}
+
+// Get button text
+std::string Button::getText() const {
+    return m_text.getString();
+}
+
+// Set text color
+void Button::setTextColor(sf::Color color) {
+    m_text.setFillColor(color);
 }
 
 void Button::setCommand(std::unique_ptr<Command> cmd) {
