@@ -10,7 +10,7 @@
   Enums – סט/כיוון בצורה בטוחה
 ==================================================*/
 enum class AnimationSet {
-    Blip, Blop, Boss, BossBull,
+    Nan, Blip, Blop, Boss, BossBull,
     ForkEnemy, PresentEnemy, RegularSmurf,
     RifleGunBull, RifleGunChar, RifleGunCharBlop,
     ShotgunBull, ShotgunChar, ShotgunCharBlop,

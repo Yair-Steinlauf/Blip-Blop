@@ -39,7 +39,11 @@ void BaseEnemy::onCollisionEnter(BaseEntity* other)
 		// נזק לאויב
 		m_moveComponent.takeDamage(1);
 	}
+    if (auto* player = dynamic_cast<Player*>(other)) {
+		player->addLife(-1);
+    }
 }
+
 
 void BaseEnemy::update(float deltaTime)
 {
@@ -64,6 +68,9 @@ void BaseEnemy::startExplosion() {
     m_explosionTime = 0.0f;
     m_currentExplosionFrame = 0;
     m_animation.setDirection(Direction::Stay);
+
+
+
     m_animation.setLoop(false); // לא לולאה
     m_animation.reset();        // התחלה מהתחלה
     if (m_body) {

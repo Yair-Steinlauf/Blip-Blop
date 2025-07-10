@@ -5,6 +5,7 @@
 #include "GamePlay.h"
 #include <GunMovment/SingleShotStrategy.h>
 #include <GunMovment/TripleShotStrategy.h>
+#include <BaseEnemy.h>
 
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::PLAYER,
@@ -29,6 +30,24 @@ Player::Player(sfPos pos, b2World* world)
 
 void Player::update(float deltaTime)
 {
+	if (m_hitted) {
+		m_unTouchable = true;
+		m_unTouchableTimer = PLAYER_UNTOUCHABLE_TIME;
+		m_hitted = false;
+	}
+	if (m_unTouchable) {
+		m_unTouchableTimer -= deltaTime;
+
+		if (m_unTouchableTimer <= 0) {
+			m_unTouchable = false;
+			m_unTouchableTimer = 0.0f;
+		}
+	}
+	
+	if (m_moveComponent.getHealth() <= 0) {
+		//m_gamePlay->setGameOver(true);
+		throw std::runtime_error("Player is dead");
+	}
 	BaseEntity::update(deltaTime);
 	m_moveComponent.update(deltaTime);
 	m_gun->update(deltaTime);
@@ -65,20 +84,26 @@ void Player::updateLifeBarSprite()
 void Player::drawLifeBar(sf::RenderWindow& window)
 {
 	updateLifeBarSprite();
-	// 1. îîøëæ àú äñôøééè ìôé âåãì äúîåðä
 	sf::FloatRect bounds = m_lifeBar.getLocalBounds();
 	m_lifeBar.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
-	// 2. îî÷í àåúå áîøëæ äçìåï
 	sf::Vector2u windowSize = window.getSize();
 	m_lifeBar.setPosition(50, 50);
 	window.draw(m_lifeBar);
 }
 
 void Player::addLife(int life) {
-		int neww = m_moveComponent.getHealth() + life;
-		if (neww <= 5)
-			m_moveComponent.setHealth(neww);
+	if (life < 0 && m_unTouchable) {
+		return;
+	}
+	int currentHealth = m_moveComponent.getHealth();
+	int newHealth = currentHealth + life;
+
+	// הגבל בין 0 ל-5
+	if (newHealth < 0) newHealth = 0;
+	if (newHealth > 5) newHealth = 5;
+
+	m_moveComponent.setHealth(newHealth);
 }
 
 void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType, float shootCooldown, const sf::Sound& shootSound) {
@@ -87,5 +112,15 @@ void Player::setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet wea
 		m_gun->setAnimationSet(weaponType);
 		m_gun->setshootCooldown(shootCooldown);
 		m_gun->setShootSound(shootSound);
+	}
+}
+
+void Player::onCollisionEnter(BaseEntity* other)
+{
+	if (auto* player = dynamic_cast<BaseEnemy*>(other)) {
+		if (!m_unTouchable) {
+			m_hitted = true;
+
+		}
 	}
 }

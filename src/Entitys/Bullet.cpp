@@ -1,6 +1,6 @@
 #include "Bullet.h"
 #include <Player.h>
-
+#include "BaseEnemy.h"
 static auto registerIt = Factory::instance().registerType(
 	ObjectType::BULLET,
 	[](sfPos pos, b2World* world) -> std::unique_ptr<BaseEntity>
@@ -33,7 +33,7 @@ void Bullet::update(float deltaTime) {
 }
 
 void Bullet::onCollisionEnter(BaseEntity* other){
-	if (/*dynamic_cast<Player*>(other) || */dynamic_cast<Player*>(other)) {
+	if (/*dynamic_cast<Player*>(other) || */dynamic_cast<BaseEnemy*>(other)) {
 		markForRemoval();
 	}
 }
