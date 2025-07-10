@@ -19,7 +19,7 @@ PauseScreen::PauseScreen(sf::RenderWindow* window, Controller* controller, GameP
 
     // יצירת רקע חצי שקוף
     m_overlay.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-    m_overlay.setFillColor(sf::Color(0, 0, 0, 150)); // שחור חצי שקוף
+    m_overlay.setFillColor(sf::Color(0, 0, 0, 30)); // שחור חצי שקוף
     m_overlay.setPosition(0, 0);
 
     // יצירת כותרת "PAUSED"

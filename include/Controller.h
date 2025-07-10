@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseScreen.h"
+#include "GameOverScreen.h"
 #include <memory>
 #include <stack>
 
@@ -12,10 +13,11 @@ public:
 	Controller();
 	void run();
 	void switchToGamePlay();
-	void switchToHelp();      
-	void backCommand();      
+	void switchToHelp();
+	void backCommand();
 	void pauseGame();
 	void resumeFromPause();
+	void switchToGameOver(GameOverScreen::GameResult result, int score);
 	~Controller() = default;
 
 private:

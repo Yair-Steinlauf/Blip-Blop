@@ -58,6 +58,12 @@ void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 				return;
 			}
 		}
+		if (event.key.code == sf::Keyboard::F3) {
+			if (m_controller) {
+				m_controller->switchToGameOver(GameOverScreen::GameResult::Victory, 1500);
+				return;
+			}
+		}
 	}
 }
 

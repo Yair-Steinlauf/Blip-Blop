@@ -53,7 +53,9 @@ DataLoader::DataLoader()
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
         {ObjectType::spriteSheetSpecial, "spriteSheetSpecial"},
-        {ObjectType::MenuBackground, "menuBackground"}
+        {ObjectType::MenuBackground, "menuBackground"},
+        {ObjectType::VictoryTexture, "victory"},
+        {ObjectType::DefeatTexture, "defeat"}
     };
 
     for (const auto &[type, name] : objectNames)
@@ -96,9 +98,9 @@ DataLoader::DataLoader()
         std::cerr << "Failed to load background-music.ogg" << std::endl;
     }
     else {
-        // äâãøåú îåæé÷ä
-        m_music[ObjectType::BackgroundMusic].setLoop(true);  // çæøä àéðñåôéú
-        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // òåöîú ÷åì 50%
+
+        m_music[ObjectType::BackgroundMusic].setLoop(true);  
+        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // 
         std::cout << "Background music loaded successfully!" << std::endl;
     }
 }

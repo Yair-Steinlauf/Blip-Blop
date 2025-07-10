@@ -103,6 +103,17 @@ void Controller::resumeFromPause() {
 	}
 }
 
+void Controller::switchToGameOver(GameOverScreen::GameResult result, int score)
+{
+	// Clear the current screen stack and push the game over screen
+	while (!m_screenStack.empty()) {
+		m_screenStack.pop();
+	}
+
+	auto gameOverScreen = std::make_unique<GameOverScreen>(m_window.get(), result, score, this);
+	m_screenStack.push(std::move(gameOverScreen));
+}
+
 GamePlay* Controller::getCurrentGamePlay()
 {
 	// בדיקה שהמסך הנוכחי הוא GamePlay

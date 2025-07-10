@@ -34,6 +34,9 @@ enum class ObjectType
     MenuBackground,
     PauseScreen,  // הוספת מסך ה-pause
     ResumeCommand,
+    VictoryTexture,
+    DefeatTexture,
+    GameOverScreen,
 
     shotGunSound,
     shotGunWord,
