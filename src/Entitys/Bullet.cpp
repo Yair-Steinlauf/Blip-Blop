@@ -33,8 +33,7 @@ void Bullet::update(float deltaTime) {
 }
 
 void Bullet::onCollisionEnter(BaseEntity* other){
-	if (/*dynamic_cast<Player*>(other) || */dynamic_cast<BaseEntity*>(other)) {
+	if (/*dynamic_cast<Player*>(other) || */dynamic_cast<Player*>(other)) {
 		markForRemoval();
 	}
-
 }

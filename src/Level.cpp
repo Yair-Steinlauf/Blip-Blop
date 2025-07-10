@@ -28,6 +28,21 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {	
+	m_enemySpawnTimer += deltaTime;
+
+	// שלב 1 – ספאון אויבים כל 3 שניות
+	if (m_enemySpawnTimer >= m_enemySpawnInterval)
+	{
+		m_enemySpawnTimer = 0.f;
+
+		// מספר רנדומלי של אויבים בין 3 ל־10
+		int count = 3 + (std::rand() % 8); // 3..10
+
+		auto enemies = EnemyFactory::instance().createWave(count, m_world, m_player);
+
+		for (auto& enemy : enemies)
+			addEntity(std::move(enemy));
+	}
 	removeMarkedEntities();
 
 	m_player->update(deltaTime);
