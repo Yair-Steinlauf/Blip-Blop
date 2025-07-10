@@ -19,5 +19,13 @@ private:
 	sf::Sprite m_map_sprite;
 	float m_enemySpawnTimer = 0.f;
 	const float m_enemySpawnInterval = 3.f;
+	// בחלק ה-private
+	float m_waveTimer = 0.0f;
+	float m_waveInterval = 5.0f;
+	int m_waveNumber = 0;
+	int m_waveType = 0;
+
+	void spawnWave();
+	int getEnemyCount();
 
 };
