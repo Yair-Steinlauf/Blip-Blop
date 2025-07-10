@@ -25,6 +25,7 @@ enum class ObjectType
     StaticEntity,
     BaseScreen,
     GamePlay,
+    MenuScreen,
 
     shotGunSound,
     shotGunWord,

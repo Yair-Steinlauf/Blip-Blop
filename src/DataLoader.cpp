@@ -40,6 +40,8 @@ sf::Sound& DataLoader::getSound(ObjectType type) {
 
 DataLoader::DataLoader()
 {
+
+    m_font.loadFromFile("arial.ttf");
     const std::vector<std::string> pictureList = {
         "pic1", "pic2"
     };

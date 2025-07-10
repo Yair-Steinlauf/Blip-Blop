@@ -2,12 +2,11 @@
 #include "ScreensFactory.h"
 #include "Player.h"
 
-static auto registerIt = ScreenFactory::instance().registerType(
-	ObjectType::GamePlay,
-	[](sf::RenderWindow* window) -> std::unique_ptr<BaseScreen>
-	{
-		return std::make_unique<GamePlay>(window);
-	}
+static auto registerGamePlay = ScreenFactory::instance().registerType(
+    ObjectType::GamePlay,
+    [](sf::RenderWindow* window) -> std::unique_ptr<BaseScreen> {
+        return std::make_unique<GamePlay>(window);
+    }
 );
 
 GamePlay::GamePlay(sf::RenderWindow* window):
