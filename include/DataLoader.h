@@ -17,6 +17,7 @@ public:
     static sf::Texture& getP2Texture(int num);
     static sf::Font& getP2Font();
     sf::Sound& getSound(ObjectType type);
+    sf::Music& getMusic(ObjectType type);
 private:
     DataLoader();
     std::unordered_map<ObjectType, sf::Texture> m_textures;
@@ -24,4 +25,5 @@ private:
     sf::Font m_font;
     std::map<ObjectType, sf::SoundBuffer> m_soundBuffers;
     std::map<ObjectType, sf::Sound> m_sounds;
+    std::map<ObjectType, sf::Music> m_music;
 };

@@ -2,9 +2,14 @@
 #include "ScreensFactory.h"
 #include "DataLoader.h"
 #include "Constance.h"
-#include "MenuCommands.h"
+
 #include "Controller.h"
 #include <iostream>
+#include "MusicCommand.h"  
+#include "MusicManager.h"
+#include <HelpCommand.h>
+#include <PlayCommand.h>
+#include <ExitCommand.h>
 
 // רישום MenuScreen בפקטורי
 static auto registerMenuScreen = ScreenFactory::instance().registerType(
@@ -19,7 +24,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
     : BaseScreen(window), m_controller(controller) {
 
     // טעינת רקע
-    m_background.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
+    m_background.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MenuBackground));
 
     // יצירת פונט
     const int textSize = 35;
@@ -48,19 +53,46 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
         buttonWidth, buttonHeight,
         sf::Color::Blue,
         3.0f,
-        std::make_unique<HelpCommand>(this)
+        std::make_unique<HelpCommand>(m_controller)  
     );
     m_buttons.back().setText("HELP", font, textSize, sf::Color::Black);
 
-    // כפתור Exit
+    // כפתור Music (חדש!)
     m_buttons.emplace_back(
         sf::Vector2f(centerX - buttonWidth / 2, startY + 2 * buttonSpacing),
+        buttonWidth, buttonHeight,
+        sf::Color(150, 100, 0, 255), // כתום
+        3.0f,
+        std::make_unique<MusicToggleCommand>(this)
+    );
+    m_buttons.back().setOutlineColor(sf::Color::Black);
+
+    // כפתור Exit
+    m_buttons.emplace_back(
+        sf::Vector2f(centerX - buttonWidth / 2, startY + 3 * buttonSpacing),
         buttonWidth, buttonHeight,
         sf::Color::Red,
         3.0f,
         std::make_unique<ExitCommand>(this)
     );
     m_buttons.back().setText("EXIT", font, textSize, sf::Color::Black);
+    
+    // עדכן טקסט כפתור המוזיקה
+    updateMusicButtonText();
+
+    // התחל מוזיקת רקע
+    MusicManager::getInstance().startBackgroundMusic();
+}
+void MenuScreen::updateMusicButtonText() {
+    if (m_buttons.size() >= 3) {
+        std::string musicText = MusicManager::getInstance().isMusicOn() ? "MUSIC: ON" : "MUSIC: OFF";
+        m_buttons[2].setText(musicText, DataLoader::getP2Font(), 24, sf::Color::White);  // כפתור המוזיקה הוא השלישי
+    }
+}
+
+void MenuScreen::toggleMusic() {
+    MusicManager::getInstance().toggleMusic();
+    updateMusicButtonText();
 }
 
 void MenuScreen::update(float deltaTime) {
@@ -96,15 +128,21 @@ void MenuScreen::draw() {
 
 void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {
     if (event.type == sf::Event::MouseButtonPressed) {
+        m_mousePressed = true;
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             float mouseX = static_cast<float>(event.mouseButton.x);
             float mouseY = static_cast<float>(event.mouseButton.y);
-
-            // בדיקה איזה כפתור נלחץ
-            for (auto& button : m_buttons) {
-                if (button.isClicked(mouseX, mouseY)) {
-                    button.trigger();  // הפעלת הפקודה של הכפתור
-                    break;
+			if(m_mousePressed)
+            {
+                m_mousePressed = false;
+                // בדיקה איזה כפתור נלחץ
+                for (auto& button : m_buttons) {
+                    if (button.isClicked(mouseX, mouseY)) {
+                        button.trigger();  // הפעלת הפקודה של הכפתור
+                        break;
+                    }
                 }
             }
         }

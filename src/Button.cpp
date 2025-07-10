@@ -56,7 +56,8 @@ void Button::draw(sf::RenderWindow& window) const {
     if (m_isHighlighted) {
         sf::RectangleShape overlay(m_background.getSize());
         overlay.setPosition(m_loc);
-        overlay.setFillColor(sf::Color(255, 0, 0, 128)); // Semi-transparent red highlight
+        overlay.setFillColor(sf::Color(0, 0, 0, 80));
+        //overlay.setFillColor(sf::Color(255, 0, 0, 128)); // Semi-transparent red highlight
         window.draw(overlay);
     }
 

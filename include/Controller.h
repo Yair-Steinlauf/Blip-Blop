@@ -10,7 +10,9 @@ class Controller {
 public:
 	Controller();
 	void run();
-	void switchToGamePlay();  
+	void switchToGamePlay();
+	void switchToHelp();      
+	void backCommand();      
 	~Controller() = default;
 
 private:
