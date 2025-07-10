@@ -6,11 +6,15 @@ const float SCALE = 30.f; // Scale factor for Box2D to SFML conversion
 enum class ObjectType
 {
     PLAYER,
-    SMURF,
+    ForkSMURF,
+    PresentSmurf,
+    RegularSmurf,
+    BossSmurf,
     PLATFORM,
     MAP,
     BULLET,
     characterSprite,
+    spriteSheetSpecial,
     Enemy1,
     Enemy2,
     Tile,

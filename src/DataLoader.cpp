@@ -49,11 +49,11 @@ DataLoader::DataLoader()
 
     const std::map<ObjectType, std::string> objectNames = {
         {ObjectType::PLAYER, "PLAYER"},
-        {ObjectType::SMURF, "SMURF"},
+        {ObjectType::ForkSMURF, "ForkSMURF"},
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
+        {ObjectType::spriteSheetSpecial, "spriteSheetSpecial"}
         {ObjectType::MenuBackground, "menuBackground"},
-
     };
 
     for (const auto &[type, name] : objectNames)
