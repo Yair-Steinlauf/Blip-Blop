@@ -49,6 +49,7 @@ DataLoader::DataLoader()
         {ObjectType::ForkSMURF, "ForkSMURF"},
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
+        {ObjectType::spriteSheetSpecial, "spriteSheetSpecial"}
     };
 
     for (const auto &[type, name] : objectNames)

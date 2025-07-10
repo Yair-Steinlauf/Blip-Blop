@@ -307,10 +307,10 @@ inline void GameAnimations::initializeFrames()
     forkenemydataFrames["Left"].push_back({ 724,234, 51,45 });
     forkenemydataFrames["Left"].push_back({ 725,281, 52,42 });
     forkenemydataFrames["Left"].push_back({ 723,324, 52,44 });
-    forkenemydataFrames["DownLeft"].push_back({ 719,376, 83,35 });
-    forkenemydataFrames["DownLeft"].push_back({ 720,413, 53,32 });
-    forkenemydataFrames["DownLeft"].push_back({ 721,448, 53,32 });
-    forkenemydataFrames["DownLeft"].push_back({ 719,481, 54,32 });
+    forkenemydataFrames["Stay"].push_back({ 719,376, 83,35 });
+    forkenemydataFrames["Stay"].push_back({ 720,413, 53,32 });
+    forkenemydataFrames["Stay"].push_back({ 721,448, 53,32 });
+    forkenemydataFrames["Stay"].push_back({ 719,481, 54,32 });
     forkenemydataFrames["DownRight"].push_back({ 717,516, 83,35 });
     forkenemydataFrames["DownRight"].push_back({ 746,553, 53,32 });
     forkenemydataFrames["DownRight"].push_back({ 745,588, 53,32 });
