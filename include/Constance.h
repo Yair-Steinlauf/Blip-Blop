@@ -28,6 +28,8 @@ enum class ObjectType
     MenuScreen,
     HelpScreen,
     MenuBackground,
+    PauseScreen,  // הוספת מסך ה-pause
+    ResumeCommand,
 
     shotGunSound,
     shotGunWord,

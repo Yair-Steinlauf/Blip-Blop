@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "cube.h"
+#include "Controller.h"
 #include <vector>
 #include <ContactListener.h>
 
@@ -17,6 +18,7 @@ public:
 	void handleInput(const sf::Event& event, float deltaTime) override;
 	sf::Vector2f getMouseWorldPosition();
 	void addEntity(std::unique_ptr<BaseEntity> entity);
+	void setController(Controller* controller) { m_controller = controller; }
 private:
 	std::unique_ptr<b2World> m_world;
 	std::unique_ptr<Player> m_player;
@@ -27,4 +29,5 @@ private:
 	void drawUI();
 	void centerCameraOnPlayer();
 	std::unique_ptr<ContactListener> m_contactListener;
+	Controller* m_controller = nullptr;
 };

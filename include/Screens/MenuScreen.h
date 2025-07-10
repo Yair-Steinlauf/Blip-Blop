@@ -24,6 +24,5 @@ private:
     std::vector<Button> m_buttons;
     Controller* m_controller;
     void updateMusicButtonText();
-    bool m_mousePressed = false;           // זוכר אם העכבר לחוץ
-    sf::Vector2f m_mousePos;
+    bool m_mousePressed = false;           // זוכר אם העכבר לחוץ    
 };

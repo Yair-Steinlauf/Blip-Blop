@@ -6,6 +6,7 @@
 #include "ScreensFactory.h"
 #include "Constance.h"
 #include "MusicManager.h"  // <-- הוסף את זה
+#include <PauseScreen.h>
 
 Controller::Controller() :
 	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game Window"))
@@ -47,15 +48,21 @@ void Controller::run()
 	}
 }
 
-void Controller::switchToGamePlay() {
-	// מחק את המסך הנוכחי
-	if (!m_screenStack.empty()) {
-		m_screenStack.pop();
-	}
+//void Controller::switchToGamePlay() {
+//	// מחק את המסך הנוכחי
+//	if (!m_screenStack.empty()) {
+//		m_screenStack.pop();
+//	}
+//
+//	// הוסף את מסך המשחק
+//	auto gamePlayScreen = std::make_unique<GamePlay>(m_window.get());
+//	m_screenStack.push(std::move(gamePlayScreen));
+//}
 
-	// הוסף את מסך המשחק
-	auto gamePlayScreen = std::make_unique<GamePlay>(m_window.get());
-	m_screenStack.push(std::move(gamePlayScreen));
+void Controller::switchToGamePlay() {
+	auto gamePlay = std::make_unique<GamePlay>(m_window.get());
+	gamePlay->setController(this); // הוספת החיבור
+	m_screenStack.push(std::move(gamePlay));
 }
 
 void Controller::switchToHelp() {
@@ -79,3 +86,32 @@ void Controller::backCommand() {
 	auto menuScreen = std::make_unique<MenuScreen>(m_window.get(), this);
 	m_screenStack.push(std::move(menuScreen));
 }
+
+void Controller::pauseGame() {
+	// בדיקה שאנחנו נמצאים במסך משחק
+	GamePlay* currentGamePlay = getCurrentGamePlay();
+	if (currentGamePlay) {
+		auto pauseScreen = std::make_unique<PauseScreen>(m_window.get(), this, currentGamePlay);
+		m_screenStack.push(std::move(pauseScreen));
+	}
+}
+
+void Controller::resumeFromPause() {
+	// הסרת מסך ה-pause ע"י pop מה-stack
+	if (!m_screenStack.empty()) {
+		m_screenStack.pop();
+	}
+}
+
+GamePlay* Controller::getCurrentGamePlay()
+{
+	// בדיקה שהמסך הנוכחי הוא GamePlay
+	if (!m_screenStack.empty()) {
+		return dynamic_cast<GamePlay*>(m_screenStack.top().get());
+	}
+	return nullptr;
+
+}
+
+
+

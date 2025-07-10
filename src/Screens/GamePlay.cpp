@@ -49,7 +49,18 @@ void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 
 	//TODO:: maybe not needed parameters (const sf::Event& event, float deltaTime)
 	//m_player->movment();
+	// 
+	// הוספת טיפול במקש ESC
+	if (event.type == sf::Event::KeyPressed) {
+		if (event.key.code == sf::Keyboard::F2) {
+			if (m_controller) {
+				m_controller->pauseGame();
+				return;
+			}
+		}
+	}
 }
+
 
 sf::Vector2f GamePlay::getMouseWorldPosition()
 {
