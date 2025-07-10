@@ -26,10 +26,13 @@ enum class ObjectType
     BaseScreen,
     GamePlay,
     MenuScreen,
+    HelpScreen,
+    MenuBackground,
 
     shotGunSound,
     shotGunWord,
     machineGunWord,
+    BackgroundMusic,
     DeafultWeaponSound
 };
 
