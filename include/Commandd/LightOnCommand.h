@@ -9,7 +9,7 @@ private:
     bool& lightState;
 
 public:
-    LightOnCommand(bool& state) : lightState(state) {}
+    LightOnCommand(bool& state);
 
     void execute() override;
     void undo() override;

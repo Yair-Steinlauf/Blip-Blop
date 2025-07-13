@@ -12,6 +12,7 @@ class Controller {
 public:
 	Controller();
 	void run();
+	void closeGame();
 	void switchToGamePlay();
 	void switchToHelp();
 	void backCommand();

@@ -9,7 +9,7 @@ private:
     Controller* m_controller;
 
 public:
-    PlayCommand(Controller* controller) : m_controller(controller) {}
+    PlayCommand(Controller* controller);
 
     void execute() override;
 };

@@ -29,7 +29,7 @@ private:
     void initializeButtons();
     void setupResultDisplay();
     void updateMusicButtonText();
-
+    bool m_mousePressed;
     GameResult m_result;
     int m_score;
     Controller* m_controller;

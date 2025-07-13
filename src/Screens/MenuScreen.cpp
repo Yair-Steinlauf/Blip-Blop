@@ -77,7 +77,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
         buttonWidth, buttonHeight,
         sf::Color::Red,
         3.0f,
-        std::make_unique<ExitCommand>(this)
+        std::make_unique<ExitCommand>(m_controller)
     );
     m_buttons.back().setText("EXIT", m_font, textSize, sf::Color::Black);
     

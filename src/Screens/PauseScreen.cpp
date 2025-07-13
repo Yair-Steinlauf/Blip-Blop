@@ -9,6 +9,7 @@
 #include "Commandd/MusicCommand.h"
 #include "Commandd/BackCommand.h"
 #include "Commandd/ResumeCommand.h"
+#include <ExitCommand.h>
 
 PauseScreen::PauseScreen(sf::RenderWindow* window, Controller* controller, GamePlay* gamePlay)
     : BaseScreen(window), m_controller(controller), m_gamePlay(gamePlay)
@@ -31,7 +32,7 @@ PauseScreen::PauseScreen(sf::RenderWindow* window, Controller* controller, GameP
     // מרכוז הכותרת
     sf::FloatRect titleBounds = m_pauseTitle.getLocalBounds();
     m_pauseTitle.setOrigin(titleBounds.width / 2, titleBounds.height / 2);
-    m_pauseTitle.setPosition(SCREEN_WIDTH / 2, 150);
+    m_pauseTitle.setPosition(SCREEN_WIDTH / 2, 100);
 
     initializeButtons();
 }
@@ -50,9 +51,19 @@ void PauseScreen::initializeButtons() {
     );
     m_buttons[RESUME].setText("Resume", m_font, 24, sf::Color::White);
 
-    // כפתור Help
+    // כפתור Play again
     m_buttons.emplace_back(
         sf::Vector2f(centerX, startY + spacing),
+        buttonWidth, buttonHeight,
+        sf::Color(100, 100, 100), 2.f,
+        std::make_unique<PlayCommand>(m_controller)
+    );
+    m_buttons[PLAY_AGAIN].setText("Play Again", m_font, 24, sf::Color::White);
+
+
+    // כפתור Help
+    m_buttons.emplace_back(
+        sf::Vector2f(centerX, startY + spacing*2),
         buttonWidth, buttonHeight,
         sf::Color(100, 100, 100), 2.f,
         std::make_unique<HelpCommand>(m_controller)
@@ -61,7 +72,7 @@ void PauseScreen::initializeButtons() {
 
     // כפתור Music Toggle
     m_buttons.emplace_back(
-        sf::Vector2f(centerX, startY + spacing * 2),
+        sf::Vector2f(centerX, startY + spacing * 3),
         buttonWidth, buttonHeight,
         sf::Color(100, 100, 100), 2.f,
         std::make_unique<MusicToggleCommand>(nullptr) // נטפל בזה ידנית
@@ -70,12 +81,12 @@ void PauseScreen::initializeButtons() {
 
     //// כפתור Exit
     m_buttons.emplace_back(
-        sf::Vector2f(centerX, startY + spacing * 3),
+        sf::Vector2f(centerX, startY + spacing * 4),
         buttonWidth, buttonHeight,
         sf::Color(150, 50, 50), 2.f,        
-        std::make_unique<BackCommand>(m_controller)
+        std::make_unique<ExitCommand>(m_controller)
     );
-    m_buttons[EXIT].setText("Exit to Menu", m_font, 24, sf::Color::White);
+    m_buttons[EXIT].setText("Exit Game", m_font, 24, sf::Color::White);
 }
 
 void PauseScreen::updateMusicButtonText() {

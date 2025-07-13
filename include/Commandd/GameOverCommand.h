@@ -11,9 +11,8 @@ private:
     int m_score;
 
 public:
-    GameOverCommand(Controller* controller, GameOverScreen::GameResult result, int score)
-        : m_controller(controller), m_result(result), m_score(score) {
-    }
+    GameOverCommand(Controller* controller, GameOverScreen::GameResult result, int score);
+        
 
     void execute() override;
 };

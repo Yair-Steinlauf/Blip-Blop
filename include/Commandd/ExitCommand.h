@@ -1,14 +1,15 @@
 #pragma once
 #include "Command.h"
-#include "MenuScreen.h"
+#include "Controller.h"
 
 // פקודה לכפתור Exit
 class ExitCommand : public Command {
 private:
-    MenuScreen* m_menuScreen;
+    Controller* m_controller;
+
 
 public:
-    ExitCommand(MenuScreen* menuScreen) : m_menuScreen(menuScreen) {}
+    ExitCommand(Controller* controller);
 
     void execute() override;
 };

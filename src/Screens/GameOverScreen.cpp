@@ -75,7 +75,7 @@ void GameOverScreen::initializeButtons() {
 
     // Create commands
     m_playAgainCommand = std::make_unique<PlayCommand>(m_controller);
-    m_exitCommand = std::make_unique<ExitCommand>(nullptr);
+    m_exitCommand = std::make_unique<ExitCommand>(m_controller);
     m_helpCommand = std::make_unique<HelpCommand>(m_controller);
     m_musicCommand = std::make_unique<MusicToggleCommand>(nullptr);
 
@@ -167,22 +167,28 @@ void GameOverScreen::draw() {
 }
 
 void GameOverScreen::handleInput(const sf::Event& event, float deltaTime) {
-    if (event.type == sf::Event::MouseButtonPressed) {
+    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+        m_mousePressed = true;
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x),
                 static_cast<float>(event.mouseButton.y));
-
-            if (m_buttons[MUSIC_BUTTON].isClicked(mousePos.x, mousePos.y)) {
-                toggleMusic();
-            }
-            else if (m_buttons[PLAY_AGAIN_BUTTON].isClicked(mousePos.x, mousePos.y)) {
-                playAgain();
-            }
-            else if (m_buttons[EXIT_BUTTON].isClicked(mousePos.x, mousePos.y)) {
-                exitGame();
-            }
-            else if (m_buttons[HELP_BUTTON].isClicked(mousePos.x, mousePos.y)) {
-                showHelp();
+            if (m_mousePressed)
+            {
+                m_mousePressed = false;
+                if (m_buttons[MUSIC_BUTTON].isClicked(mousePos.x, mousePos.y)) {
+                    toggleMusic();
+                }
+                else if (m_buttons[PLAY_AGAIN_BUTTON].isClicked(mousePos.x, mousePos.y)) {
+                    playAgain();
+                }
+                else if (m_buttons[EXIT_BUTTON].isClicked(mousePos.x, mousePos.y)) {
+                    exitGame();
+                }
+                else if (m_buttons[HELP_BUTTON].isClicked(mousePos.x, mousePos.y)) {
+                    showHelp();
+                }
             }
         }
     }
@@ -227,6 +233,7 @@ void GameOverScreen::showHelp() {
 }
 
 void GameOverScreen::toggleMusic() {
+
     MusicManager::getInstance().toggleMusic();
     updateMusicButtonText();
 }

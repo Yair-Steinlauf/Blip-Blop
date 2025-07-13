@@ -62,7 +62,7 @@ void Player::update(float deltaTime)
 		}
 	}
 
-	if (m_moveComponent.getHealth() <= 4) {
+	if (m_moveComponent.getHealth() <= 0) {
 		// TODO :: WHY HERE IS OVER
 		
 		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Defeat);

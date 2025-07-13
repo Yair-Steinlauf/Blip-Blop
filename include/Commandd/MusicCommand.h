@@ -8,7 +8,7 @@ private:
     MenuScreen* m_menuScreen;
 
 public:
-    MusicToggleCommand(MenuScreen* menuScreen) : m_menuScreen(menuScreen) {}
+    MusicToggleCommand(MenuScreen* menuScreen);
 
     void execute() override;
 };

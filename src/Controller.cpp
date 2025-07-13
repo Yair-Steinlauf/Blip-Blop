@@ -48,6 +48,11 @@ void Controller::run()
 	}
 }
 
+void Controller::closeGame()
+{
+	m_window->close();
+}
+
 //void Controller::switchToGamePlay() {
 //	// מחק את המסך הנוכחי
 //	if (!m_screenStack.empty()) {

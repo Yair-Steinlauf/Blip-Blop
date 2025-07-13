@@ -36,15 +36,16 @@ private:
     bool m_mousePressed = false;           // זוכר אם העכבר לחוץ    
     enum ButtonIndex {
         RESUME = 0,
-        HELP = 1,
-        MUSIC_TOGGLE = 2,
-        EXIT = 3
+        PLAY_AGAIN = 1,
+        HELP = 2,
+        MUSIC_TOGGLE = 3,
+        EXIT = 4
     };
 
 
     const float buttonWidth = 200;
     const float buttonHeight = 50;
-    const float startY = 250;
+    const float startY = 200;
     const float spacing = 70;
     float centerX = SCREEN_WIDTH / 2 - buttonWidth / 2;
 };

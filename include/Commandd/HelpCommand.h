@@ -9,7 +9,7 @@ private:
     Controller* m_controller;
 
 public:
-    HelpCommand(Controller* controller) : m_controller(controller) {}
+    HelpCommand(Controller* controller);
 
     void execute() override;
 };
