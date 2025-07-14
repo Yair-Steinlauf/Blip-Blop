@@ -63,7 +63,7 @@ EnemyFactory::createWave(int count,
             static_cast<float>(std::rand()) / RAND_MAX *
             (zoneRight - zoneLeft - 2 * SPAWN_MARGIN);
 
-        wave.push_back(createRandom(world, player, sfPos{ x-50, groundY }));
+        wave.push_back(createRandom(world, player, sfPos{ x-100, groundY-100 }));
     }
     return wave;
 }

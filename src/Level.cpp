@@ -10,7 +10,7 @@ Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
 {
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
-	m_entities.push_back(Factory::instance().create(ObjectType::SingleGift, sfPos{11000,200}, m_world));
+	m_entities.push_back(Factory::instance().create(ObjectType::SingleGift, sfPos{7500,200}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{6000,200}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
@@ -20,7 +20,6 @@ Level::Level(Player* player , b2World* world)
 void Level::update(float deltaTime)
 {	
 	m_enemySpawnTimer += deltaTime;
-
     /* ----------------------------------------------------
            1. הפעלת גל כאשר השחקן מגיע ל‑triggerX              */
     if (m_waveNumber < static_cast<int>(WAVE_TABLE.size()) &&
