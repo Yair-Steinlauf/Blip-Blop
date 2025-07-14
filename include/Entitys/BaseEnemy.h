@@ -5,15 +5,17 @@
 
 class Player;
 
+
 class BaseEnemy : public BaseEntity
 {
 public:
 	BaseEnemy(sf::Texture* tex = nullptr, sfPos pos = { 0,0 }, b2World* world = nullptr, Player* player = nullptr, AnimationSet animationSet = AnimationSet());
-	virtual ~BaseEnemy() override = default;
+	virtual ~BaseEnemy() override;
 	virtual void update(float deltaTime);
 	void addLife(int life);
 	void onCollisionEnter(BaseEntity* other) override;
 	//void onCollisionExit(BaseEntity* other);
+	static int getAliveCount();
 protected:
 	Player* m_player = nullptr;
 	MoveComponent m_moveComponent;
@@ -28,4 +30,5 @@ protected:
 	void updateExplosionAnimation(float deltaTime);
 	void startExplosion();
 
+	static inline int m_counter = 0;   //  C++17 inline static
 };

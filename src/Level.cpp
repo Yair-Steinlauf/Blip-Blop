@@ -9,20 +9,12 @@
 Level::Level(Player* player , b2World* world)
 	:m_player(player), m_world(world)
 {
-	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::ForkSMURF, {5,5}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{500,200}, m_world));
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
-	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::ForkSMURF, { 500,300 }, m_world, m_player));
-	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::BossSmurf, { 500,300 }, m_world, m_player));
-	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::PresentSmurf, { 500,400 }, m_world, m_player));
-	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::RegularSmurf, { 500,400 }, m_world, m_player));
-	//m_entities.push_back(Factory<BaseEntity>::instance().create(ObjectType::SMURF, {5,5}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::SingleGift, sfPos{300,200}, m_world));
 	m_entities.push_back(Factory::instance().create(ObjectType::TripleGift, sfPos{400,200}, m_world));
 	loadStaticPlatformsFromJson("newww_map.tmj");
 	m_map_sprite.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MAP));
-	//m_entities.emplace_back(EnemyFactory::instance().create(ObjectType::SMURF, { 500,300 }, m_world, m_player));
-
 }
 
 
@@ -30,19 +22,35 @@ void Level::update(float deltaTime)
 {	
 	m_enemySpawnTimer += deltaTime;
 
-	// שלב 1 – ספאון אויבים כל 3 שניות
-	if (m_enemySpawnTimer >= m_enemySpawnInterval)
-	{
-		m_enemySpawnTimer = 0.f;
+    /* ----------------------------------------------------
+           1. הפעלת גל כאשר השחקן מגיע ל‑triggerX              */
+    if (m_waveNumber < static_cast<int>(WAVE_TABLE.size()) &&
+        !m_isWaveActive &&
+        m_player->getPosition().x >= WAVE_TABLE[m_waveNumber].triggerX)
+    {
+        spawnWave();                   // יוצר אויבים
+        m_isWaveActive = true;
 
-		// מספר רנדומלי של אויבים בין 3 ל־10
-		int count = 3 + (std::rand() % 8); // 3..10
+        // הגדרת גבולות השחקן
+        float left = WAVE_TABLE[m_waveNumber].triggerX;
+        float right = left + WAVE_TABLE[m_waveNumber].zoneWidth;
+        m_zoneLeft = left;
+        m_zoneRight = right;
+        m_player->setMovementBounds(left, right);
+    }
 
-		auto enemies = EnemyFactory::instance().createWave(count, m_world, m_player);
+    /* ----------------------------------------------------
+       2. סיום גל כאשר אין אויבים חיים                    */
+    if (m_isWaveActive && BaseEnemy::getAliveCount() == 0)
+    {
+        m_isWaveActive = false;
+        ++m_waveNumber;
 
-		for (auto& enemy : enemies)
-			addEntity(std::move(enemy));
-	}
+        m_zoneLeft = -INFINITY;
+        m_zoneRight = INFINITY;
+        m_player->clearMovementBounds();
+    }
+
 	removeMarkedEntities();
 
 	m_player->update(deltaTime);
@@ -51,6 +59,7 @@ void Level::update(float deltaTime)
 	{
 		entity->update(deltaTime);
 	}
+
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -124,17 +133,32 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 }
 
 
-void Level::removeMarkedEntities() {
-	for (auto it = m_entities.begin(); it != m_entities.end(); ) {
-		if ((*it)->shouldBeRemoved()) {
-			it = m_entities.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+void Level::removeMarkedEntities()
+{
+    m_entities.erase(
+        std::remove_if(m_entities.begin(), m_entities.end(),
+            [](auto& p) { return p->shouldBeRemoved(); }),
+        m_entities.end());
 }
 
 const sf::Sprite& Level::getBackground() const {
 	return m_map_sprite;
+}
+
+void Level::spawnWave()
+{
+    const auto& w = WAVE_TABLE[m_waveNumber];
+    int count = w.enemyCount;
+
+    std::cout << ">>> Wave " << m_waveNumber + 1
+        << "  enemies: " << count << '\n';
+
+    auto enemies = EnemyFactory::instance().createWave(
+        count, m_world, m_player,
+        w.triggerX,
+        w.triggerX + w.zoneWidth);
+
+    // ↓ ↓ ↓  השורה שהייתה חסרה  ↓ ↓ ↓
+    for (auto& e : enemies)
+        addEntity(std::move(e));
 }
