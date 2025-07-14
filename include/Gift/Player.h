@@ -1,7 +1,6 @@
 #pragma once
 #include "BaseEntity.h"
 #include "Movment/MoveComponent.h"
-#include "Subject.h"
 #include "Movment/MovingState.h"
 #include "Movment/GunMovment/Gun.h"
  
@@ -10,7 +9,7 @@
 const float PLAYER_UNTOUCHABLE_TIME = 2.f;
 
 class GamePlay;
-class Player : public BaseEntity, public Subject
+class Player : public BaseEntity
 {
 public:
 	Player(sfPos pos = { 0,0 }, b2World* world = nullptr);
