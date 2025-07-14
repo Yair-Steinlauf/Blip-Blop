@@ -102,7 +102,7 @@ void Player::update(float deltaTime)
 	if (m_moveComponent.getHealth() <= 0) {
 		// TODO :: WHY HERE IS OVER
 		
-		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Defeat);
+		m_gamePlay->gameOver(BaseEnemy::getTotalKills(), GameOverScreen::GameResult::Defeat);
 	}
 	if (getPosition().x > 14000) {
 		m_gamePlay->gameOver(BaseEnemy::getTotalKills(), GameOverScreen::GameResult::Victory);

@@ -83,7 +83,7 @@ void GamePlay::gameOver(int score, GameOverScreen::GameResult result)
 {
 	if (m_controller) {
 		m_window->setView(m_window->getDefaultView());
-		m_controller->switchToGameOver(result, 1500);
+		m_controller->switchToGameOver(result, score);
 		return;
 	}
 	
