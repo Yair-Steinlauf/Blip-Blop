@@ -53,6 +53,43 @@ void Player::update(float deltaTime)
 	m_moveComponent.update(deltaTime);
 	m_gun->update(deltaTime);
 
+	/* ---------- הגבלת תנועה בתוך גבולות ---------- */
+	static constexpr float EDGE_MARGIN = 8.f;            
+	static constexpr float PPM = 32.f;           
+
+	b2Body* body = getBody();                            
+	if (body)
+	{
+		b2Vec2 vel = body->GetLinearVelocity();
+		b2Vec2 pos = body->GetPosition();                
+
+		float pixX = pos.x * PPM;                        
+
+		bool clamped = false;
+
+		if (pixX < m_boundLeft)                          
+		{
+			pixX = m_boundLeft + EDGE_MARGIN;
+			vel.x = 0.f;                                
+			clamped = true;
+		}
+		else if (pixX > m_boundRight)                    
+		{
+			pixX = m_boundRight - EDGE_MARGIN;
+			vel.x = 0.f;
+			clamped = true;
+		}
+
+		if (clamped)                                     
+		{
+			pos.x = pixX / PPM;
+			body->SetTransform(pos, body->GetAngle());
+			body->SetLinearVelocity(vel);
+			sync();                                      
+		}
+	}
+	/* ------------------------------------------------ */
+
 	if (m_gun) {
 		Direction direction = m_gun->move(m_gamePlay->getMouseWorldPosition(), this->getPosition());
 		if (static_cast<int>(direction) != 0)
@@ -125,3 +162,17 @@ void Player::onCollisionEnter(BaseEntity* other)
 		}
 	}
 }
+
+/*------------------------------------------------------------*/
+void Player::setMovementBounds(float left, float right)      // <<<
+{
+	m_boundLeft = left;
+	m_boundRight = right;
+}
+void Player::clearMovementBounds()                           // <<<
+{
+	m_boundLeft = -std::numeric_limits<float>::infinity();
+	m_boundRight = std::numeric_limits<float>::infinity();
+}
+
+/*--------------------------- שאר הפונקציות ללא שינוי ------------------*/

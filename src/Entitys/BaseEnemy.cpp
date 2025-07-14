@@ -7,6 +7,7 @@ BaseEnemy::BaseEnemy(sf::Texture* tex, sfPos pos, b2World* world, Player* player
 	:BaseEntity(tex, pos, world), m_player(player), m_moveComponent(*this, nullptr),
 	m_animation(Animator(m_sprite, m_animationSet)), m_animationSet(animationSet)
 {
+    m_counter++;
 	if (!m_player) {
 		throw std::runtime_error("BaseEnemy needs a valid Player!");
 	}
@@ -24,6 +25,11 @@ BaseEnemy::BaseEnemy(sf::Texture* tex, sfPos pos, b2World* world, Player* player
 		.getFrame(m_animationSet, Direction::Right, 0);
 
 	setTextureRect(frame, PLAYER_FIXTURE_WIDTH, PLAYER_FIXTURE_HEIGHT);
+}
+
+BaseEnemy::~BaseEnemy()
+{
+    m_counter--;
 }
 
 
@@ -87,3 +93,8 @@ void BaseEnemy::updateExplosionAnimation(float deltaTime) {
     }
 }
 
+
+int BaseEnemy::getAliveCount()
+{
+    return m_counter;
+}
