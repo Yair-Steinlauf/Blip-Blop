@@ -1,7 +1,7 @@
 #include "HelpScreen.h"
 #include "ScreensFactory.h"
 #include "DataLoader.h"
-#include "Constance.h"
+
 #include "Controller.h"
 
 #include <iostream>
@@ -53,9 +53,13 @@ HelpScreen::HelpScreen(sf::RenderWindow* window, Controller* controller)
         std::cout << "Set BACK button text" << std::endl;
     }
 
+
+
+
     // אתחול טקסט העזרה
     initializeHelpText();
     updateScrollLimits();
+    drawComponent();
 }
 
 void HelpScreen::initializeHelpText() {
@@ -135,106 +139,82 @@ void HelpScreen::draw() {
     BaseScreen::draw();  // מצייר את הרקע
 
     if (!m_fontLoaded) return;
-
-    // ציור כותרת קבועה
-    sf::Text title;
-    title.setFont(m_font);
-    title.setString("GAME HELP");
-    title.setCharacterSize(48);
-    title.setFillColor(sf::Color::Yellow);
-
-    sf::FloatRect titleBounds = title.getLocalBounds();
-    title.setOrigin(titleBounds.width / 2, titleBounds.height / 2);
-    title.setPosition(SCREEN_WIDTH / 2.0f, 80.0f);
-    m_window->draw(title);
-
-    // יצירת אזור קליפינג לטקסט הגלילה
-    sf::View originalView = m_window->getView();
-    sf::View scrollView = originalView;
-
-    // הגדרת אזור הצפייה לגלילה (מתחת לכותרת ומעל להוראות)
-    float scrollAreaTop = 120.0f;
-    float scrollAreaHeight = SCREEN_HEIGHT - 160.0f;
-
-    scrollView.setViewport(sf::FloatRect(0, scrollAreaTop / SCREEN_HEIGHT, 1, scrollAreaHeight / SCREEN_HEIGHT));
-    scrollView.setSize(SCREEN_WIDTH, scrollAreaHeight);
-    scrollView.setCenter(SCREEN_WIDTH / 2, scrollAreaHeight / 2 + m_scrollOffset); // שנה מינוס לפלוס
-
-    m_window->setView(scrollView);
-
-    // ציור טקסט העזרה עם גלילה
-    float startY = 30.0f; // התחלה יחסית לאזור הגלילה
-    float lineSpacing = 25.0f;
-
-    for (size_t i = 0; i < m_helpText.size(); ++i) {
-        sf::Text line;
-        line.setFont(m_font);
-        line.setString(m_helpText[i]);
-
-        // כותרות יותר גדולות ובצבע שונה
-        if (m_helpText[i].find(":") != std::string::npos && m_helpText[i] != "") {
-            line.setCharacterSize(24);
-            line.setFillColor(sf::Color::Cyan);
-        }
-        // טיפים עם נקודות
-        else if (m_helpText[i].find("•") != std::string::npos) {
-            line.setCharacterSize(18);
-            line.setFillColor(sf::Color::White);
-        }
-        // טקסט רגיל
-        else {
-            line.setCharacterSize(20);
-            line.setFillColor(sf::Color::White);
-        }
-
-        line.setPosition(50.0f, startY + i * lineSpacing);
-        m_window->draw(line);
-    }
-
-    // חזרה לתצוגה המקורית
-    m_window->setView(originalView);
-
-    // ציור כפתור חזרה (מעל הכל)
     for (const auto& button : m_buttons) {
         button.draw(*m_window);
     }
+    sf::View m_originalView = m_window->getView();
+    sf::View m_scrollView = m_originalView;
 
-    // הוראות גלילה בתחתית
-    sf::Text scrollInstructions;
-    scrollInstructions.setFont(m_font);
-    scrollInstructions.setString("Use Mouse Wheel or Arrow Keys to scroll");
-    scrollInstructions.setCharacterSize(14);
-    scrollInstructions.setFillColor(sf::Color(180, 180, 180));
+    m_scrollView.setViewport(sf::FloatRect(0, scrollAreaTop / SCREEN_HEIGHT, 1, scrollAreaHeight / SCREEN_HEIGHT));
+    m_scrollView.setSize(SCREEN_WIDTH, scrollAreaHeight);
+    m_scrollView.setCenter(SCREEN_WIDTH / 2, scrollAreaHeight / 2 + m_scrollOffset); // שנה מינוס לפלוס
+    m_window->setView(m_scrollView);
+    
+    for (size_t i = 0; i < m_helpText.size(); ++i) {
+        sf::Text m_line;
+        m_line.setFont(m_font);
+        m_line.setString(m_helpText[i]);
 
-    sf::FloatRect instrBounds = scrollInstructions.getLocalBounds();
-    scrollInstructions.setOrigin(instrBounds.width / 2, instrBounds.height / 2);
-    scrollInstructions.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 20.0f);
-    m_window->draw(scrollInstructions);
+        // כותרות יותר גדולות ובצבע שונה
+        if (m_helpText[i].find(":") != std::string::npos && m_helpText[i] != "") {
+            m_line.setCharacterSize(24);
+            m_line.setFillColor(sf::Color::Cyan);
+        }
+        // טיפים עם נקודות
+        else if (m_helpText[i].find("•") != std::string::npos) {
+            m_line.setCharacterSize(18);
+            m_line.setFillColor(sf::Color::White);
+        }
+        // טקסט רגיל
+        else {
+            m_line.setCharacterSize(20);
+            m_line.setFillColor(sf::Color::White);
+        }
+        m_line.setPosition(50.0f, startY + i * lineSpacing);
+        m_window->draw(m_line);
+    }
+    
+    // חזרה לתצוגה המקורית
+    m_window->setView(m_originalView);
+    // ידית הגלילה
+    float handleHeight = scrollBarHeight * (scrollAreaHeight / (scrollAreaHeight + m_maxScrollOffset));
+    float handleY = scrollBarY + (m_scrollOffset / m_maxScrollOffset) * (scrollBarHeight - handleHeight);
+    m_scrollHandle.setPosition(scrollBarX, handleY);
+    m_scrollHandle.setSize(sf::Vector2f(scrollBarWidth, handleHeight));
+    m_scrollHandle.setFillColor(sf::Color(200, 200, 200, 200));    
+    m_window->draw(m_scrollHandle);        
+}
 
+void HelpScreen::drawComponent()
+{
+    // ציור כותרת קבועה
+    m_title.setFont(m_font);
+    m_title.setString("GAME HELP");
+    m_title.setCharacterSize(48);
+    m_title.setFillColor(sf::Color::Yellow);
+    m_titleBounds = m_title.getLocalBounds();
+    m_title.setOrigin(m_titleBounds.width / 2, m_titleBounds.height / 2);
+    m_title.setPosition(SCREEN_WIDTH / 2.0f, 80.0f);
+    m_window->draw(m_title);
+   
+    
+
+    m_scrollInstructions.setFont(m_font);
+    m_scrollInstructions.setString("Use Mouse Wheel or Arrow Keys to scroll");
+    m_scrollInstructions.setCharacterSize(14);
+    m_scrollInstructions.setFillColor(sf::Color(180, 180, 180));
+
+    m_instrBounds = m_scrollInstructions.getLocalBounds();
+    m_scrollInstructions.setOrigin(m_instrBounds.width / 2, m_instrBounds.height / 2);
+    m_scrollInstructions.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 20.0f);
+    m_window->draw(m_scrollInstructions);
     // אינדיקטור גלילה (אם יש עוד תוכן)
-    if (m_maxScrollOffset > 0) {
-        // סרגל גלילה
-        float scrollBarHeight = 200.0f;
-        float scrollBarWidth = 8.0f;
-        float scrollBarX = SCREEN_WIDTH - 20.0f;
-        float scrollBarY = 140.0f;
-
+    if (m_maxScrollOffset > 0) {         
         // רקע סרגל הגלילה
-        sf::RectangleShape scrollBarBg;
-        scrollBarBg.setSize(sf::Vector2f(scrollBarWidth, scrollBarHeight));
-        scrollBarBg.setPosition(scrollBarX, scrollBarY);
-        scrollBarBg.setFillColor(sf::Color(100, 100, 100, 100));
-        m_window->draw(scrollBarBg);
-
-        // ידית הגלילה
-        float handleHeight = scrollBarHeight * (scrollAreaHeight / (scrollAreaHeight + m_maxScrollOffset)); 
-        float handleY = scrollBarY + (m_scrollOffset / m_maxScrollOffset) * (scrollBarHeight - handleHeight);
-
-        sf::RectangleShape scrollHandle;
-        scrollHandle.setSize(sf::Vector2f(scrollBarWidth, handleHeight));
-        scrollHandle.setPosition(scrollBarX, handleY);
-        scrollHandle.setFillColor(sf::Color(200, 200, 200, 200));
-        m_window->draw(scrollHandle);
+        m_scrollBarBg.setSize(sf::Vector2f(scrollBarWidth, scrollBarHeight));
+        m_scrollBarBg.setPosition(scrollBarX, scrollBarY);
+        m_scrollBarBg.setFillColor(sf::Color(100, 100, 100, 100));
+        m_window->draw(m_scrollBarBg);
     }
 }
 

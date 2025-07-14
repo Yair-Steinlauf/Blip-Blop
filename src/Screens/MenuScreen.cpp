@@ -1,7 +1,7 @@
 #include "MenuScreen.h"
 #include "ScreensFactory.h"
 #include "DataLoader.h"
-#include "Constance.h"
+
 
 #include "Controller.h"
 #include <iostream>
@@ -28,14 +28,18 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
 
     // יצירת פונט
     const int textSize = 35;
-    sf::Font& font = DataLoader::getP2Font();
+    m_font = DataLoader::getP2Font();
+    m_title.setFont(m_font);
+    m_title.setString("GAME MENU");
+    m_title.setCharacterSize(48);
+    m_title.setFillColor(sf::Color::Yellow);
 
+    // מיקום הכותרת במרכז העליון
+    m_titleBounds = m_title.getLocalBounds();
+    m_title.setOrigin(m_titleBounds.width / 2, m_titleBounds.height / 2);
+    m_title.setPosition(SCREEN_WIDTH / 2.0f, 100.0f);
     // חישוב מיקומים למרכז המסך
-    float centerX = SCREEN_WIDTH / 2.0f;
-    float startY = SCREEN_HEIGHT / 3.0f;
-    float buttonSpacing = 80.0f;
-    float buttonWidth = 200.0f;
-    float buttonHeight = 60.0f;
+    
 
     // כפתור Play
     m_buttons.emplace_back(
@@ -45,7 +49,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
         3.0f,
         std::make_unique<PlayCommand>(m_controller)
     );
-    m_buttons.back().setText("PLAY", font, textSize, sf::Color::Black);
+    m_buttons.back().setText("PLAY", m_font, textSize, sf::Color::Black);
 
     // כפתור Help
     m_buttons.emplace_back(
@@ -55,7 +59,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
         3.0f,
         std::make_unique<HelpCommand>(m_controller)  
     );
-    m_buttons.back().setText("HELP", font, textSize, sf::Color::Black);
+    m_buttons.back().setText("HELP", m_font, textSize, sf::Color::Black);
 
     // כפתור Music (חדש!)
     m_buttons.emplace_back(
@@ -75,12 +79,9 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
         3.0f,
         std::make_unique<ExitCommand>(this)
     );
-    m_buttons.back().setText("EXIT", font, textSize, sf::Color::Black);
+    m_buttons.back().setText("EXIT", m_font, textSize, sf::Color::Black);
     
-    // עדכן טקסט כפתור המוזיקה
     updateMusicButtonText();
-
-    // התחל מוזיקת רקע
     MusicManager::getInstance().startBackgroundMusic();
 }
 void MenuScreen::updateMusicButtonText() {
@@ -108,22 +109,9 @@ void MenuScreen::draw() {
     // ציור כפתורים
     for (const auto& button : m_buttons) {
         button.draw(*m_window);
-    }
+    }           
 
-    // ציור כותרת המשחק
-    sf::Font& font = DataLoader::getP2Font();
-    sf::Text title;
-    title.setFont(font);
-    title.setString("GAME MENU");
-    title.setCharacterSize(48);
-    title.setFillColor(sf::Color::Yellow);
-
-    // מיקום הכותרת במרכז העליון
-    sf::FloatRect titleBounds = title.getLocalBounds();
-    title.setOrigin(titleBounds.width / 2, titleBounds.height / 2);
-    title.setPosition(SCREEN_WIDTH / 2.0f, 100.0f);
-
-    m_window->draw(title);
+    m_window->draw(m_title);
 }
 
 void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {
