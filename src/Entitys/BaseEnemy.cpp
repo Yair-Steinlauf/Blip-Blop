@@ -18,7 +18,7 @@ BaseEnemy::BaseEnemy(sf::Texture* tex, sfPos pos, b2World* world, Player* player
 			return m_player->getPosition();
 		}
 	);
-	m_moveComponent.setSpeed(10);//TODO: לשפר את זה, המהירות מוזרה?
+	m_moveComponent.setSpeed(15);//TODO: לשפר את זה, המהירות מוזרה?
 	m_moveComponent.setState(std::move(enemyState));
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()

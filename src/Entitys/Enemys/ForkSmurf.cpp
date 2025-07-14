@@ -15,4 +15,5 @@ ForkSmurf::ForkSmurf(sfPos pos, b2World* world, Player* player)
 
 {
 	m_moveComponent.setHealth(1);
+	m_moveComponent.setSpeed(35);
 }
