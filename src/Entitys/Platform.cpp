@@ -40,7 +40,7 @@ void Platform::initChainShapeBox2d(const std::vector<sf::Vector2f>& points)
         b2Vec2 v1(points[i - 1].x / SCALE, points[i - 1].y / SCALE);
         b2Vec2 v2(points[i].x / SCALE, points[i].y / SCALE);
 
-        // מגדירים את הקצוות ישירות (אין צורך ב־Set או בשדות נוספים)
+
         edge.m_vertex1 = v1;
         edge.m_vertex2 = v2;
 

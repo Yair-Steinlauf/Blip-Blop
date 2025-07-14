@@ -30,43 +30,43 @@ enum class Direction {
 static Direction posToDirection(sfPos delta) {
     const float angle = std::atan2(delta.y, delta.x) * 180.f / 3.14159f;
 
-    // ירי ימינה רגיל
+
     if (angle > -22.5f && angle <= 22.5f)
         return (Direction::Right);
 
-    // ירי ימינה למעלה (זווית חדה)
+
     if (angle > -67.5f && angle <= -22.5f)
         return(Direction::UpRight);
 
-    // ירי ימינה אלכסון למעלה (כמעט מעל)
+
     if (angle <= -67.5f && angle > -112.5f)
         return(Direction::UpHeadRight);
 
-    // ירי ימינה למטה (זווית חדה)
+
     if (angle > 22.5f && angle <= 67.5f)
         return(Direction::DownRight);
 
-    // ירי ימינה אלכסון למטה (כמעט מתחת)
+
     if (angle > 67.5f && angle <= 112.5f)
         return(Direction::DownHeadRight);
 
-    // ירי שמאלה רגיל
+
     if (angle > 157.5f || angle <= -157.5f)
         return(Direction::Left);
 
-    // ירי שמאלה למעלה (זווית חדה)
+
     if (angle > -157.5f && angle <= -112.5f)
         return(Direction::UpLeft);
 
-    // ירי שמאלה אלכסון למעלה (כמעט מעל)
+
     if (angle <= -112.5f && angle > -157.5f)
         return(Direction::UpHeadLeft);
 
-    // ירי שמאלה למטה (זווית חדה)
+
     if (angle > 112.5f && angle <= 157.5f)
         return(Direction::DownLeft);
 
-    // ירי שמאלה אלכסון למטה (כמעט מתחת)
+
     if (angle > 67.5f && angle <= 112.5f)
         return(Direction::DownHeadLeft);
 
@@ -83,32 +83,32 @@ static sfPos directionToPos(Direction dir) {
         return sfPos(-1.0f, 0.0f);
 
     case Direction::UpRight:
-        return sfPos(1.f, -1.f);  // 45° למעלה ימינה
+        return sfPos(1.f, -1.f);
 
     case Direction::UpLeft:
-        return sfPos(-1.f, -1.f);  // 45° למעלה שמאלה
+        return sfPos(-1.f, -1.f);
 
     case Direction::DownRight:
-        return sfPos(1.f, 1.f);  // 45° למטה ימינה
+        return sfPos(1.f, 1.f);
 
     case Direction::DownLeft:
-        return sfPos(-1.f, 1.f);  // 45° למטה שמאלה
+        return sfPos(-1.f, 1.f);
 
     case Direction::UpHeadRight:
-        return sfPos(0.f, -1.f);  // ~22.5° (כמעט למעלה, קצת ימינה)
+        return sfPos(0.f, -1.f);
 
     case Direction::UpHeadLeft:
-        return sfPos(-0.f, -1.f);  // ~22.5° (כמעט למעלה, קצת שמאלה)
+        return sfPos(-0.f, -1.f);
 
     case Direction::DownHeadRight:
-        return sfPos(0.f, 1.f);  // ~22.5° (כמעט למטה, קצת ימינה)
+        return sfPos(0.f, 1.f);
 
     case Direction::DownHeadLeft:
-        return sfPos(-0.f, 1.f);  // ~22.5° (כמעט למטה, קצת שמאלה)
+        return sfPos(-0.f, 1.f);
 
     case Direction::Nan:
     default:
-        return sfPos(0.0f, 0.0f);  // אין כיוון
+        return sfPos(0.0f, 0.0f);
     }
 }
 /*==================================================
@@ -244,20 +244,20 @@ inline void GameAnimations::initializeFrames()
     blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
     blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
 
-    ///*--------------------------------------------------
-    //  Blip shot gun (10)
-    //--------------------------------------------------*/
-    //blipFrames.clear();
-    //blipFrames["Right"].push_back({ 100,  6, 65, 28 });
-    //blipFrames["Left"].push_back({ 86, 37, 65, 28 });
-    //blipFrames["UpRight"].push_back({ 20, 76, 55, 55 });
-    //blipFrames["UpLeft"].push_back({ 20,133, 55, 55 });
-    //blipFrames["DownRight"].push_back({ 21,194, 54, 46 });
-    //blipFrames["DownLeft"].push_back({ 18,247, 55, 46 });
-    //blipFrames["DownHeadLeft"].push_back({ 25,368, 47, 66 });
-    //blipFrames["DownHeadRight"].push_back({ 23,299, 48, 65 });
-    //blipFrames["UpHeadLeft"].push_back({ 24,438, 48, 65 });
-    //blipFrames["UpHeadRight"].push_back({ 22,509, 47, 66 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*--------------------------------------------------
       Blop (10)

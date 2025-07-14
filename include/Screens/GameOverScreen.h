@@ -34,14 +34,14 @@ private:
     int m_score;
     Controller* m_controller;
 
-    // UI Elements
+
     sf::Sprite m_resultLogo;
     sf::Texture m_victoryTexture;
     sf::Texture m_defeatTexture;
     sf::Text m_scoreText;
     sf::Font m_font;
 
-    // Buttons
+
     std::vector<Button> m_buttons;
     enum ButtonIndex {
         MUSIC_BUTTON = 0,
@@ -50,10 +50,10 @@ private:
         HELP_BUTTON = 3
     };
 
-    // Button hover tracking
+
     int m_hoveredButton = -1;
 
-    // Commands
+
     std::unique_ptr<Command> m_playAgainCommand;
     std::unique_ptr<Command> m_exitCommand;
     std::unique_ptr<Command> m_helpCommand;

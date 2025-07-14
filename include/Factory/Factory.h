@@ -3,10 +3,10 @@
 #include <unordered_map>
 #include <stdexcept>
 #include "Constance.h"
-//#include "BaseEntity.h"
 
 
-// Forward declaration
+
+
 class BaseEntity; 
 class b2World;
 

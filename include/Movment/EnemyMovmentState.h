@@ -3,7 +3,7 @@
 #include "Movment/MovingState.h"
 #include <functional>
 
-//TODO: Only for check, its a placeholder for the enemy movement state.
+
 class EnemyMovementState : public MovingState
 {
 public:
@@ -16,4 +16,3 @@ private:
 	std::function<sfPos()> m_getPlayerLoc;
 };
 
-//TODO:

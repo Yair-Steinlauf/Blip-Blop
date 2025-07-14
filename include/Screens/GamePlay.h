@@ -10,7 +10,7 @@
 class GamePlay : public BaseScreen {
 public:
 	using BaseScreen::BaseScreen;
-	GamePlay(sf::RenderWindow* window);//TODO: load things
+	GamePlay(sf::RenderWindow* window);
 	~GamePlay() ;
 	void update(float deltaTime) override;
 	void draw() override;

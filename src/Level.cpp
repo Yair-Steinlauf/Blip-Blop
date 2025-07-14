@@ -30,10 +30,10 @@ void Level::update(float deltaTime)
         !m_isWaveActive &&
         m_player->getPosition().x >= WAVE_TABLE[m_waveNumber].triggerX)
     {
-        spawnWave();                   // יוצר אויבים
+        spawnWave();
         m_isWaveActive = true;
 
-        // הגדרת גבולות השחקן
+
         float left = WAVE_TABLE[m_waveNumber].triggerX;
         float right = left + WAVE_TABLE[m_waveNumber].zoneWidth;
         m_zoneLeft = left;
@@ -69,7 +69,7 @@ void Level::draw(sf::RenderWindow& window)
 	window.draw(m_map_sprite);
 	for (auto& entity : m_entities)
 	{
-		//m_floor.draw(window);
+
 		entity->draw(window);
 	}
 	m_player->draw(window);
@@ -95,7 +95,7 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
             for (const auto& obj : layer["objects"]) {
 
                 if (obj.contains("polyline")) {
-                    // 💡 זיהוי פלטפורמה משופרת מבוססת polyline
+
                     const auto& points = obj["polyline"];
                     float baseX = obj["x"];
                     float baseY = obj["y"];
@@ -109,11 +109,10 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 
                     auto platform = std::make_unique<Platform>(vertices, m_world);
 
-                    std::cout << " ImprovPlatform created with " << vertices.size() << " points\n";
                     m_entities.push_back(std::move(platform));
                 }
                 else {
-                    // 📦 פלטפורמה מלבנית רגילה
+
                     float x = obj["x"];
                     float y = obj["y"];
                     float width = obj["width"];
@@ -124,8 +123,7 @@ void Level::loadStaticPlatformsFromJson(const std::string& path)
 
                     auto platform = std::make_unique<Platform>(center, m_world, size);
 
-                    std::cout << " Platform created at: (" << center.x << ", " << center.y
-                        << ") size: " << size.x << "x" << size.y << '\n';
+                        
 
                     m_entities.push_back(std::move(platform));
                 }
@@ -152,15 +150,14 @@ void Level::spawnWave()
     const auto& w = WAVE_TABLE[m_waveNumber];
     int count = w.enemyCount;
 
-    std::cout << ">>> Wave " << m_waveNumber + 1
-        << "  enemies: " << count << '\n';
+        
 
     auto enemies = EnemyFactory::instance().createWave(
         count, m_world, m_player,
         w.triggerX,
         w.triggerX + w.zoneWidth);
 
-    // ↓ ↓ ↓  השורה שהייתה חסרה  ↓ ↓ ↓
+
     for (auto& e : enemies)
         addEntity(std::move(e));
 }

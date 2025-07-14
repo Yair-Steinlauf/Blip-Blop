@@ -6,9 +6,9 @@
 
 void PlayerRightMovement::enter()
 {
-    //TODO: mybe velocity?
 
-	m_moveComponent.setDirection({ 1.f, 0.f }); // Move right
+
+	m_moveComponent.setDirection({ 1.f, 0.f });
 }
 
 std::unique_ptr<MovingState> PlayerRightMovement::move()

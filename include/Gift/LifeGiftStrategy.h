@@ -1,4 +1,4 @@
-// SpeedGiftStrategy.h
+
 #pragma once
 #include "GiftStrategy.h"
 

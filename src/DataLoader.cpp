@@ -67,12 +67,12 @@ DataLoader::DataLoader()
         }
         else
         {
-            // TODO: THrow exception here?
+
             std::cerr << "Failed to load texture: " << name << ".png" << std::endl;
         }
     }
 
-    //  çãù: èòéðú öìéìéí ìôé ObjectType
+
     const std::map<ObjectType, std::string> soundNames = {
         {ObjectType::shotGunSound, "shotGunSound"},
         {ObjectType::shotGunWord, "shotGunWord"},
@@ -100,8 +100,7 @@ DataLoader::DataLoader()
     else {
 
         m_music[ObjectType::BackgroundMusic].setLoop(true);  
-        //m_music[ObjectType::BackgroundMusic].setVolume(50.0f); // 
-        std::cout << "Background music loaded successfully!" << std::endl;
+
     }
 }
 

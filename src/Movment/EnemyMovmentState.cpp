@@ -2,7 +2,7 @@
 
 
 
-//TODO: Implement the enemy movement logic here
+
 
 std::unique_ptr<MovingState> EnemyMovementState::move()
 {
@@ -12,8 +12,8 @@ std::unique_ptr<MovingState> EnemyMovementState::move()
         m_moveComponent.setDirection({ 1,0 });
     else
         m_moveComponent.setDirection({ -1,0 });
-    //sf::Vector2f direction = calculateDirectionToPlayer(enemyPos, playerPos);
-    //m_moveComponent.setDirection(direction);
+
+
 
     return nullptr;
 }

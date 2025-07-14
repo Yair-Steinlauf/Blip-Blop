@@ -53,9 +53,9 @@ void BaseEntity::initBox2d(sfPos pos)
 {
 	initBody(pos);
 
-	//TODO: link body with entity
-	//m_body->SetUserData(this);
-	//TODO: init poligon
+
+
+
 	updatePolygon();
 
 }
@@ -71,7 +71,7 @@ void BaseEntity::updatePolygonWithSize(float FIXTURE_WIDTH, float FIXTURE_HEIGHT
 {
 	if (!m_body) return;
 
-	// 1. מוחקים את כל ה-fixtures הקיימים
+
 	while (b2Fixture* f = m_body->GetFixtureList())
 		m_body->DestroyFixture(f);
 
@@ -96,7 +96,7 @@ void BaseEntity::initBody(sfPos& pos)
 		throw std::runtime_error("Base Entity: No BOX2D World\n");
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(SFMLToBox2d(pos.x), SFMLToBox2d(pos.y));
-	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this); // הצמדת this
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	m_body = m_world->CreateBody(&bodyDef);
 	if (!m_body)
 		throw std::runtime_error("Base Entity: Failed to create Box2D body\n");
@@ -156,7 +156,7 @@ void BaseEntity::setFixtureForMov()
 	if (!m_body)
 		return;
 
-	// הפיכת הגוף לדינמי — כדי שיתחיל לזוז
+
 	m_body->SetType(b2_dynamicBody);
 }
 
@@ -177,11 +177,11 @@ void BaseEntity::rotateToDirection(const sf::Vector2f& direction)
 
 void BaseEntity::setTextureRect(const sf::IntRect& rect)
 {
-	// חיתוך הספרייט
+
 	m_sprite.setTextureRect(rect);
 	m_sprite.setOrigin(rect.width / 2.f, rect.height / 2.f);
 
-	// עדכון הפיזיקה לפי גודל התמונה בפועל
+
 	float width = static_cast<float>(rect.width);
 	float height = static_cast<float>(rect.height);
 

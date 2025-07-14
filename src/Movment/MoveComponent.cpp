@@ -23,7 +23,7 @@ void MoveComponent::update(float deltaTime) {
             m_state->enter();
         }
     }
-    //speed limit
+
     float maxVelocity = 2500.0f; 
     b2Vec2 currentVel = m_entity.getBody()->GetLinearVelocity();
 

@@ -8,8 +8,8 @@
 
 void PlayerStandMovement::enter()
 {
-	m_moveComponent.setDirection({ 0.f, 0.f }); // Stop movement
-	//TODO: mybe velocity?
+	m_moveComponent.setDirection({ 0.f, 0.f });
+
 
 }
 
@@ -25,7 +25,7 @@ std::unique_ptr<MovingState> PlayerStandMovement::move()
 		return std::make_unique<PlayerJumpMovement>(m_moveComponent);
 	}
 	return nullptr;
-	//return std::make_unique<PlayerStandMovement>(m_entity);
+
 
 }
 

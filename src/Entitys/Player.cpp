@@ -100,7 +100,7 @@ void Player::update(float deltaTime)
 	}
 
 	if (m_moveComponent.getHealth() <= 0) {
-		// TODO :: WHY HERE IS OVER
+
 		
 		m_gamePlay->gameOver(BaseEnemy::getTotalKills(), GameOverScreen::GameResult::Defeat);
 	}
@@ -143,7 +143,7 @@ void Player::addLife(int life) {
 	int currentHealth = m_moveComponent.getHealth();
 	int newHealth = currentHealth + life;
 
-	// הגבל בין 0 ל-5
+
 	if (newHealth < 0) newHealth = 0;
 	if (newHealth > 5) newHealth = 5;
 
@@ -170,12 +170,12 @@ void Player::onCollisionEnter(BaseEntity* other)
 }
 
 /*------------------------------------------------------------*/
-void Player::setMovementBounds(float left, float right)      // <<<
+void Player::setMovementBounds(float left, float right)
 {
 	m_boundLeft = left;
 	m_boundRight = right;
 }
-void Player::clearMovementBounds()                           // <<<
+void Player::clearMovementBounds()
 {
 	m_boundLeft = -std::numeric_limits<float>::infinity();
 	m_boundRight = std::numeric_limits<float>::infinity();

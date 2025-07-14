@@ -7,8 +7,8 @@
 
 void PlayerLeftMovement::enter()
 {
-	m_moveComponent.setDirection({ -1.f, 0.f }); // Move left
-	//TODO: mybe velocity?
+	m_moveComponent.setDirection({ -1.f, 0.f });
+
 }
 
 std::unique_ptr<MovingState> PlayerLeftMovement::move()

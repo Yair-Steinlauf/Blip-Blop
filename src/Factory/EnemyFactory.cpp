@@ -54,8 +54,8 @@ EnemyFactory::createWave(int count,
     std::vector<std::unique_ptr<BaseEntity>> wave;
     wave.reserve(count);
 
-    static constexpr float SPAWN_MARGIN = 100.f;          // לא צמוד לגבולות
-    float groundY = player->getPosition().y -50.f;       // ≈ גובה הקרקע
+    static constexpr float SPAWN_MARGIN = 100.f;
+    float groundY = player->getPosition().y -50.f;
 
     for (int i = 0; i < count; ++i)
     {

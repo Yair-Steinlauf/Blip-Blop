@@ -13,7 +13,6 @@ void MusicManager::startBackgroundMusic() {
         m_currentMusic = &DataLoader::getInstance().getMusic(ObjectType::BackgroundMusic);
         if (m_musicEnabled && m_currentMusic->getStatus() != sf::Music::Playing) {
             m_currentMusic->play();
-            std::cout << "Background music started" << std::endl;
         }
     }
     catch (const std::exception& e) {
@@ -24,7 +23,6 @@ void MusicManager::startBackgroundMusic() {
 void MusicManager::stopBackgroundMusic() {
     if (m_currentMusic && m_currentMusic->getStatus() == sf::Music::Playing) {
         m_currentMusic->stop();
-        std::cout << "Background music stopped" << std::endl;
     }
 }
 
@@ -33,11 +31,9 @@ void MusicManager::toggleMusic() {
 
     if (m_musicEnabled) {
         startBackgroundMusic();
-        std::cout << "Music turned ON" << std::endl;
     }
     else {
         stopBackgroundMusic();
-        std::cout << "Music turned OFF" << std::endl;
     }
 }
 

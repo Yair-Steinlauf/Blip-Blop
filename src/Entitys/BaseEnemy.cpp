@@ -19,7 +19,7 @@ BaseEnemy::BaseEnemy(sf::Texture* tex, sfPos pos, b2World* world, Player* player
 			return m_player->getPosition();
 		}
 	);
-	m_moveComponent.setSpeed(15);//TODO: לשפר את זה, המהירות מוזרה?
+	m_moveComponent.setSpeed(15);
 	m_moveComponent.setState(std::move(enemyState));
 	const sf::IntRect& frame =
 		GameAnimations::getInstance()
@@ -45,7 +45,7 @@ void BaseEnemy::addLife(int life) {
 void BaseEnemy::onCollisionEnter(BaseEntity* other)
 {
 	if (auto* bullet = dynamic_cast<Bullet*>(other)) {
-		// נזק לאויב
+
 		m_moveComponent.takeDamage(1);
 	}
     if (auto* player = dynamic_cast<Player*>(other)) {
@@ -81,8 +81,8 @@ void BaseEnemy::startExplosion() {
 
 
 
-    m_animation.setLoop(false); // לא לולאה
-    m_animation.reset();        // התחלה מהתחלה
+    m_animation.setLoop(false);
+    m_animation.reset();
     if (m_body) {
         m_body->SetLinearVelocity(b2Vec2(0, 0));
         m_body->SetType(b2_staticBody);

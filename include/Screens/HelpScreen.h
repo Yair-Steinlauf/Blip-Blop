@@ -4,7 +4,7 @@
 #include <vector>
 #include "Constance.h"
 
-// Forward declarations
+
 class Controller;
 
 class HelpScreen : public BaseScreen {
@@ -25,7 +25,7 @@ private:
     sf::Font m_font;
     bool m_fontLoaded = false;
 
-    // משתנים לגלילה
+
     float m_scrollOffset = 0.0f;
     float m_maxScrollOffset = 0.0f;
     const float m_scrollSpeed = 30.0f;
@@ -35,10 +35,10 @@ private:
     const float scrollBarWidth = 8.0f;
     const float scrollBarX = SCREEN_WIDTH - 20.0f;
     const float scrollBarY = 140.0f;
-    // ציור טקסט העזרה עם גלילה
-    const float startY = 30.0f; // התחלה יחסית לאזור הגלילה
+
+    const float startY = 30.0f;
     const float lineSpacing = 25.0f;
-    // טקסט העזרה
+
     std::vector<std::string> m_helpText;
     sf::Text m_title;
     sf::FloatRect m_titleBounds;

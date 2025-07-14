@@ -21,7 +21,7 @@ public:
 	void setGun(std::unique_ptr<ShootingStrategy> strategy, AnimationSet weaponType, float shootCooldown, const sf::Sound& shootSound);
 	void onCollisionEnter(BaseEntity* other) override;
 
-	// <<<  פונקציות הגבלת תנועה
+
 	void setMovementBounds(float left, float right);
 	void clearMovementBounds();
 private:
@@ -34,7 +34,7 @@ private:
 	bool m_hitted = false;
 	float m_unTouchableTimer = PLAYER_UNTOUCHABLE_TIME;
 	
-	// <<<  גבולות תנועה
+
 	float m_boundLeft = -std::numeric_limits<float>::infinity();
 	float m_boundRight = std::numeric_limits<float>::infinity();
 };

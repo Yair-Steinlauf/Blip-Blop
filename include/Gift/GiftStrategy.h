@@ -1,4 +1,4 @@
-// IEffectStrategy.h
+
 #pragma once
 class Player;
 

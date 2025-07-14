@@ -53,9 +53,7 @@ void Animator::reset()
 
 /*------------------------------------------------*/
 void Animator::update(float dt)
-{
-    std::cout << "idx = " << m_index << "  set=" << int(m_set)
-        << " dir=" << int(m_dir) << '\n';
+{        
 
     if (m_paused || m_finished)
         return;
@@ -65,23 +63,23 @@ void Animator::update(float dt)
     while (m_accumulator >= m_frameTime)
     {
         m_accumulator -= m_frameTime;
-        ++m_index;                       // עוברים למסגרת הבאה
+        ++m_index;
 
         try
         {
-            applyRect();                 // תופס גם את Frame-0 וגם מעבר גבול
+            applyRect();
         }
         catch (const std::out_of_range&)
         {
-            if (m_loop)                  // בלולאה: חוזרים להתחלה
+            if (m_loop)
             {
                 m_index = 0;
-                applyRect();             // בטוח קיים (idx==0)
+                applyRect();
             }
-            else                         // חד-פעמי: עוצרים על המסגרת האחרונה
+            else
             {
                 m_finished = true;
-                --m_index;               // משאירים אינדקס תקף
+                --m_index;
             }
         }
     }

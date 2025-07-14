@@ -1,4 +1,4 @@
-// Gift.cpp
+
 #include "Gift.h"
 #include "Player.h"
 

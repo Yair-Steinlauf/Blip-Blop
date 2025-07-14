@@ -1,14 +1,14 @@
 ﻿#pragma once
-#include <array>          // ← חייב להיות כאן
-#include <limits>         // ← בשביל numeric_limits
+#include <array>
+#include <limits>
 #include "Entitys/BaseEntity.h"
 #include "Player.h"
 #include "Platform.h"
 
 struct WaveInfo {
-	float triggerX;      // ברגע שה‑player.x ≥ triggerX – הגל מתחיל
-	float zoneWidth;     // רוחב האזור שבו השחקן כלוא עד ניקוי הגל
-	int   enemyCount;    // כמות אויבים
+	float triggerX;
+	float zoneWidth;
+	int   enemyCount;
 };
 
 class Level {
@@ -30,23 +30,23 @@ private:
 	sf::Sprite m_map_sprite;
 	float m_enemySpawnTimer = 0.f;
 	const float m_enemySpawnInterval = 3.f;
-	// בחלק ה-private
-	  // שליטה בגלים
-	bool  m_isWaveActive = false;
-	int   m_waveNumber = 0;      // 0‑based: 0,1,2
-	float m_waveTimer = 0.f;    // מונה זמן בין גלים
-	const float m_waveInterval = 4.f; // מרווח בין גלים (שניות)
 
-	// כמה אויבים חייבים למות בגל הנוכחי
+
+	bool  m_isWaveActive = false;
+	int   m_waveNumber = 0;
+	float m_waveTimer = 0.f;
+	const float m_waveInterval = 4.f;
+
+
 	int   m_targetKills = 0;
 
-	// קבועי גלים: כמות אויבים לכל גל
+
 	static constexpr std::array<WaveInfo, 3> WAVE_TABLE{ {
-		{  1800.f,  6300.f,  30 },   // גל 1
-		{ 8000.f,  6000.f,  70 },   // גל 2
-		{ 13250.f,  1500, 20 }    // גל 3
+		{  1800.f,  6300.f,  30 },
+		{ 8000.f,  6000.f,  70 },
+		{ 13250.f,  1500, 20 }
 	} };
-	// חישוב התקדמות (כרגע לפי X)
+
 	float m_gameProgress = 0.f;
 
 	float m_zoneLeft = -std::numeric_limits<float>::infinity();

@@ -1,10 +1,10 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include <vector>            // ?vector
+#include <vector>
 #include "Constance.h"
 
-// forward declarations
+
 class BaseEntity;
 class b2World;
 class Player;
@@ -16,25 +16,25 @@ public:
     using FuncType =
         std::unique_ptr<BaseEntity>(*)(sfPos, b2World*, Player*);
 
-    /*––– ψιωεν θιτερ –––*/
+    /*Β–Β–Β– ΓΈΓ©ΓΉΓ¥Γ­ Γ¨Γ©Γ΄Γ¥Γ± Β–Β–Β–*/
     bool registerType(ObjectType t, FuncType f);
 
-    /*––– ιφιψδ ιωιψδ –––*/
+    /*Β–Β–Β– Γ©Γ¶Γ©ΓΈΓ¤ Γ©ΓΉΓ©ΓΈΓ¤ Β–Β–Β–*/
     std::unique_ptr<BaseEntity> create(ObjectType  t,
         sfPos       pos,
         b2World* world,
         Player* player) const;
 
-    /*––– ψπγεξμι (γβν ιωο – ωπι ΰψβεξπθιν) –––*/
+    /*Β–Β–Β– ΓΈΓ°Γ£Γ¥Γ®Γ¬Γ© (Γ£ΓΆΓ­ Γ©ΓΉΓ― Β– ΓΉΓ°Γ© Γ ΓΈΓΆΓ¥Γ®Γ°Γ¨Γ©Γ­) Β–Β–Β–*/
     std::unique_ptr<BaseEntity> createRandom(b2World* world,
         Player* player) const;
 
-    /*––– ψπγεξμι αξιχεν ρτφιτι (γβν ηγω) –––*/
+    /*Β–Β–Β– ΓΈΓ°Γ£Γ¥Γ®Γ¬Γ© Γ΅Γ®Γ©Γ·Γ¥Γ­ Γ±Γ΄Γ¶Γ©Γ΄Γ© (Γ£ΓΆΓ­ Γ§Γ£ΓΉ) Β–Β–Β–*/
     std::unique_ptr<BaseEntity> createRandom(b2World* world,
         Player* player,
         sfPos    pos)  const;
 
-    /*––– βμ αϊεκ ϊηεν –––*/
+    /*Β–Β–Β– ΓΆΓ¬ Γ΅ΓΊΓ¥Γª ΓΊΓ§Γ¥Γ­ Β–Β–Β–*/
     std::vector<std::unique_ptr<BaseEntity>>
         createWave(int   count,
             b2World* world,

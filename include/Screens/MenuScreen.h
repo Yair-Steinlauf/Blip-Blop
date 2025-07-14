@@ -4,7 +4,7 @@
 #include <vector>
 #include "Constance.h"
 
-// Forward declarations
+
 class Controller;
 
 class MenuScreen : public BaseScreen {
@@ -16,7 +16,7 @@ public:
     void draw() override;
     void handleInput(const sf::Event& event, float deltaTime) override;
 
-    // פונקציות לטיפול בפקודות הכפתורים
+
     void showHelp();
     void exitGame();
     void toggleMusic();
@@ -25,7 +25,7 @@ private:
     std::vector<Button> m_buttons;
     Controller* m_controller;
     void updateMusicButtonText();
-    bool m_mousePressed = false;           // זוכר אם העכבר לחוץ    
+    bool m_mousePressed = false;
     sf::Font m_font;
 
 

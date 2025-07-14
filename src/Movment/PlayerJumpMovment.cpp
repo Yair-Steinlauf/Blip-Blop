@@ -14,10 +14,10 @@ void PlayerJumpMovement::enter()
 
 std::unique_ptr<MovingState> PlayerJumpMovement::move()
 {
-	//TODO: fast sinking
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-	//	return std::make_unique<PlayerStandMovement>(m_moveComponent);
-	//}
+
+
+
+
 	if (m_moveComponent.checkIsGrounded())
 	{
 		return std::make_unique<PlayerStandMovement>(m_moveComponent);

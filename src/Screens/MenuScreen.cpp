@@ -11,7 +11,7 @@
 #include <PlayCommand.h>
 #include <ExitCommand.h>
 
-// רישום MenuScreen בפקטורי
+
 static auto registerMenuScreen = ScreenFactory::instance().registerType(
     ObjectType::MenuScreen,
     [](sf::RenderWindow* window) -> std::unique_ptr<BaseScreen> {
@@ -23,15 +23,15 @@ static auto registerMenuScreen = ScreenFactory::instance().registerType(
 MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
     : BaseScreen(window), m_controller(controller) {
 
-    // טעינת רקע
+
     m_background.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MenuBackground));
 
-    // יצירת פונט
+
     const int textSize = 35;
     m_font = DataLoader::getP2Font();        
     
 
-    // כפתור Play
+
     m_buttons.emplace_back(
         sf::Vector2f(centerX - buttonWidth / 2, startY),
         buttonWidth, buttonHeight,
@@ -41,7 +41,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
     );
     m_buttons.back().setText("PLAY", m_font, textSize, sf::Color::Black);
 
-    // כפתור Help
+
     m_buttons.emplace_back(
         sf::Vector2f(centerX - buttonWidth / 2, startY + buttonSpacing),
         buttonWidth, buttonHeight,
@@ -51,17 +51,17 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
     );
     m_buttons.back().setText("HELP", m_font, textSize, sf::Color::Black);
 
-    // כפתור Music (חדש!)
+
     m_buttons.emplace_back(
         sf::Vector2f(centerX - buttonWidth / 2, startY + 2 * buttonSpacing),
         buttonWidth, buttonHeight,
-        sf::Color(150, 100, 0, 255), // כתום
+        sf::Color(150, 100, 0, 255),
         3.0f,
         std::make_unique<MusicToggleCommand>(this)
     );
     m_buttons.back().setOutlineColor(sf::Color::Black);
 
-    // כפתור Exit
+
     m_buttons.emplace_back(
         sf::Vector2f(centerX - buttonWidth / 2, startY + 3 * buttonSpacing),
         buttonWidth, buttonHeight,
@@ -77,7 +77,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
 void MenuScreen::updateMusicButtonText() {
     if (m_buttons.size() >= 3) {
         std::string musicText = MusicManager::getInstance().isMusicOn() ? "MUSIC: ON" : "MUSIC: OFF";
-        m_buttons[2].setText(musicText, DataLoader::getP2Font(), 24, sf::Color::White);  // כפתור המוזיקה הוא השלישי
+        m_buttons[2].setText(musicText, DataLoader::getP2Font(), 24, sf::Color::White);
     }
 }
 
@@ -87,16 +87,16 @@ void MenuScreen::toggleMusic() {
 }
 
 void MenuScreen::update(float deltaTime) {
-    // עדכון כפתורים אם יש צורך
+
     for (auto& button : m_buttons) {
-        // כאן אפשר להוסיף אנימציות או לוגיקה נוספת
+
     }
 }
 
 void MenuScreen::draw() {
-    BaseScreen::draw();  // מצייר את הרקע
+    BaseScreen::draw();
 
-    // ציור כפתורים
+
     for (const auto& button : m_buttons) {
         button.draw(*m_window);
     }           
@@ -115,10 +115,10 @@ void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {
 			if(m_mousePressed)
             {
                 m_mousePressed = false;
-                // בדיקה איזה כפתור נלחץ
+
                 for (auto& button : m_buttons) {
                     if (button.isClicked(mouseX, mouseY)) {
-                        button.trigger();  // הפעלת הפקודה של הכפתור
+                        button.trigger();
                         break;
                     }
                 }
@@ -126,7 +126,7 @@ void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {
         }
     }
 
-    // עדכון highlight של כפתורים
+
     if (event.type == sf::Event::MouseMoved) {
         float mouseX = static_cast<float>(event.mouseMove.x);
         float mouseY = static_cast<float>(event.mouseMove.y);
@@ -138,14 +138,8 @@ void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {
 }
 
 void MenuScreen::showHelp() {
-    std::cout << "HELP - Game Controls:" << std::endl;
-    std::cout << "A/D - Move left/right" << std::endl;
-    std::cout << "Space - Jump" << std::endl;
-    std::cout << "Mouse - Aim and shoot" << std::endl;
-    std::cout << "Collect gifts to upgrade your weapon!" << std::endl;
 }
 
 void MenuScreen::exitGame() {
-    std::cout << "Exiting game..." << std::endl;
     m_window->close();
 }

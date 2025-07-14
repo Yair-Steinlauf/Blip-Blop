@@ -18,7 +18,7 @@ GamePlay::GamePlay(sf::RenderWindow* window):
 {
 	m_player->setGamePlay(this);
 
-	// יצירת מאזין התנגשויות והגדרתו לעולם
+
 	m_contactListener = std::make_unique<ContactListener>();
 	m_world->SetContactListener(m_contactListener.get());
 }
@@ -27,10 +27,10 @@ void GamePlay::update(float deltaTime)
 {
 	centerCameraOnPlayer();
 
-	m_world->Step(deltaTime, 8, 3); // 8 velocity iterations, 3 position iterations
+	m_world->Step(deltaTime, 8, 3);
 	m_level.update(deltaTime);
 
-	//לעקוב אחרי מיקום השחקן
+
 
 	
 }
@@ -38,7 +38,7 @@ void GamePlay::update(float deltaTime)
 void GamePlay::draw()
 {
 	BaseScreen::draw();
-	centerCameraOnPlayer();   // ממרכז את המצלמה
+	centerCameraOnPlayer();
 	m_level.draw(*m_window);
 
 	drawUI();
@@ -47,10 +47,10 @@ void GamePlay::draw()
 void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 {
 
-	//TODO:: maybe not needed parameters (const sf::Event& event, float deltaTime)
-	//m_player->movment();
-	// 
-	// הוספת טיפול במקש ESC
+
+
+
+
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::F2) {
 			if (m_controller) {
@@ -71,7 +71,7 @@ void GamePlay::handleInput(const sf::Event& event, float deltaTime)
 
 sf::Vector2f GamePlay::getMouseWorldPosition()
 {
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(*m_window); // window = sf::RenderWindow שלך
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(*m_window);
 	sf::Vector2f worldPos = m_window->mapPixelToCoords(pixelPos);
 	return worldPos;
 }

@@ -30,10 +30,10 @@ private:
     Controller* m_controller;
     GamePlay* m_gamePlay;
     std::vector<Button> m_buttons;
-    sf::RectangleShape m_overlay; // חצי שקוף מעל המשחק
+    sf::RectangleShape m_overlay;
     sf::Text m_pauseTitle;
     sf::Font m_font;
-    bool m_mousePressed = false;           // זוכר אם העכבר לחוץ    
+    bool m_mousePressed = false;
     enum ButtonIndex {
         RESUME = 0,
         PLAY_AGAIN = 1,

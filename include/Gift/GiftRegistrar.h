@@ -27,10 +27,10 @@ public:
     }
 
 private:
-    /** ξετς ρθθι ιηιγ – δτςεμδ δΰξιϊιϊ ξϊαφςϊ ααπΰι ωμε */
+    /** Γ®Γ¥Γ΄Γ² Γ±Γ¨Γ¨Γ© Γ©Γ§Γ©Γ£ Β– Γ¤Γ΄Γ²Γ¥Γ¬Γ¤ Γ¤Γ Γ®Γ©ΓΊΓ©ΓΊ Γ®ΓΊΓ΅Γ¶Γ²ΓΊ Γ΅Γ΅Γ°Γ Γ© ΓΉΓ¬Γ¥ */
     static GiftRegistrar<Obj, StrategyT, Dir> s_instance;
 };
 
-/* δβγψϊ δξωϊπδ δρθθι (πγψωϊ μϊαπιεϊ) */
+/* Γ¤ΓΆΓ£ΓΈΓΊ Γ¤Γ®ΓΉΓΊΓ°Γ¤ Γ¤Γ±Γ¨Γ¨Γ© (Γ°Γ£ΓΈΓΉΓΊ Γ¬ΓΊΓ΅Γ°Γ©Γ¥ΓΊ) */
 template<ObjectType O, typename S, Direction D>
 GiftRegistrar<O, S, D> GiftRegistrar<O, S, D>::s_instance;

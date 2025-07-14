@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-const float SCALE = 30.f; // Scale factor for Box2D to SFML conversion
+const float SCALE = 30.f;
 
 enum class ObjectType
 {
@@ -32,7 +32,7 @@ enum class ObjectType
     MenuScreen,
     HelpScreen,
     MenuBackground,
-    PauseScreen,  // הוספת מסך ה-pause
+    PauseScreen,
     ResumeCommand,
     VictoryTexture,
     DefeatTexture,
@@ -52,8 +52,8 @@ enum class PlayerMovment {
 	JUMP
 };
 
-const int SCREEN_WIDTH = 800; // Window width
-const int SCREEN_HEIGHT = 600; // Window height
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
 
 const float PLAYER_FIXTURE_WIDTH = 40.f;
 const float PLAYER_FIXTURE_HEIGHT = 28.f;

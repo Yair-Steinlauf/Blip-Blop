@@ -2,7 +2,7 @@
 #include "GiftRegistrar.h"
 #include "Player.h"
 
-// רישום המתנה: LifeGift
+
 static GiftRegistrar<
     ObjectType::LifeGift,
     LifeGiftStrategy,
@@ -11,6 +11,6 @@ static GiftRegistrar<
 
 
 void LifeGiftStrategy::applyEffect(Player& player) {
-    //DataLoader::getInstance().getSound(ObjectType::shotGunWord).play();
+
     player.addLife(1);
 }

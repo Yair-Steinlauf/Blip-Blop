@@ -1,4 +1,4 @@
-// ResumeCommand.cpp
+
 #include "ResumeCommand.h"
 #include "PauseScreen.h"
 

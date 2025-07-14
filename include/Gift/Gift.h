@@ -1,4 +1,4 @@
-// Gift.h
+
 #pragma once
 #include "BaseEntity.h"
 #include "GiftStrategy.h"

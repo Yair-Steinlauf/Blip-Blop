@@ -1,4 +1,4 @@
-// ResumeCommand.h
+
 #pragma once
 #include "Command.h"
 
