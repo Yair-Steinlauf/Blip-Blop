@@ -27,8 +27,6 @@ private:
     void updateMusicButtonText();
     bool m_mousePressed = false;           // זוכר אם העכבר לחוץ    
     sf::Font m_font;
-    sf::Text m_title;
-    sf::FloatRect m_titleBounds;
 
 
     const float centerX = SCREEN_WIDTH / 2.0f;

@@ -16,6 +16,7 @@ public:
 	void onCollisionEnter(BaseEntity* other) override;
 	//void onCollisionExit(BaseEntity* other);
 	static int getAliveCount();
+	static void resetAliveCount();
 	static int getTotalKills();
 protected:
 	static inline int m_alive = 0;

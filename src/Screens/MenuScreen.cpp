@@ -28,17 +28,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
 
     // יצירת פונט
     const int textSize = 35;
-    m_font = DataLoader::getP2Font();
-    m_title.setFont(m_font);
-    m_title.setString("GAME MENU");
-    m_title.setCharacterSize(48);
-    m_title.setFillColor(sf::Color::Yellow);
-
-    // מיקום הכותרת במרכז העליון
-    m_titleBounds = m_title.getLocalBounds();
-    m_title.setOrigin(m_titleBounds.width / 2, m_titleBounds.height / 2);
-    m_title.setPosition(SCREEN_WIDTH / 2.0f, 100.0f);
-    // חישוב מיקומים למרכז המסך
+    m_font = DataLoader::getP2Font();        
     
 
     // כפתור Play
@@ -111,7 +101,7 @@ void MenuScreen::draw() {
         button.draw(*m_window);
     }           
 
-    m_window->draw(m_title);
+    
 }
 
 void MenuScreen::handleInput(const sf::Event& event, float deltaTime) {

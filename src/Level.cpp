@@ -23,7 +23,6 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {
-    std::cout << m_player->getPosition().x<<std::endl;
 	m_enemySpawnTimer += deltaTime;
     /* ----------------------------------------------------
            1. הפעלת גל כאשר השחקן מגיע ל‑triggerX              */

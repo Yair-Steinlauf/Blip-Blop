@@ -7,9 +7,10 @@
 #include "Constance.h"
 #include "MusicManager.h"  // <-- הוסף את זה
 #include <PauseScreen.h>
+#include <BaseEnemy.h>
 
 Controller::Controller() :
-	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game Window"))
+	m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Blip &"))
 	, m_screenStack()
 {
 	GameAnimations::initializeFrames();
@@ -65,6 +66,7 @@ void Controller::closeGame()
 //}
 
 void Controller::switchToGamePlay() {
+	BaseEnemy::resetAliveCount();
 	while (!m_screenStack.empty()) {
 		m_screenStack.pop(); 		
 	}
@@ -72,6 +74,7 @@ void Controller::switchToGamePlay() {
 	gamePlay->setController(this); // הוספת החיבור
 
 	m_screenStack.push(std::move(gamePlay));
+
 }
 
 void Controller::switchToHelp() {
@@ -109,7 +112,7 @@ void Controller::switchToGameOver(GameOverScreen::GameResult result, int score)
 	/*while (!m_screenStack.empty()) {
 		m_screenStack.pop();
 	}*/
-	
+	BaseEnemy::resetAliveCount();
 	auto gameOverScreen = std::make_unique<GameOverScreen>(m_window.get(), result, score, this);
 	m_screenStack.push(std::move(gameOverScreen));
 }

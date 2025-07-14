@@ -102,6 +102,11 @@ int BaseEnemy::getAliveCount()
     return m_counter;
 }
 
+void BaseEnemy::resetAliveCount()
+{
+    m_totalKills = 0;
+}
+
 int BaseEnemy::getTotalKills()
 {
     return m_totalKills;
