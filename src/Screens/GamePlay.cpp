@@ -31,8 +31,7 @@ void GamePlay::update(float deltaTime)
 
 	//לעקוב אחרי מיקום השחקן
 
-	for (auto& c : m_cubes)
-		c.update();
+	
 }
 
 void GamePlay::draw()
@@ -83,6 +82,7 @@ void GamePlay::addEntity(std::unique_ptr<BaseEntity> entity) {
 void GamePlay::gameOver(int score, GameOverScreen::GameResult result)
 {
 	if (m_controller) {
+		m_window->setView(m_window->getDefaultView());
 		m_controller->switchToGameOver(result, 1500);
 		return;
 	}

@@ -3,6 +3,8 @@
 #include "Button.h"
 #include <memory>
 #include <vector>
+#include "Constance.h"
+
 
 class Controller;
 class GamePlay;
@@ -38,4 +40,11 @@ private:
         MUSIC_TOGGLE = 2,
         EXIT = 3
     };
+
+
+    const float buttonWidth = 200;
+    const float buttonHeight = 50;
+    const float startY = 250;
+    const float spacing = 70;
+    float centerX = SCREEN_WIDTH / 2 - buttonWidth / 2;
 };

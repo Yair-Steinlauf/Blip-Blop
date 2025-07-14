@@ -9,7 +9,6 @@
 #include "Commandd/MusicCommand.h"
 #include "Commandd/BackCommand.h"
 #include "Commandd/ResumeCommand.h"
-#include "Constance.h"
 
 PauseScreen::PauseScreen(sf::RenderWindow* window, Controller* controller, GamePlay* gamePlay)
     : BaseScreen(window), m_controller(controller), m_gamePlay(gamePlay)
@@ -40,11 +39,7 @@ PauseScreen::PauseScreen(sf::RenderWindow* window, Controller* controller, GameP
 void PauseScreen::initializeButtons() {
     m_buttons.clear();
 
-    float buttonWidth = 200;
-    float buttonHeight = 50;
-    float startY = 250;
-    float spacing = 70;
-    float centerX = SCREEN_WIDTH / 2 - buttonWidth / 2;
+   
 
     // כפתור Resume
     m_buttons.emplace_back(

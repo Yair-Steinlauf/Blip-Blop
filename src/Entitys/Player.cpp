@@ -30,10 +30,7 @@ Player::Player(sfPos pos, b2World* world)
 
 void Player::update(float deltaTime)
 {
-	if (m_moveComponent.getHealth() <= 0) {
-		// TODO :: WHY HERE IS OVER
-		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Defeat);
-	}
+	
 	if (m_hitted) {
 		m_unTouchable = true;
 		m_unTouchableTimer = PLAYER_UNTOUCHABLE_TIME;
@@ -100,6 +97,12 @@ void Player::update(float deltaTime)
 			for (auto& bullet : bullets)
 				m_gamePlay->addEntity(std::move(bullet));
 		}
+	}
+
+	if (m_moveComponent.getHealth() <= 4) {
+		// TODO :: WHY HERE IS OVER
+		
+		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Defeat);
 	}
 }
 
