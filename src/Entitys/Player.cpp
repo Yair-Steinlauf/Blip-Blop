@@ -105,7 +105,7 @@ void Player::update(float deltaTime)
 		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Defeat);
 	}
 	if (getPosition().x > 14000) {
-		m_gamePlay->gameOver(1500, GameOverScreen::GameResult::Victory);
+		m_gamePlay->gameOver(BaseEnemy::getTotalKills(), GameOverScreen::GameResult::Victory);
 	}
 }
 

@@ -16,7 +16,11 @@ public:
 	void onCollisionEnter(BaseEntity* other) override;
 	//void onCollisionExit(BaseEntity* other);
 	static int getAliveCount();
+	static int getTotalKills();
 protected:
+	static inline int m_alive = 0;
+	static inline int m_totalKills = 0;
+
 	Player* m_player = nullptr;
 	MoveComponent m_moveComponent;
 	AnimationSet m_animationSet;
