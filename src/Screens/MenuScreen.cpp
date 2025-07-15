@@ -25,6 +25,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, Controller* controller)
 
 
     m_background.setTexture(DataLoader::getInstance().getP2Texture(ObjectType::MenuBackground));
+    m_background.setPosition((centerX - m_background.getOrigin().x) / 2 - 70, 0);
 
 
     const int textSize = 35;

@@ -49,7 +49,7 @@ void MoveComponent::setVelocity(float x, float y) {
 
 void MoveComponent::applyJumpImpulse(float force) {
     if (checkIsGrounded()) {
-        b2Vec2 jumpImpulse(0, -force);
+        b2Vec2 jumpImpulse(0, -force-13);
         m_entity.getBody()->ApplyLinearImpulseToCenter(jumpImpulse, true);
     }
 }

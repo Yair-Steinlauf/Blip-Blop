@@ -23,16 +23,15 @@ Level::Level(Player* player , b2World* world)
 
 void Level::update(float deltaTime)
 {
-	m_enemySpawnTimer += deltaTime;
-    /* ----------------------------------------------------
-           1. הפעלת גל כאשר השחקן מגיע ל‑triggerX              */
+    m_enemySpawnTimer += deltaTime;
+
+    /* 1. הפעלת גל */
     if (m_waveNumber < static_cast<int>(WAVE_TABLE.size()) &&
         !m_isWaveActive &&
         m_player->getPosition().x >= WAVE_TABLE[m_waveNumber].triggerX)
     {
         spawnWave();
         m_isWaveActive = true;
-
 
         float left = WAVE_TABLE[m_waveNumber].triggerX;
         float right = left + WAVE_TABLE[m_waveNumber].zoneWidth;
@@ -41,9 +40,28 @@ void Level::update(float deltaTime)
         m_player->setMovementBounds(left, right);
     }
 
-    /* ----------------------------------------------------
-       2. סיום גל כאשר אין אויבים חיים                    */
-    if (m_isWaveActive && BaseEnemy::getAliveCount() == 0)
+    /* ▼ 1.5  – טִפְטוּף אויבים כל 0.5 ש׳ ---------------------- */
+    if (m_isWaveActive && m_toSpawnStagger > 0)
+    {
+        m_staggerTimer += deltaTime;
+        if (m_staggerTimer >= STAGGER_INTERVAL)
+        {
+            m_staggerTimer = 0.f;
+            --m_toSpawnStagger;
+
+            const auto& w = WAVE_TABLE[m_waveNumber];
+            auto one = EnemyFactory::instance().createWave(
+                1, m_world, m_player,
+                w.triggerX,
+                w.triggerX + w.zoneWidth);
+            addEntity(std::move(one.front()));
+        }
+    }
+    /* ---------------------------------------------------------- */
+
+    /* 2. סיום גל */
+    if (m_isWaveActive && BaseEnemy::getAliveCount() == 0 &&
+        m_toSpawnStagger == 0)
     {
         m_isWaveActive = false;
         ++m_waveNumber;
@@ -53,16 +71,14 @@ void Level::update(float deltaTime)
         m_player->clearMovementBounds();
     }
 
-	removeMarkedEntities();
+    /* 3. ניקוי ועדכונים */
+    removeMarkedEntities();
 
-	m_player->update(deltaTime);
-
-	for (auto& entity : m_entities)
-	{
-		entity->update(deltaTime);
-	}
-
+    m_player->update(deltaTime);
+    for (auto& entity : m_entities)
+        entity->update(deltaTime);
 }
+
 
 void Level::draw(sf::RenderWindow& window)
 {
@@ -148,16 +164,18 @@ const sf::Sprite& Level::getBackground() const {
 void Level::spawnWave()
 {
     const auto& w = WAVE_TABLE[m_waveNumber];
-    int count = w.enemyCount;
+    int total = w.enemyCount;
 
-        
+    int firstBatch = std::min(FIRST_BURST, total);
+    m_toSpawnStagger = total - firstBatch;
+    m_staggerTimer = 0.f;
 
-    auto enemies = EnemyFactory::instance().createWave(
-        count, m_world, m_player,
+    auto burst = EnemyFactory::instance().createWave(
+        firstBatch, m_world, m_player,
         w.triggerX,
         w.triggerX + w.zoneWidth);
 
-
-    for (auto& e : enemies)
+    for (auto& e : burst)
         addEntity(std::move(e));
 }
+

@@ -52,7 +52,7 @@ enum class PlayerMovment {
 	JUMP
 };
 
-const int SCREEN_WIDTH = 800;
+const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 600;
 
 const float PLAYER_FIXTURE_WIDTH = 40.f;
