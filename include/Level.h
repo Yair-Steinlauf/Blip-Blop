@@ -42,9 +42,9 @@ private:
 
 
 	static constexpr std::array<WaveInfo, 3> WAVE_TABLE{ {
-		{  1800.f,  6300.f,  30 },
-		{ 8000.f,  6000.f,  70 },
-		{ 13250.f,  1500, 50 }
+		{  1800.f,  6300.f,  40 },
+		{ 8000.f,  6000.f,  90 },
+		{ 13250.f,  1500, 100 }
 	} };
 
 	float m_gameProgress = 0.f;
@@ -55,6 +55,6 @@ private:
 	float m_staggerTimer = 0.f;
 	int   m_toSpawnStagger = 0;
 	static constexpr float STAGGER_INTERVAL = 0.5f;
-	static constexpr int   FIRST_BURST = 10;
+	static constexpr int   FIRST_BURST = 20;
 
 };
