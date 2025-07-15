@@ -9,5 +9,6 @@ public:
     void onCollisionEnter(BaseEntity* other) override;
 
 private:
+    void ignore_everyBody_exept_player();
     std::unique_ptr<IEffectStrategy> m_strategy;
 };

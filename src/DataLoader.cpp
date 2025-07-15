@@ -49,7 +49,6 @@ DataLoader::DataLoader()
 
     const std::map<ObjectType, std::string> objectNames = {
         {ObjectType::PLAYER, "PLAYER"},
-        {ObjectType::ForkSMURF, "ForkSMURF"},
         {ObjectType::MAP, "MAP"},
         {ObjectType::characterSprite, "characterSprite"},
         {ObjectType::spriteSheetSpecial, "spriteSheetSpecial"},

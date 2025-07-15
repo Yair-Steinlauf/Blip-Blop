@@ -12,9 +12,24 @@ Gift::Gift(sf::Texture* tex,
 {
     const sf::IntRect& frame =
         GameAnimations::getInstance().getFrame(AnimationSet::giftFrames, direction, 0);
-
     setTextureRect(frame);
     this->setFixtureForMov();
+
+    ignore_everyBody_exept_player();
+
+}
+
+void Gift::ignore_everyBody_exept_player()
+{
+    if (m_body) {
+        m_body->SetType(b2_staticBody);
+        m_body->SetLinearVelocity(b2Vec2(0, 0));
+        m_body->SetAngularVelocity(0);
+
+        for (b2Fixture* fixture = m_body->GetFixtureList(); fixture; fixture = fixture->GetNext()) {
+            fixture->SetSensor(true);
+        }
+    }
 }
 
 void Gift::onCollisionEnter(BaseEntity* other) {
